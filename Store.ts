@@ -27,7 +27,7 @@ export class Store {
     proffesion: "",
   };
 
-  abilitiesWithState: AbilityWithState[] | null = null;
+  abilitiesWithState: AbilityWithState[] = [defaultAbility];
 
   mw: MwSlotType[] = [];
   mwTotalGold = 0;
@@ -75,12 +75,7 @@ export class Store {
 
       if (proffesion) {
         this.abilitiesWithState = [
-          {
-            ...defaultAbility,
-            points: 0,
-            manaCost: 0,
-            energyCost: 0,
-          },
+          defaultAbility,
           ...proffesion.abilities
             .filter((ability) => parseInt(formValues.level) >= ability.minLevel)
             .map((ability) => ({
@@ -521,6 +516,8 @@ export class Store {
         shouldLoopRun = false;
       }
     }
+
+    console.log(turns);
 
     this.simulation = {
       turns,

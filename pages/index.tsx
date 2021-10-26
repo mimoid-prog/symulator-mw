@@ -1,5 +1,4 @@
 import { Grid, GridItem, Box, Container, Heading } from "@chakra-ui/react";
-import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import type { NextPage } from "next";
 import Abilities from "../components/Abilities";
