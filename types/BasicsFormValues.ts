@@ -1,5 +1,3 @@
-import { Proffesion } from "./Proffesion";
-
 export type BasicsFormValues = {
   level: string;
   mana: string;

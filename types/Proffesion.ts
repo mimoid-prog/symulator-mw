@@ -1,7 +1,7 @@
-export type Proffesion =
-  | "trailer"
-  | "mage"
-  | "paladin"
-  | "warrior"
-  | "hunter"
-  | "bladerDancer";
+import { Ability } from "./Ability";
+
+export type Proffesion = {
+  value: string;
+  label: string;
+  abilities: Ability[];
+};

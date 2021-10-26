@@ -65,7 +65,10 @@ export class Store {
   }
 
   saveBasics(formValues: BasicsFormValues) {
-    if (this.basicsFormValues.proffesion !== formValues.proffesion) {
+    if (
+      this.basicsFormValues.proffesion !== formValues.proffesion ||
+      this.basicsFormValues.level !== formValues.level
+    ) {
       const proffesion = proffesions.find(
         (proffesion) => proffesion.value === formValues.proffesion
       );
@@ -78,12 +81,14 @@ export class Store {
             manaCost: 0,
             energyCost: 0,
           },
-          ...proffesion.abilities.map((ability) => ({
-            ...ability,
-            points: 0,
-            manaCost: 0,
-            energyCost: 0,
-          })),
+          ...proffesion.abilities
+            .filter((ability) => parseInt(formValues.level) >= ability.minLevel)
+            .map((ability) => ({
+              ...ability,
+              points: 0,
+              manaCost: 0,
+              energyCost: 0,
+            })),
         ];
       }
     }
@@ -154,15 +159,21 @@ export class Store {
             } else {
               if (ability.mana.growth !== null) {
                 if (typeof ability.mana.growth === "number") {
-                  newManaCost =
-                    ability.mana.initialCost +
-                    (newPoints - 1) * ability.mana.growth;
+                  newManaCost = !ability.mana.growthDown
+                    ? ability.mana.initialCost +
+                      (newPoints - 1) * ability.mana.growth
+                    : ability.mana.initialCost -
+                      (newPoints - 1) * ability.mana.growth;
                 } else {
-                  newManaCost =
-                    ability.mana.initialCost +
-                    ability.mana.growth
-                      .slice(0, newPoints - 1)
-                      .reduce((prev, curr) => prev + curr);
+                  newManaCost = !ability.mana.growthDown
+                    ? ability.mana.initialCost +
+                      ability.mana.growth
+                        .slice(0, newPoints - 1)
+                        .reduce((prev, curr) => prev + curr)
+                    : ability.mana.initialCost +
+                      ability.mana.growth
+                        .slice(0, newPoints - 1)
+                        .reduce((prev, curr) => prev + curr);
                 }
               }
             }
@@ -173,16 +184,26 @@ export class Store {
             if (newPoints === 0) {
               newManaCost = 0;
             } else if (newPoints === 1) {
-              newManaCost =
+              newManaCost = Math.round(
+                this.basics.level *
+                  ability.mana.multiplierForInitialCostBasedOnLevel
+              );
+            } else {
+              const initialManaCost =
                 this.basics.level *
                 ability.mana.multiplierForInitialCostBasedOnLevel;
-            } else {
-              newManaCost =
-                this.basics.level *
-                  ability.mana.multiplierForInitialCostBasedOnLevel +
-                (newPoints - 1) *
-                  (this.basics.level *
-                    ability.mana.multiplierForGrowthCostBasedOnLevel);
+
+              newManaCost = Math.round(
+                !ability.mana.growthDown
+                  ? initialManaCost +
+                      (newPoints - 1) *
+                        (this.basics.level *
+                          ability.mana.multiplierForGrowthCostBasedOnLevel)
+                  : initialManaCost -
+                      (newPoints - 1) *
+                        (this.basics.level *
+                          ability.mana.multiplierForGrowthCostBasedOnLevel)
+              );
             }
           }
 
@@ -197,15 +218,51 @@ export class Store {
             } else {
               if (ability.energy.growth !== null) {
                 if (typeof ability.energy.growth === "number") {
-                  newEnergyCost =
-                    ability.energy.initialCost +
-                    (newPoints - 1) * ability.energy.growth;
+                  newEnergyCost = !ability.energy.growthDown
+                    ? ability.energy.initialCost +
+                      (newPoints - 1) * ability.energy.growth
+                    : ability.energy.initialCost -
+                      (newPoints - 1) * ability.energy.growth;
                 } else {
-                  newEnergyCost =
-                    ability.energy.initialCost +
-                    (newPoints - 1) * ability.energy.growth[newPoints - 2];
+                  newEnergyCost = !ability.energy.growthDown
+                    ? ability.energy.initialCost +
+                      ability.energy.growth
+                        .slice(0, newPoints - 1)
+                        .reduce((prev, curr) => prev + curr)
+                    : ability.energy.initialCost +
+                      ability.energy.growth
+                        .slice(0, newPoints - 1)
+                        .reduce((prev, curr) => prev + curr);
                 }
               }
+            }
+          } else if (
+            ability.energy.multiplierForInitialCostBasedOnLevel &&
+            ability.energy.multiplierForGrowthCostBasedOnLevel !== null
+          ) {
+            if (newPoints === 0) {
+              newEnergyCost = 0;
+            } else if (newPoints === 1) {
+              newEnergyCost = Math.round(
+                this.basics.level *
+                  ability.energy.multiplierForInitialCostBasedOnLevel
+              );
+            } else {
+              const initialEnergyCost =
+                this.basics.level *
+                ability.energy.multiplierForInitialCostBasedOnLevel;
+
+              newEnergyCost = Math.round(
+                !ability.energy.growthDown
+                  ? initialEnergyCost +
+                      (newPoints - 1) *
+                        (this.basics.level *
+                          ability.energy.multiplierForGrowthCostBasedOnLevel)
+                  : initialEnergyCost -
+                      (newPoints - 1) *
+                        (this.basics.level *
+                          ability.energy.multiplierForGrowthCostBasedOnLevel)
+              );
             }
           }
 

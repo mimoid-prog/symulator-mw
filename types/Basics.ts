@@ -1,5 +1,3 @@
-import { Proffesion } from "./Proffesion";
-
 export type Basics = {
   level: number;
   mana: number;

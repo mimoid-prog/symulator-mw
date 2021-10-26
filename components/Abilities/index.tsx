@@ -58,11 +58,14 @@ const Abilities = observer(
                       ? "green.400"
                       : "yellow.600"
                   }
+                  disabled={abilityWithState.id === 0}
                 >
                   <Box>
                     <Stat>
                       <StatLabel>{abilityWithState.name}</StatLabel>
-                      <StatNumber>{abilityWithState.points}/10</StatNumber>
+                      {abilityWithState.id !== 0 && (
+                        <StatNumber>{abilityWithState.points}/10</StatNumber>
+                      )}
                       <StatHelpText>
                         Koszt many: {abilityWithState.manaCost}, koszt energii:{" "}
                         {abilityWithState.energyCost}

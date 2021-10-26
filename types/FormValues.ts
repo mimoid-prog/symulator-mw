@@ -1,4 +1,4 @@
-import { Proffesion } from "./Proffesion";
+import { ProffesionValue } from "./ProffesionValue";
 
 export type FormValues = {
   level: string;
@@ -6,5 +6,5 @@ export type FormValues = {
   energy: string;
   manaRegen: string;
   energyRegen: string;
-  proffesion: Proffesion;
+  proffesion: ProffesionValue;
 };
