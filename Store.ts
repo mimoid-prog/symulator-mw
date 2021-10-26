@@ -73,8 +73,8 @@ export class Store {
         this.abilitiesWithState = proffesion.abilities.map((ability) => ({
           ...ability,
           points: 0,
-          mana: 0,
-          energy: 0,
+          manaCost: 0,
+          energyCost: 0,
         }));
       }
     }
@@ -120,6 +120,10 @@ export class Store {
       );
 
       if (indexOfAbility !== -1 && indexOfAbility !== undefined) {
+        const ability = {
+          ...this.abilitiesWithState[indexOfAbility],
+        };
+
         if (
           (shouldIncrease === false &&
             this.abilitiesWithState[indexOfAbility].points > 0) ||
@@ -130,29 +134,77 @@ export class Store {
             ? this.abilitiesWithState[indexOfAbility].points + 1
             : this.abilitiesWithState[indexOfAbility].points - 1;
 
-          const newMana =
-            newPoints === 0
-              ? 0
-              : newPoints === 1
-              ? this.abilitiesWithState[indexOfAbility].initialManaCost
-              : this.abilitiesWithState[indexOfAbility].initialManaCost +
-                (newPoints - 1) *
-                  this.abilitiesWithState[indexOfAbility].manaGrowth;
+          let newManaCost = 0;
 
-          const newEnergy =
-            newPoints === 0
-              ? 0
-              : newPoints === 1
-              ? this.abilitiesWithState[indexOfAbility].initialEnergyCost
-              : this.abilitiesWithState[indexOfAbility].initialEnergyCost +
+          if (ability.mana.initialCost !== null) {
+            ability.mana.initialCost + 4;
+            if (newPoints === 0) {
+              newManaCost = 0;
+            } else if (newPoints === 1) {
+              newManaCost = ability.mana.initialCost;
+            } else {
+              if (ability.mana.growth !== null) {
+                if (typeof ability.mana.growth === "number") {
+                  newManaCost =
+                    ability.mana.initialCost +
+                    (newPoints - 1) * ability.mana.growth;
+                } else {
+                  newManaCost =
+                    ability.mana.initialCost +
+                    ability.mana.growth
+                      .slice(0, newPoints - 1)
+                      .reduce((prev, curr) => prev + curr);
+                }
+              }
+            }
+          } else if (
+            ability.mana.multiplierForInitialCostBasedOnLevel &&
+            ability.mana.multiplierForGrowthCostBasedOnLevel !== null
+          ) {
+            if (newPoints === 0) {
+              newManaCost = 0;
+            } else if (newPoints === 1) {
+              newManaCost =
+                this.basics.level *
+                ability.mana.multiplierForInitialCostBasedOnLevel;
+            } else {
+              newManaCost =
+                this.basics.level *
+                  ability.mana.multiplierForInitialCostBasedOnLevel +
                 (newPoints - 1) *
-                  this.abilitiesWithState[indexOfAbility].energyGrowth;
+                  (this.basics.level *
+                    ability.mana.multiplierForGrowthCostBasedOnLevel);
+            }
+          }
+
+          let newEnergyCost = 0;
+
+          if (ability.energy.initialCost !== null) {
+            ability.energy.initialCost + 4;
+            if (newPoints === 0) {
+              newEnergyCost = 0;
+            } else if (newPoints === 1) {
+              newEnergyCost = ability.energy.initialCost;
+            } else {
+              if (ability.energy.growth !== null) {
+                if (typeof ability.energy.growth === "number") {
+                  newEnergyCost =
+                    ability.energy.initialCost +
+                    (newPoints - 1) * ability.energy.growth;
+                } else {
+                  newEnergyCost =
+                    ability.energy.initialCost +
+                    (newPoints - 1) * ability.energy.growth[newPoints - 2];
+                }
+              }
+            }
+          }
 
           this.abilitiesWithState[indexOfAbility] = {
             ...this.abilitiesWithState[indexOfAbility],
             points: newPoints,
-            mana: newMana,
-            energy: newEnergy,
+            manaCost: newManaCost,
+            energyCost: newEnergyCost,
           };
 
           if (newPoints === 0) {
@@ -235,65 +287,56 @@ export class Store {
   }
 
   generateMwSimulation() {
-    let shouldLoopRun = true;
-
-    let turns: Turn[] = [];
-    let message = "";
-
-    let currentMana = this.basics.mana;
-    let currentEnergy = this.basics.energy;
-
-    while (shouldLoopRun) {
-      for (const mwSlot of this.mw) {
-        const abilityWithState = this.abilitiesWithState?.find(
-          (abilityWithState) => abilityWithState.id === mwSlot.abilityId
-        );
-
-        //Perform ability
-        if (abilityWithState) {
-          if (currentMana - abilityWithState.mana < 0) {
-            shouldLoopRun = false;
-            message = `Nie starczyło many na ${abilityWithState.name}.`;
-            break;
-          } else if (currentEnergy - abilityWithState.energy < 0) {
-            shouldLoopRun = false;
-            message = `Nie starczyło energii na ${abilityWithState.name}.`;
-            break;
-          } else {
-            currentMana -= abilityWithState.mana;
-            currentEnergy -= abilityWithState.energy;
-          }
-        }
-
-        //Mana and energy regen
-        if (currentMana + this.basics.manaRegen > this.basics.mana) {
-          currentMana = this.basics.mana;
-        } else {
-          currentMana += this.basics.manaRegen;
-        }
-
-        if (currentEnergy + this.basics.energyRegen > this.basics.energy) {
-          currentEnergy = this.basics.energy;
-        } else {
-          currentEnergy += this.basics.energyRegen;
-        }
-
-        turns.push({
-          abilityName: abilityWithState ? abilityWithState.name : "Zwykły atak",
-          currentMana,
-          currentEnergy,
-        });
-      }
-
-      if (this.isMwSimulationInfinite === false) {
-        shouldLoopRun = false;
-      }
-    }
-
-    this.simulation = {
-      turns,
-      message,
-    };
+    // let shouldLoopRun = true;
+    // let turns: Turn[] = [];
+    // let message = "";
+    // let currentMana = this.basics.mana;
+    // let currentEnergy = this.basics.energy;
+    // while (shouldLoopRun) {
+    //   for (const mwSlot of this.mw) {
+    //     const abilityWithState = this.abilitiesWithState?.find(
+    //       (abilityWithState) => abilityWithState.id === mwSlot.abilityId
+    //     );
+    //     //Perform ability
+    //     if (abilityWithState) {
+    //       if (currentMana - abilityWithState.mana < 0) {
+    //         shouldLoopRun = false;
+    //         message = `Nie starczyło many na ${abilityWithState.name}.`;
+    //         break;
+    //       } else if (currentEnergy - abilityWithState.energy < 0) {
+    //         shouldLoopRun = false;
+    //         message = `Nie starczyło energii na ${abilityWithState.name}.`;
+    //         break;
+    //       } else {
+    //         currentMana -= abilityWithState.mana;
+    //         currentEnergy -= abilityWithState.energy;
+    //       }
+    //     }
+    //     //Mana and energy regen
+    //     if (currentMana + this.basics.manaRegen > this.basics.mana) {
+    //       currentMana = this.basics.mana;
+    //     } else {
+    //       currentMana += this.basics.manaRegen;
+    //     }
+    //     if (currentEnergy + this.basics.energyRegen > this.basics.energy) {
+    //       currentEnergy = this.basics.energy;
+    //     } else {
+    //       currentEnergy += this.basics.energyRegen;
+    //     }
+    //     turns.push({
+    //       abilityName: abilityWithState ? abilityWithState.name : "Zwykły atak",
+    //       currentMana,
+    //       currentEnergy,
+    //     });
+    //   }
+    //   if (this.isMwSimulationInfinite === false) {
+    //     shouldLoopRun = false;
+    //   }
+    // }
+    // this.simulation = {
+    //   turns,
+    //   message,
+    // };
   }
 }
 

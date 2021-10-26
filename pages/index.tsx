@@ -12,7 +12,7 @@ import store from "../Store";
 const Home: NextPage = observer(() => {
   // console.log(toJS(store));
   return (
-    <Box my={8}>
+    <Box mt={8} mb={20}>
       <Container maxW="container.xl">
         <Heading color="teal.100">Symulator MW</Heading>
 
