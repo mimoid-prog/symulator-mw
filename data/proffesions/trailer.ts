@@ -225,7 +225,6 @@ const trailer: Proffesion = {
       minLevel: 120,
     },
     {
-      //TODO
       id: 12,
       name: "Przywracanie mocy",
       mana: {
@@ -296,7 +295,6 @@ const trailer: Proffesion = {
       minLevel: 170,
     },
     {
-      //TODO
       id: 15,
       name: "Mistyczny strzał",
       mana: {
