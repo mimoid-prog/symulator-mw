@@ -1,18 +1,21 @@
+export type PowerUnit = {
+  initialCost: number | null;
+  multiplierForInitialCostBasedOnLevel: number | null;
+  growth: number | number[] | null;
+  multiplierForGrowthCostBasedOnLevel: number | null;
+  shouldDoubleCostWhenUsedTwiceInARow: boolean;
+  retrieve?: {
+    initialPercentageValue: number;
+    percentageGrowth: number | null;
+    percentageWeakening: number | null;
+  };
+};
+
 export type Ability = {
   id: number;
   name: string;
-  mana: {
-    initialCost: number | null;
-    multiplierForInitialCostBasedOnLevel: number | null;
-    growth: number | number[] | null;
-    multiplierForGrowthCostBasedOnLevel: number | null;
-  };
-  energy: {
-    initialCost: number | null;
-    multiplierForInitialCostBasedOnLevel: number | null;
-    growth: number | number[] | null;
-    multiplierForGrowthCostBasedOnLevel: number | null;
-  };
+  mana: PowerUnit;
+  energy: PowerUnit;
   cooldown: number;
   minLevel: number;
 };

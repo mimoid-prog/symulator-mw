@@ -1,5 +1,6 @@
 import { action, makeAutoObservable } from "mobx";
 import { nanoid } from "nanoid";
+import defaultAbility from "./data/defaultAbility";
 import proffesions from "./data/proffesions";
 import { AbilityWithState } from "./types/AbilityWithState";
 import { Basics } from "./types/Basics";
@@ -70,12 +71,20 @@ export class Store {
       );
 
       if (proffesion) {
-        this.abilitiesWithState = proffesion.abilities.map((ability) => ({
-          ...ability,
-          points: 0,
-          manaCost: 0,
-          energyCost: 0,
-        }));
+        this.abilitiesWithState = [
+          {
+            ...defaultAbility,
+            points: 0,
+            manaCost: 0,
+            energyCost: 0,
+          },
+          ...proffesion.abilities.map((ability) => ({
+            ...ability,
+            points: 0,
+            manaCost: 0,
+            energyCost: 0,
+          })),
+        ];
       }
     }
 
@@ -287,56 +296,145 @@ export class Store {
   }
 
   generateMwSimulation() {
-    // let shouldLoopRun = true;
-    // let turns: Turn[] = [];
-    // let message = "";
-    // let currentMana = this.basics.mana;
-    // let currentEnergy = this.basics.energy;
-    // while (shouldLoopRun) {
-    //   for (const mwSlot of this.mw) {
-    //     const abilityWithState = this.abilitiesWithState?.find(
-    //       (abilityWithState) => abilityWithState.id === mwSlot.abilityId
-    //     );
-    //     //Perform ability
-    //     if (abilityWithState) {
-    //       if (currentMana - abilityWithState.mana < 0) {
-    //         shouldLoopRun = false;
-    //         message = `Nie starczyło many na ${abilityWithState.name}.`;
-    //         break;
-    //       } else if (currentEnergy - abilityWithState.energy < 0) {
-    //         shouldLoopRun = false;
-    //         message = `Nie starczyło energii na ${abilityWithState.name}.`;
-    //         break;
-    //       } else {
-    //         currentMana -= abilityWithState.mana;
-    //         currentEnergy -= abilityWithState.energy;
-    //       }
-    //     }
-    //     //Mana and energy regen
-    //     if (currentMana + this.basics.manaRegen > this.basics.mana) {
-    //       currentMana = this.basics.mana;
-    //     } else {
-    //       currentMana += this.basics.manaRegen;
-    //     }
-    //     if (currentEnergy + this.basics.energyRegen > this.basics.energy) {
-    //       currentEnergy = this.basics.energy;
-    //     } else {
-    //       currentEnergy += this.basics.energyRegen;
-    //     }
-    //     turns.push({
-    //       abilityName: abilityWithState ? abilityWithState.name : "Zwykły atak",
-    //       currentMana,
-    //       currentEnergy,
-    //     });
-    //   }
-    //   if (this.isMwSimulationInfinite === false) {
-    //     shouldLoopRun = false;
-    //   }
-    // }
-    // this.simulation = {
-    //   turns,
-    //   message,
-    // };
+    let shouldLoopRun = true;
+    let turns: Turn[] = [];
+    let message = "";
+    let currentMana = this.basics.mana;
+    let currentEnergy = this.basics.energy;
+
+    while (shouldLoopRun) {
+      for (const mwSlot of this.mw) {
+        //Get ability
+        const abilityWithState = this.abilitiesWithState?.find(
+          (abilityWithState) => abilityWithState.id === mwSlot.abilityId
+        );
+
+        if (abilityWithState) {
+          //Dont perform ability if it is default ability (id 0)
+          if (abilityWithState.id !== 0) {
+            if (abilityWithState.manaCost || abilityWithState.energyCost) {
+              //Default mana cost
+              let manaCost = abilityWithState.manaCost;
+              let energyCost = abilityWithState.energyCost;
+
+              //Double cost if ability was used twice in a row
+              if (
+                abilityWithState.mana.shouldDoubleCostWhenUsedTwiceInARow &&
+                turns[turns.length - 1].abilityWithState.id ===
+                  abilityWithState.id
+              ) {
+                manaCost *= 2;
+              }
+
+              if (
+                abilityWithState.energy.shouldDoubleCostWhenUsedTwiceInARow &&
+                turns[turns.length - 1].abilityWithState.id ===
+                  abilityWithState.id
+              ) {
+                energyCost *= 2;
+              }
+
+              //Substract mana and energy for ability usage
+              if (currentMana - manaCost < 0) {
+                shouldLoopRun = false;
+                message = `Nie starczyło many na ${abilityWithState.name}.`;
+                break;
+              } else if (currentEnergy - energyCost < 0) {
+                shouldLoopRun = false;
+                message = `Nie starczyło energii na ${abilityWithState.name}.`;
+                break;
+              } else {
+                currentMana -= Math.round(manaCost);
+                currentEnergy -= Math.round(energyCost);
+              }
+            } else {
+              //Retrieve mana
+              if (abilityWithState.mana.retrieve) {
+                const percentage = abilityWithState.mana.retrieve
+                  .percentageGrowth
+                  ? abilityWithState.mana.retrieve.initialPercentageValue +
+                    (abilityWithState.points - 1) *
+                      abilityWithState.mana.retrieve.percentageGrowth
+                  : abilityWithState.mana.retrieve.initialPercentageValue;
+
+                let manaRetrieved = this.basics.mana * (percentage / 100);
+
+                if (abilityWithState.mana.retrieve.percentageWeakening) {
+                  const abilityUsedCount = turns.filter(
+                    (turn) => turn.abilityWithState.id === abilityWithState.id
+                  ).length;
+
+                  for (let i = 0; i < abilityUsedCount; i++) {
+                    manaRetrieved =
+                      manaRetrieved -
+                      manaRetrieved *
+                        (abilityWithState.mana.retrieve.percentageWeakening /
+                          100);
+                  }
+                }
+
+                currentMana += Math.round(manaRetrieved);
+              }
+
+              //Retrieve energy
+              if (abilityWithState.energy.retrieve) {
+                const percentage = abilityWithState.energy.retrieve
+                  .percentageGrowth
+                  ? abilityWithState.energy.retrieve.initialPercentageValue +
+                    (abilityWithState.points - 1) *
+                      abilityWithState.energy.retrieve.percentageGrowth
+                  : abilityWithState.energy.retrieve.initialPercentageValue;
+
+                let energyRetrieved = this.basics.energy * (percentage / 100);
+
+                if (abilityWithState.energy.retrieve.percentageWeakening) {
+                  const abilityUsedCount = turns.filter(
+                    (turn) => turn.abilityWithState.id === abilityWithState.id
+                  ).length;
+
+                  for (let i = 0; i < abilityUsedCount; i++) {
+                    energyRetrieved =
+                      energyRetrieved -
+                      energyRetrieved *
+                        (abilityWithState.energy.retrieve.percentageWeakening /
+                          100);
+                  }
+                }
+
+                currentEnergy += Math.round(energyRetrieved);
+              }
+            }
+          }
+
+          //Mana and energy regen
+          if (currentMana + this.basics.manaRegen > this.basics.mana) {
+            currentMana = this.basics.mana;
+          } else {
+            currentMana += this.basics.manaRegen;
+          }
+          if (currentEnergy + this.basics.energyRegen > this.basics.energy) {
+            currentEnergy = this.basics.energy;
+          } else {
+            currentEnergy += this.basics.energyRegen;
+          }
+
+          turns.push({
+            abilityWithState,
+            currentMana,
+            currentEnergy,
+          });
+        }
+      }
+
+      if (this.isMwSimulationInfinite === false) {
+        shouldLoopRun = false;
+      }
+    }
+
+    this.simulation = {
+      turns,
+      message,
+    };
   }
 }
 

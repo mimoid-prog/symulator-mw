@@ -1,5 +1,7 @@
+import { AbilityWithState } from "./AbilityWithState";
+
 export type Turn = {
-  abilityName: string;
+  abilityWithState: AbilityWithState;
   currentMana: number;
   currentEnergy: number;
 };

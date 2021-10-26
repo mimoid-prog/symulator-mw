@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
 import { Simulation } from "../../types/Simulation";
+import shortenGold from "../../utils/shortenGold";
 
 export type Props = {
   isOpen: boolean;
@@ -41,7 +42,9 @@ const MwSimulationModal = observer(
           <ModalHeader>Symulacja MW</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Text fontWeight={700}>Wydane złoto: {mwTotalGold}</Text>
+            <Text fontWeight={700}>
+              Wydane złoto: {shortenGold(mwTotalGold)}
+            </Text>
             <Text fontWeight={700}>Wydane smocze łuski: {mwTotalCurrency}</Text>
 
             {simulation && (
@@ -51,7 +54,7 @@ const MwSimulationModal = observer(
                     <Box key={i}>
                       <Box display="flex" justifyContent="space-between">
                         <Text>
-                          {i + 1}. {turn.abilityName}
+                          {i + 1}. {turn.abilityWithState.name}
                         </Text>
                         <HStack>
                           <Badge colorScheme="blue">
@@ -66,10 +69,10 @@ const MwSimulationModal = observer(
                   ))}
                 </Box>
                 <Box mt={4}>
-                  <Heading size="sm">
-                    Wykonano {simulation.turns.length} tur.
-                  </Heading>
                   <Heading size="sm">{simulation.message}</Heading>
+                  <Heading size="sm">
+                    Wykonane tury: {simulation.turns.length}
+                  </Heading>
                 </Box>
               </Box>
             )}

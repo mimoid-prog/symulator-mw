@@ -1,5 +1,6 @@
 import { Button } from "@chakra-ui/button";
 import { Box, Grid, GridItem } from "@chakra-ui/layout";
+import shortenGold from "../../utils/shortenGold";
 
 export type Props = {
   isActive: boolean;
@@ -19,7 +20,7 @@ const MwSlotToBuy = ({ isActive, gold, currency, addMwSlot }: Props) => {
             width="100%"
             onClick={() => addMwSlot({ gold })}
           >
-            Zakup za {gold < 1000000 ? `${gold / 1000}k` : `${gold / 1000000}m`}
+            Zakup za {shortenGold(gold)}
           </Button>
         </GridItem>
         <GridItem>
