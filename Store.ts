@@ -359,6 +359,8 @@ export class Store {
     let currentMana = this.basics.mana;
     let currentEnergy = this.basics.energy;
 
+    let counter = 0;
+
     while (shouldLoopRun) {
       for (const mwSlot of this.mw) {
         //Finish loop if more than 1000 turns
@@ -373,119 +375,155 @@ export class Store {
         );
 
         if (abilityWithState) {
-          //Dont perform ability if it is default ability (id 0)
-          if (abilityWithState.id !== 0) {
-            if (abilityWithState.manaCost || abilityWithState.energyCost) {
-              //Default mana cost
-              let manaCost = abilityWithState.manaCost;
-              let energyCost = abilityWithState.energyCost;
+          //Skip performing ability if it is on cooldown and move to the next turn
+          let isAbilityOnCooldown = false;
 
-              //Double cost if ability was used twice in a row
-              if (
-                abilityWithState.mana.shouldDoubleCostWhenUsedTwiceInARow &&
-                turns[turns.length - 1].abilityWithState.id ===
-                  abilityWithState.id
-              ) {
-                manaCost *= 2;
-              }
+          if (abilityWithState.cooldown) {
+            console.log(
+              counter - abilityWithState.cooldown < 0
+                ? 0
+                : counter - abilityWithState.cooldown,
+              counter
+            );
+            const turnsToCheckForCooldown = turns.slice(
+              counter - abilityWithState.cooldown < 0
+                ? 0
+                : counter - abilityWithState.cooldown,
+              counter
+            );
 
-              if (
-                abilityWithState.energy.shouldDoubleCostWhenUsedTwiceInARow &&
-                turns[turns.length - 1].abilityWithState.id ===
-                  abilityWithState.id
-              ) {
-                energyCost *= 2;
-              }
-
-              //Substract mana and energy for ability usage
-              if (currentMana - manaCost < 0) {
-                shouldLoopRun = false;
-                message = `Nie starczyło many na ${abilityWithState.name}.`;
-                break;
-              } else if (currentEnergy - energyCost < 0) {
-                shouldLoopRun = false;
-                message = `Nie starczyło energii na ${abilityWithState.name}.`;
-                break;
-              } else {
-                currentMana -= Math.round(manaCost);
-                currentEnergy -= Math.round(energyCost);
-              }
-            } else {
-              //Retrieve mana
-              if (abilityWithState.mana.retrieve) {
-                const percentage = abilityWithState.mana.retrieve
-                  .percentageGrowth
-                  ? abilityWithState.mana.retrieve.initialPercentageValue +
-                    (abilityWithState.points - 1) *
-                      abilityWithState.mana.retrieve.percentageGrowth
-                  : abilityWithState.mana.retrieve.initialPercentageValue;
-
-                let manaRetrieved = this.basics.mana * (percentage / 100);
-
-                if (abilityWithState.mana.retrieve.percentageWeakening) {
-                  const abilityUsedCount = turns.filter(
-                    (turn) => turn.abilityWithState.id === abilityWithState.id
-                  ).length;
-
-                  for (let i = 0; i < abilityUsedCount; i++) {
-                    manaRetrieved =
-                      manaRetrieved -
-                      manaRetrieved *
-                        (abilityWithState.mana.retrieve.percentageWeakening /
-                          100);
-                  }
+            if (turnsToCheckForCooldown.length > 0) {
+              for (const turnToCheck of turnsToCheckForCooldown) {
+                if (turnToCheck.abilityWithState.id === abilityWithState.id) {
+                  isAbilityOnCooldown = true;
+                  break;
                 }
-
-                currentMana += Math.round(manaRetrieved);
-              }
-
-              //Retrieve energy
-              if (abilityWithState.energy.retrieve) {
-                const percentage = abilityWithState.energy.retrieve
-                  .percentageGrowth
-                  ? abilityWithState.energy.retrieve.initialPercentageValue +
-                    (abilityWithState.points - 1) *
-                      abilityWithState.energy.retrieve.percentageGrowth
-                  : abilityWithState.energy.retrieve.initialPercentageValue;
-
-                let energyRetrieved = this.basics.energy * (percentage / 100);
-
-                if (abilityWithState.energy.retrieve.percentageWeakening) {
-                  const abilityUsedCount = turns.filter(
-                    (turn) => turn.abilityWithState.id === abilityWithState.id
-                  ).length;
-
-                  for (let i = 0; i < abilityUsedCount; i++) {
-                    energyRetrieved =
-                      energyRetrieved -
-                      energyRetrieved *
-                        (abilityWithState.energy.retrieve.percentageWeakening /
-                          100);
-                  }
-                }
-
-                currentEnergy += Math.round(energyRetrieved);
               }
             }
+
+            console.log("All turns:", turns);
+            console.log("Sliced turns:", turnsToCheckForCooldown);
+            console.log(isAbilityOnCooldown);
           }
 
-          //Mana and energy regen
-          if (currentMana + this.basics.manaRegen > this.basics.mana) {
-            currentMana = this.basics.mana;
-          } else {
-            currentMana += this.basics.manaRegen;
-          }
-          if (currentEnergy + this.basics.energyRegen > this.basics.energy) {
-            currentEnergy = this.basics.energy;
-          } else {
-            currentEnergy += this.basics.energyRegen;
-          }
+          if (isAbilityOnCooldown === false) {
+            //Dont perform ability if it is default ability (id 0)
+            if (abilityWithState.id !== 0) {
+              if (abilityWithState.manaCost || abilityWithState.energyCost) {
+                //Default mana cost
+                let manaCost = abilityWithState.manaCost;
+                let energyCost = abilityWithState.energyCost;
 
-          turns.push({
-            abilityWithState,
-            currentMana,
-            currentEnergy,
-          });
+                //Double cost if ability was used twice in a row
+                if (
+                  abilityWithState.mana.shouldDoubleCostWhenUsedTwiceInARow &&
+                  turns[turns.length - 1].abilityWithState.id ===
+                    abilityWithState.id
+                ) {
+                  manaCost *= 2;
+                }
+
+                if (
+                  abilityWithState.energy.shouldDoubleCostWhenUsedTwiceInARow &&
+                  turns[turns.length - 1].abilityWithState.id ===
+                    abilityWithState.id
+                ) {
+                  energyCost *= 2;
+                }
+
+                //Substract mana and energy for ability usage
+                if (currentMana - manaCost < 0) {
+                  shouldLoopRun = false;
+                  message = `Nie starczyło many na ${abilityWithState.name}.`;
+                  break;
+                } else if (currentEnergy - energyCost < 0) {
+                  shouldLoopRun = false;
+                  message = `Nie starczyło energii na ${abilityWithState.name}.`;
+                  break;
+                } else {
+                  currentMana -= Math.round(manaCost);
+                  currentEnergy -= Math.round(energyCost);
+                }
+              } else {
+                //Retrieve mana
+                if (abilityWithState.mana.retrieve) {
+                  const percentage = abilityWithState.mana.retrieve
+                    .percentageGrowth
+                    ? abilityWithState.mana.retrieve.initialPercentageValue +
+                      (abilityWithState.points - 1) *
+                        abilityWithState.mana.retrieve.percentageGrowth
+                    : abilityWithState.mana.retrieve.initialPercentageValue;
+
+                  let manaRetrieved = this.basics.mana * (percentage / 100);
+
+                  if (abilityWithState.mana.retrieve.percentageWeakening) {
+                    const abilityUsedCount = turns.filter(
+                      (turn) => turn.abilityWithState.id === abilityWithState.id
+                    ).length;
+
+                    for (let i = 0; i < abilityUsedCount; i++) {
+                      manaRetrieved =
+                        manaRetrieved -
+                        manaRetrieved *
+                          (abilityWithState.mana.retrieve.percentageWeakening /
+                            100);
+                    }
+                  }
+
+                  currentMana += Math.round(manaRetrieved);
+                }
+
+                //Retrieve energy
+                if (abilityWithState.energy.retrieve) {
+                  const percentage = abilityWithState.energy.retrieve
+                    .percentageGrowth
+                    ? abilityWithState.energy.retrieve.initialPercentageValue +
+                      (abilityWithState.points - 1) *
+                        abilityWithState.energy.retrieve.percentageGrowth
+                    : abilityWithState.energy.retrieve.initialPercentageValue;
+
+                  let energyRetrieved = this.basics.energy * (percentage / 100);
+
+                  if (abilityWithState.energy.retrieve.percentageWeakening) {
+                    const abilityUsedCount = turns.filter(
+                      (turn) => turn.abilityWithState.id === abilityWithState.id
+                    ).length;
+
+                    for (let i = 0; i < abilityUsedCount; i++) {
+                      energyRetrieved =
+                        energyRetrieved -
+                        energyRetrieved *
+                          (abilityWithState.energy.retrieve
+                            .percentageWeakening /
+                            100);
+                    }
+                  }
+
+                  currentEnergy += Math.round(energyRetrieved);
+                }
+              }
+            }
+
+            //Mana and energy regen
+            if (currentMana + this.basics.manaRegen > this.basics.mana) {
+              currentMana = this.basics.mana;
+            } else {
+              currentMana += this.basics.manaRegen;
+            }
+            if (currentEnergy + this.basics.energyRegen > this.basics.energy) {
+              currentEnergy = this.basics.energy;
+            } else {
+              currentEnergy += this.basics.energyRegen;
+            }
+
+            turns.push({
+              abilityWithState,
+              currentMana,
+              currentEnergy,
+            });
+
+            counter++;
+          }
         }
       }
 
