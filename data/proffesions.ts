@@ -72,7 +72,7 @@ const proffesions = [
           growth: 1,
           multiplierForGrowthCostBasedOnLevel: null,
         },
-        cooldown: 0,
+        cooldown: 2,
         minLevel: 25,
       },
       {

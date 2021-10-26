@@ -9,7 +9,9 @@ export type Props = {
   mwSlotsAmount: number;
   id: string;
   abilityId: number;
-  activeAbilities: AbilityWithState[];
+  abilities: (AbilityWithState & {
+    disabled: boolean;
+  })[];
   removeMwSlot: (id: string) => void;
   changeMwSlotAbility: (id: string, abilityId: number) => void;
   changeMwSlotOrder: (id: string, direction: "up" | "down") => void;
@@ -20,7 +22,7 @@ const MwSlot = ({
   mwSlotsAmount,
   id,
   abilityId,
-  activeAbilities,
+  abilities,
   removeMwSlot,
   changeMwSlotAbility,
   changeMwSlotOrder,
@@ -35,8 +37,12 @@ const MwSlot = ({
         <Text>{index + 1}.</Text>
         <Select size="sm" value={abilityId} onChange={handleMwSlotChange}>
           <option value={0}>Zwykły atak</option>
-          {activeAbilities.map((ability) => (
-            <option value={ability.id} key={ability.id}>
+          {abilities.map((ability) => (
+            <option
+              value={ability.id}
+              key={ability.id}
+              disabled={ability.disabled}
+            >
               {ability.name}
             </option>
           ))}

@@ -71,19 +71,51 @@ const Mw = observer(
 
         <Box mt={3}>
           <Stack>
-            {mw.map((mwItem, i) => (
-              <MwSlot
-                key={mwItem.id}
-                index={i}
-                mwSlotsAmount={mw.length}
-                id={mwItem.id}
-                abilityId={mwItem.abilityId}
-                activeAbilities={activeAbilities}
-                removeMwSlot={removeMwSlot}
-                changeMwSlotAbility={changeMwSlotAbility}
-                changeMwSlotOrder={changeMwSlotOrder}
-              />
-            ))}
+            {mw.map((mwItem, i) => {
+              const abilities = activeAbilities.map((ability) => {
+                if (ability.cooldown > 0) {
+                  const mwSlotsToCheck = mw.slice(
+                    i - ability.cooldown < 0 ? 0 : i - ability.cooldown,
+                    i
+                  );
+
+                  if (mwSlotsToCheck.length > 0) {
+                    let isAbilityOnCooldown = false;
+
+                    for (const mwSlotToCheck of mwSlotsToCheck) {
+                      if (mwSlotToCheck.abilityId === ability.id) {
+                        isAbilityOnCooldown = true;
+                        break;
+                      }
+                    }
+
+                    return {
+                      ...ability,
+                      disabled: isAbilityOnCooldown,
+                    };
+                  }
+                }
+
+                return {
+                  ...ability,
+                  disabled: false,
+                };
+              });
+
+              return (
+                <MwSlot
+                  key={mwItem.id}
+                  index={i}
+                  mwSlotsAmount={mw.length}
+                  id={mwItem.id}
+                  abilityId={mwItem.abilityId}
+                  abilities={abilities}
+                  removeMwSlot={removeMwSlot}
+                  changeMwSlotAbility={changeMwSlotAbility}
+                  changeMwSlotOrder={changeMwSlotOrder}
+                />
+              );
+            })}
 
             {mwSlotsToBuy.map((mwSlotToBuy, i) => (
               <MwSlotToBuy
