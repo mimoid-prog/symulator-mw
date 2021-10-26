@@ -379,12 +379,6 @@ export class Store {
           let isAbilityOnCooldown = false;
 
           if (abilityWithState.cooldown) {
-            console.log(
-              counter - abilityWithState.cooldown < 0
-                ? 0
-                : counter - abilityWithState.cooldown,
-              counter
-            );
             const turnsToCheckForCooldown = turns.slice(
               counter - abilityWithState.cooldown < 0
                 ? 0
@@ -400,10 +394,6 @@ export class Store {
                 }
               }
             }
-
-            console.log("All turns:", turns);
-            console.log("Sliced turns:", turnsToCheckForCooldown);
-            console.log(isAbilityOnCooldown);
           }
 
           if (isAbilityOnCooldown === false) {

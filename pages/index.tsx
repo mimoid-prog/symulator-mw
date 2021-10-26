@@ -10,7 +10,6 @@ import MwSimulationModal from "../components/MwSimulationModal";
 import store from "../Store";
 
 const Home: NextPage = observer(() => {
-  // console.log(toJS(store));
   return (
     <Box mt={8} mb={20}>
       <Container maxW="container.xl">
