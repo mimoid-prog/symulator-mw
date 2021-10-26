@@ -73,6 +73,9 @@ const MwSimulationModal = observer(
                   <Heading size="sm">
                     Wykonane tury: {simulation.turns.length}
                   </Heading>
+                  {simulation.turns.length >= 1000 && (
+                    <Text>Wystarczy bo zaraz ci komputer wybuchnie!</Text>
+                  )}
                 </Box>
               </Box>
             )}

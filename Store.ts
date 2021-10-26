@@ -304,6 +304,12 @@ export class Store {
 
     while (shouldLoopRun) {
       for (const mwSlot of this.mw) {
+        //Finish loop if more than 1000 turns
+        if (turns.length >= 1000) {
+          shouldLoopRun = false;
+          break;
+        }
+
         //Get ability
         const abilityWithState = this.abilitiesWithState?.find(
           (abilityWithState) => abilityWithState.id === mwSlot.abilityId
