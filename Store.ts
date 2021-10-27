@@ -401,19 +401,25 @@ export class Store {
 
                 //Double cost if ability was used twice in a row
                 if (
-                  abilityWithState.mana.shouldDoubleCostWhenUsedTwiceInARow &&
+                  abilityWithState.mana.multiplierForUsingAbilityTwiceInARow &&
                   turns[turns.length - 1].abilityWithState.id ===
                     abilityWithState.id
                 ) {
-                  manaCost *= 2;
+                  manaCost +=
+                    manaCost *
+                    abilityWithState.mana.multiplierForUsingAbilityTwiceInARow;
                 }
 
                 if (
-                  abilityWithState.energy.shouldDoubleCostWhenUsedTwiceInARow &&
+                  abilityWithState.energy
+                    .multiplierForUsingAbilityTwiceInARow &&
                   turns[turns.length - 1].abilityWithState.id ===
                     abilityWithState.id
                 ) {
-                  energyCost *= 2;
+                  energyCost +=
+                    energyCost *
+                    abilityWithState.energy
+                      .multiplierForUsingAbilityTwiceInARow;
                 }
 
                 //Substract mana and energy for ability usage

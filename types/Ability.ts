@@ -4,7 +4,7 @@ export type PowerUnit = {
   growth: number | number[] | null;
   growthDown?: boolean;
   multiplierForGrowthCostBasedOnLevel: number | null;
-  shouldDoubleCostWhenUsedTwiceInARow: boolean;
+  multiplierForUsingAbilityTwiceInARow: number | null;
   retrieve?: {
     initialPercentageValue: number;
     percentageGrowth: number | null;
