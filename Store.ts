@@ -402,6 +402,7 @@ export class Store {
                 //Double cost if ability was used twice in a row
                 if (
                   abilityWithState.mana.multiplierForUsingAbilityTwiceInARow &&
+                  turns.length > 0 &&
                   turns[turns.length - 1].abilityWithState.id ===
                     abilityWithState.id
                 ) {
@@ -413,6 +414,7 @@ export class Store {
                 if (
                   abilityWithState.energy
                     .multiplierForUsingAbilityTwiceInARow &&
+                  turns.length > 0 &&
                   turns[turns.length - 1].abilityWithState.id ===
                     abilityWithState.id
                 ) {
