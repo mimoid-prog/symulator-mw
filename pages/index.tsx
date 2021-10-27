@@ -5,6 +5,7 @@ import Head from "next/head";
 import Abilities from "../components/Abilities";
 import BasicsForm from "../components/BasicsForm";
 import GenerateMwSimulationButtonSection from "../components/GenerateMwSimulationButtonSection";
+import Header from "../components/Header";
 import Mw from "../components/Mw";
 import MwSimulationModal from "../components/MwSimulationModal";
 import store from "../Store";
@@ -20,8 +21,7 @@ const Home: NextPage = observer(() => {
         />
       </Head>
       <Container maxW="container.xl">
-        <Heading color="teal.100">Symulator MW</Heading>
-
+        <Header />
         <Box mt={8}>
           <Grid templateColumns="repeat(3,1fr)" gap={6}>
             <GridItem>
