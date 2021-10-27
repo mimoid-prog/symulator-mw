@@ -32,6 +32,7 @@ export class Store {
   mw: MwSlotType[] = [];
   mwTotalGold = 0;
   mwTotalCurrency = 0;
+  mwSpentGoldAndCurrencyHistory: { gold: number; currency: number }[] = [];
   isMwSimulationInfinite = false;
 
   isMwSimulationModalOpen = false;
@@ -285,6 +286,11 @@ export class Store {
       this.mwTotalCurrency += currency;
     }
 
+    this.mwSpentGoldAndCurrencyHistory.push({
+      gold: gold || 0,
+      currency: currency || 0,
+    });
+
     this.mw.push({
       id: nanoid(),
       abilityId: 0,
@@ -292,7 +298,26 @@ export class Store {
   }
 
   removeMwSlot(id: string) {
-    //TODO odejmowanie kasy
+    //Substract spent money and currency
+    if (
+      this.mwSpentGoldAndCurrencyHistory[
+        this.mwSpentGoldAndCurrencyHistory.length - 1
+      ].gold
+    ) {
+      this.mwTotalGold -=
+        this.mwSpentGoldAndCurrencyHistory[
+          this.mwSpentGoldAndCurrencyHistory.length - 1
+        ].gold;
+    } else {
+      this.mwTotalCurrency -=
+        this.mwSpentGoldAndCurrencyHistory[
+          this.mwSpentGoldAndCurrencyHistory.length - 1
+        ].currency;
+    }
+
+    this.mwSpentGoldAndCurrencyHistory.pop();
+
+    //Remove mw slot
     this.mw = this.mw.filter((mw) => mw.id !== id);
   }
 

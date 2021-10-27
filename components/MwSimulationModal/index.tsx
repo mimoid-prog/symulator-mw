@@ -45,7 +45,7 @@ const MwSimulationModal = observer(
             <Text fontWeight={700}>
               Wydane złoto: {shortenGold(mwTotalGold)}
             </Text>
-            <Text fontWeight={700}>Wydane smocze łuski: {mwTotalCurrency}</Text>
+            <Text fontWeight={700}>Wydane SŁ: {mwTotalCurrency}</Text>
 
             {simulation && (
               <Box mt={3}>
