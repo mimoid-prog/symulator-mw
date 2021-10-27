@@ -1,6 +1,7 @@
 import { Grid, GridItem, Box, Container, Heading } from "@chakra-ui/react";
 import { observer } from "mobx-react-lite";
 import type { NextPage } from "next";
+import Head from "next/head";
 import Abilities from "../components/Abilities";
 import BasicsForm from "../components/BasicsForm";
 import GenerateMwSimulationButtonSection from "../components/GenerateMwSimulationButtonSection";
@@ -11,6 +12,13 @@ import store from "../Store";
 const Home: NextPage = observer(() => {
   return (
     <Box mt={8} mb={20}>
+      <Head>
+        <title>Symulator MW = Mistrzostwo walk</title>
+        <meta
+          name="description"
+          content="Symulator mistrzostwa walk do gry Margonem. Rozdaj umiejętności i wygeneruj symulację mistrzostwa walk (MW)."
+        />
+      </Head>
       <Container maxW="container.xl">
         <Heading color="teal.100">Symulator MW</Heading>
 
