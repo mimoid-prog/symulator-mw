@@ -525,8 +525,6 @@ export class Store {
       }
     }
 
-    console.log(turns);
-
     this.simulation = {
       turns,
       message,
