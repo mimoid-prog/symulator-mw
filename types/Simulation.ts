@@ -1,12 +1,26 @@
 import { AbilityWithState } from "./AbilityWithState";
 
 export type Turn = {
+  id: number;
+  roundId: number;
   abilityWithState: AbilityWithState;
-  currentMana: number;
-  currentEnergy: number;
+  mana: {
+    current: number;
+    abilityCost: number;
+  };
+  energy: {
+    current: number;
+    abilityCost: number;
+  };
+};
+
+export type Round = {
+  id: number;
+  turns: Turn[];
 };
 
 export type Simulation = {
-  turns: Turn[];
+  rounds: Round[];
+  turnsCount: number;
   message: string;
 };

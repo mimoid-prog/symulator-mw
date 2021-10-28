@@ -9,8 +9,6 @@ import {
   Button,
   Text,
   Box,
-  OrderedList,
-  ListItem,
   Badge,
   HStack,
   Heading,
@@ -33,9 +31,8 @@ const MwSimulationModal = observer(
       <Modal
         isOpen={isOpen}
         onClose={onClose}
-        blockScrollOnMount={false}
         closeOnOverlayClick={false}
-        size="lg"
+        size="xl"
       >
         <ModalOverlay />
         <ModalContent>
@@ -49,31 +46,51 @@ const MwSimulationModal = observer(
 
             {simulation && (
               <Box mt={3}>
-                <Box maxHeight="400px" overflow="auto" paddingRight={2}>
-                  {simulation.turns.map((turn, i) => (
-                    <Box key={i}>
-                      <Box display="flex" justifyContent="space-between">
-                        <Text>
-                          {i + 1}. {turn.abilityWithState.name}
-                        </Text>
-                        <HStack>
-                          <Badge colorScheme="blue">
-                            mana: {turn.currentMana}
-                          </Badge>
-                          <Badge colorScheme="yellow">
-                            energia: {turn.currentEnergy}
-                          </Badge>
-                        </HStack>
-                      </Box>
+                <Box maxHeight="400px" overflow="auto" paddingRight={3}>
+                  {simulation.rounds.map((round, roundI) => (
+                    <Box key={roundI} mb={2}>
+                      {round.turns.length > 0 && (
+                        <Badge mb={1}>Kolejka {roundI + 1}</Badge>
+                      )}
+
+                      {round.turns.map((turn, turnI) => (
+                        <Box key={turnI}>
+                          <Box display="flex" justifyContent="space-between">
+                            <Text>
+                              {turn.id + 1}. {turn.abilityWithState.name}{" "}
+                            </Text>
+                            <HStack>
+                              <Badge colorScheme="blue" width="90px">
+                                <Box
+                                  display="flex"
+                                  justifyContent="space-between"
+                                >
+                                  <span>{turn.mana.current}</span>
+                                  <span>mana</span>
+                                </Box>
+                              </Badge>
+                              <Badge colorScheme="yellow" width="100px">
+                                <Box
+                                  display="flex"
+                                  justifyContent="space-between"
+                                >
+                                  <span>{turn.energy.current}</span>
+                                  <span>energia</span>{" "}
+                                </Box>
+                              </Badge>
+                            </HStack>
+                          </Box>
+                        </Box>
+                      ))}
                     </Box>
                   ))}
                 </Box>
                 <Box mt={4}>
                   <Heading size="sm">{simulation.message}</Heading>
                   <Heading size="sm">
-                    Wykonane tury: {simulation.turns.length}
+                    Wykonane tury: {simulation.turnsCount}
                   </Heading>
-                  {simulation.turns.length >= 1000 && (
+                  {simulation.turnsCount >= 1000 && (
                     <Text>Wystarczy bo zaraz ci komputer wybuchnie!</Text>
                   )}
                 </Box>

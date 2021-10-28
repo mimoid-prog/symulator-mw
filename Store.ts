@@ -6,7 +6,7 @@ import { AbilityWithState } from "./types/AbilityWithState";
 import { Basics } from "./types/Basics";
 import { BasicsFormValues } from "./types/BasicsFormValues";
 import { MwSlotType } from "./types/MwSlotType";
-import { Simulation, Turn } from "./types/Simulation";
+import { Round, Simulation, Turn } from "./types/Simulation";
 
 export class Store {
   basicsFormValues: BasicsFormValues = {
@@ -374,12 +374,14 @@ export class Store {
 
   generateMwSimulation() {
     let shouldLoopRun = true;
+
+    let roundsCounter = 0;
+    let turnsCounter = 0;
+
     let turns: Turn[] = [];
     let message = "";
     let currentMana = this.basics.mana;
     let currentEnergy = this.basics.energy;
-
-    let counter = 0;
 
     while (shouldLoopRun) {
       for (const mwSlot of this.mw) {
@@ -400,10 +402,10 @@ export class Store {
 
           if (abilityWithState.cooldown) {
             const turnsToCheckForCooldown = turns.slice(
-              counter - abilityWithState.cooldown < 0
+              turnsCounter - abilityWithState.cooldown < 0
                 ? 0
-                : counter - abilityWithState.cooldown,
-              counter
+                : turnsCounter - abilityWithState.cooldown,
+              turnsCounter
             );
 
             if (turnsToCheckForCooldown.length > 0) {
@@ -417,12 +419,15 @@ export class Store {
           }
 
           if (isAbilityOnCooldown === false) {
+            let abilityManaCost = 0;
+            let abilityEnergyCost = 0;
+
             //Dont perform ability if it is default ability (id 0)
             if (abilityWithState.id !== 0) {
               if (abilityWithState.manaCost || abilityWithState.energyCost) {
                 //Default mana cost
-                let manaCost = abilityWithState.manaCost;
-                let energyCost = abilityWithState.energyCost;
+                abilityManaCost = abilityWithState.manaCost;
+                abilityEnergyCost = abilityWithState.energyCost;
 
                 //Double cost if ability was used twice in a row
                 if (
@@ -431,8 +436,8 @@ export class Store {
                   turns[turns.length - 1].abilityWithState.id ===
                     abilityWithState.id
                 ) {
-                  manaCost +=
-                    manaCost *
+                  abilityManaCost +=
+                    abilityManaCost *
                     abilityWithState.mana.multiplierForUsingAbilityTwiceInARow;
                 }
 
@@ -443,24 +448,24 @@ export class Store {
                   turns[turns.length - 1].abilityWithState.id ===
                     abilityWithState.id
                 ) {
-                  energyCost +=
-                    energyCost *
+                  abilityEnergyCost +=
+                    abilityEnergyCost *
                     abilityWithState.energy
                       .multiplierForUsingAbilityTwiceInARow;
                 }
 
                 //Substract mana and energy for ability usage
-                if (currentMana - manaCost < 0) {
+                if (currentMana - abilityManaCost < 0) {
                   shouldLoopRun = false;
                   message = `Nie starczyło many na ${abilityWithState.name}.`;
                   break;
-                } else if (currentEnergy - energyCost < 0) {
+                } else if (currentEnergy - abilityEnergyCost < 0) {
                   shouldLoopRun = false;
                   message = `Nie starczyło energii na ${abilityWithState.name}.`;
                   break;
                 } else {
-                  currentMana -= Math.round(manaCost);
-                  currentEnergy -= Math.round(energyCost);
+                  currentMana -= Math.round(abilityManaCost);
+                  currentEnergy -= Math.round(abilityEnergyCost);
                 }
               } else {
                 //Retrieve mana
@@ -535,24 +540,55 @@ export class Store {
             }
 
             turns.push({
+              id: turnsCounter,
+              roundId: roundsCounter,
               abilityWithState,
-              currentMana,
-              currentEnergy,
+              mana: {
+                current: currentMana,
+                abilityCost: abilityManaCost,
+              },
+              energy: {
+                current: currentEnergy,
+                abilityCost: abilityEnergyCost,
+              },
             });
 
-            counter++;
+            turnsCounter++;
           }
         }
       }
+
+      roundsCounter += 1;
 
       if (this.isMwSimulationInfinite === false) {
         shouldLoopRun = false;
       }
     }
 
+    let rounds: Round[] = [];
+
+    turns.forEach((turn, i) => {
+      if (rounds.length === 0) {
+        rounds.push({
+          id: i,
+          turns: [turn],
+        });
+      } else {
+        if (rounds[rounds.length - 1].turns[0].roundId === turn.roundId) {
+          rounds[rounds.length - 1].turns.push(turn);
+        } else {
+          rounds.push({
+            id: i,
+            turns: [turn],
+          });
+        }
+      }
+    });
+
     this.simulation = {
-      turns,
+      rounds,
       message,
+      turnsCount: turns.length,
     };
   }
 }
