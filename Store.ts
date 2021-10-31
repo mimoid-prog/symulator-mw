@@ -33,7 +33,7 @@ export class Store {
   mwTotalGold = 0;
   mwTotalCurrency = 0;
   mwSpentGoldAndCurrencyHistory: { gold: number; currency: number }[] = [];
-  isMwSimulationInfinite = false;
+  isMwSimulationInfinite = true;
 
   isMwSimulationModalOpen = false;
   simulation: Simulation | null = null;
