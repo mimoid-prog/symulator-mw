@@ -15,7 +15,7 @@ const bladeDancer: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 21,
+        initialCost: 16,
         multiplierForInitialCostBasedOnLevel: null,
         growth: 1,
         multiplierForGrowthCostBasedOnLevel: null,
@@ -55,13 +55,13 @@ const bladeDancer: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 13,
+        initialCost: 22,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 3,
+        growth: 2,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
-      cooldown: 3,
+      cooldown: 4,
       minLevel: 35,
     },
     {
@@ -95,9 +95,9 @@ const bladeDancer: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 10,
+        initialCost: 16,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: [2, 2, 2, 2, 3, 3, 3, 3, 3],
+        growth: [1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },

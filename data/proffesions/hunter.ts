@@ -41,7 +41,7 @@ const hunter: Proffesion = {
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
-      cooldown: 2,
+      cooldown: 3,
       minLevel: 25,
     },
     {
@@ -75,9 +75,9 @@ const hunter: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 30,
+        initialCost: 25,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: [1, 1, 1, 1, 2, 2, 2, 2, 2],
+        growth: [1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
