@@ -36,7 +36,7 @@ const Header = () => {
               </Button>
               <Text fontSize="sm">Nick w grze: Vlk Romanov, świat Aldous</Text>
               <Text fontSize="sm">Discord: shcopec#1329</Text>
-              <Text fontSize="sm">Email: mimoid.prog@gmail.com</Text>
+              <Text fontSize="sm">Email: rzyrkunka@gmail.com</Text>
               <br />
               <Text fontSize="sm">
                 Jeśli zauważyłeś błąd, masz jakąś propozycję lub pytanie to
