@@ -1,0 +1,1 @@
+export const COMBINATION_POINTS_MAX = 3;

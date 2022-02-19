@@ -7,6 +7,7 @@ import { Basics } from "./types/Basics";
 import { BasicsFormValues } from "./types/BasicsFormValues";
 import { MwSlotType } from "./types/MwSlotType";
 import { Round, Simulation, Turn } from "./types/Simulation";
+import { COMBINATION_POINTS_MAX } from "./utils/constants";
 
 export class Store {
   basicsFormValues: BasicsFormValues = {
@@ -382,6 +383,7 @@ export class Store {
     let message = "";
     let currentMana = this.basics.mana;
     let currentEnergy = this.basics.energy;
+    let combinationPoints = 0;
 
     while (shouldLoopRun) {
       for (const mwSlot of this.mw) {
@@ -527,6 +529,27 @@ export class Store {
               }
             }
 
+            //Combination points gain
+            if (
+              combinationPoints < COMBINATION_POINTS_MAX &&
+              abilityWithState?.combinationPoints?.gain !== undefined
+            ) {
+              combinationPoints += abilityWithState.combinationPoints.gain;
+            }
+
+            //Combination points usage
+            if (abilityWithState?.combinationPoints?.usage !== undefined) {
+              if (abilityWithState.combinationPoints.energyRetrievePercentage) {
+                //
+              }
+
+              const newCombinationPoints =
+                combinationPoints - abilityWithState.combinationPoints.usage;
+
+              combinationPoints =
+                newCombinationPoints < 0 ? 0 : newCombinationPoints;
+            }
+
             //Mana and energy regen
             if (currentMana + this.basics.manaRegen > this.basics.mana) {
               currentMana = this.basics.mana;
@@ -551,6 +574,7 @@ export class Store {
                 current: currentEnergy,
                 abilityCost: abilityEnergyCost,
               },
+              combinationPoints,
             });
 
             turnsCounter++;

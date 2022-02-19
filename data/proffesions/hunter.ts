@@ -1,4 +1,5 @@
 import { Proffesion } from "../../types/Proffesion";
+import { COMBINATION_POINTS_MAX } from "../../utils/constants";
 
 const hunter: Proffesion = {
   value: "hunter",
@@ -23,6 +24,11 @@ const hunter: Proffesion = {
       },
       cooldown: 5,
       minLevel: 25,
+      combinationPoints: {
+        gain: 1,
+        usage: COMBINATION_POINTS_MAX,
+        energyRetrievePercentage: 5,
+      },
     },
     {
       id: 2,
@@ -43,6 +49,9 @@ const hunter: Proffesion = {
       },
       cooldown: 3,
       minLevel: 25,
+      combinationPoints: {
+        gain: 1,
+      },
     },
     {
       id: 3,

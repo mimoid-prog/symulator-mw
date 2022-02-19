@@ -32,7 +32,7 @@ const MwSimulationModal = observer(
         isOpen={isOpen}
         onClose={onClose}
         closeOnOverlayClick={false}
-        size="xl"
+        size="2xl"
       >
         <ModalOverlay />
         <ModalContent>
@@ -76,6 +76,15 @@ const MwSimulationModal = observer(
                                 >
                                   <span>{turn.energy.current}</span>
                                   <span>energia</span>{" "}
+                                </Box>
+                              </Badge>
+                              <Badge colorScheme="purple" width="120px">
+                                <Box
+                                  display="flex"
+                                  justifyContent="space-between"
+                                >
+                                  <span>{turn.combinationPoints}</span>
+                                  <span>p. kombinacji</span>{" "}
                                 </Box>
                               </Badge>
                             </HStack>

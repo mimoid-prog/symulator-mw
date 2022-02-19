@@ -19,4 +19,9 @@ export type Ability = {
   energy: PowerUnit;
   cooldown: number;
   minLevel: number;
+  combinationPoints?: {
+    gain?: number;
+    usage?: number;
+    energyRetrievePercentage?: number;
+  };
 };

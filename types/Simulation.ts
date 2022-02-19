@@ -12,6 +12,7 @@ export type Turn = {
     current: number;
     abilityCost: number;
   };
+  combinationPoints: number;
 };
 
 export type Round = {
