@@ -1,4 +1,4 @@
-import { Proffesion } from "../../types/Proffesion";
+import {Proffesion} from "../../types/Proffesion";
 
 const bladeDancer: Proffesion = {
   value: "bladeDancer",
@@ -66,7 +66,7 @@ const bladeDancer: Proffesion = {
     },
     {
       id: 4,
-      name: "Rozjuszenie",
+      name: "Stłamszenie",
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -86,46 +86,6 @@ const bladeDancer: Proffesion = {
     },
     {
       id: 5,
-      name: "Rozpraszający okrzyk",
-      mana: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      energy: {
-        initialCost: 16,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: [1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      cooldown: 0,
-      minLevel: 35,
-    },
-    {
-      id: 6,
-      name: "Wirujące ostrze",
-      mana: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      energy: {
-        initialCost: 11,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: 1,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      cooldown: 2,
-      minLevel: 50,
-    },
-    {
-      id: 7,
       name: "Zadziorny atak",
       mana: {
         initialCost: null,
@@ -142,6 +102,46 @@ const bladeDancer: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       cooldown: 0,
+      minLevel: 35,
+    },
+    {
+      id: 6,
+      name: "Rozpraszający atak",
+      mana: {
+        initialCost: null,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: null,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      energy: {
+        initialCost: 16,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: [1, 1, 1, 1, 2, 2, 2, 2, 2],
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      cooldown: 0,
+      minLevel: 50,
+    },
+    {
+      id: 7,
+      name: "Wirujące ostrze",
+      mana: {
+        initialCost: null,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: null,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      energy: {
+        initialCost: 11,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: 1,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      cooldown: 2,
       minLevel: 50,
     },
     {
