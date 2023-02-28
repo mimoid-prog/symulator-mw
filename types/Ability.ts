@@ -1,7 +1,10 @@
 export type PowerUnit = {
   initialCost: number | null;
   multiplierForInitialCostBasedOnLevel: number | null;
-  growth: number | number[] | null;
+  growth:
+    | number
+    | [number, number, number, number, number, number, number, number, number]
+    | null;
   growthDown?: boolean;
   multiplierForGrowthCostBasedOnLevel: number | null;
   multiplierForUsingAbilityTwiceInARow: number | null;
