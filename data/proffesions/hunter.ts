@@ -1,4 +1,4 @@
-import { Proffesion } from "../../types/Proffesion";
+import {Proffesion} from "../../types/Proffesion";
 
 const hunter: Proffesion = {
   value: "hunter",
@@ -77,7 +77,7 @@ const hunter: Proffesion = {
       energy: {
         initialCost: 25,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: [1, 1, 1, 1, 1, 2, 2, 2, 2, 2],
+        growth: [1, 1, 1, 1, 2, 2, 2, 2, 2],
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
