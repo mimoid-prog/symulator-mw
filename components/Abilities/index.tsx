@@ -7,18 +7,22 @@ import {
   StatHelpText,
   Button,
 } from "@chakra-ui/react";
-import { Heading } from "@chakra-ui/layout";
-import { observer } from "mobx-react-lite";
-import { AbilityWithState } from "../../types/AbilityWithState";
-import { MouseEvent } from "react";
+import {Heading} from "@chakra-ui/layout";
+import {observer} from "mobx-react-lite";
+import {AbilityWithState} from "../../types/AbilityWithState";
+import {MouseEvent} from "react";
 
 export type Props = {
   abilitiesWithState: AbilityWithState[];
-  changeAbilityPoints: (shouldIncrease: boolean, id: number) => void;
+  changeAbilityPoints: (
+    shouldIncrease: boolean,
+    id: number,
+    shouldSetExtremumPoints: boolean
+  ) => void;
 };
 
 const Abilities = observer(
-  ({ abilitiesWithState, changeAbilityPoints }: Props) => {
+  ({abilitiesWithState, changeAbilityPoints}: Props) => {
     const handlePointsChange = (
       e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
       id: number
@@ -26,9 +30,9 @@ const Abilities = observer(
       e.preventDefault();
 
       if (e.button === 0) {
-        changeAbilityPoints(true, id);
+        changeAbilityPoints(true, id, e.ctrlKey ? true : false);
       } else if (e.button === 2) {
-        changeAbilityPoints(false, id);
+        changeAbilityPoints(false, id, e.ctrlKey ? true : false);
       }
     };
 
