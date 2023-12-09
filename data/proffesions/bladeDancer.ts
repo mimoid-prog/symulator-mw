@@ -1,12 +1,12 @@
-import {Proffesion} from "../../types/Proffesion";
+import { Proffesion } from '../../types/Proffesion';
 
 const bladeDancer: Proffesion = {
-  value: "bladeDancer",
-  label: "Tancerz ostrzy",
+  value: 'bladeDancer',
+  label: 'Tancerz ostrzy',
   abilities: [
     {
       id: 1,
-      name: "Trujące pchnięcie",
+      name: 'Trujące pchnięcie',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -15,7 +15,7 @@ const bladeDancer: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 16,
+        initialCost: 24,
         multiplierForInitialCostBasedOnLevel: null,
         growth: 1,
         multiplierForGrowthCostBasedOnLevel: null,
@@ -26,7 +26,7 @@ const bladeDancer: Proffesion = {
     },
     {
       id: 2,
-      name: "Błyskawiczny cios",
+      name: 'Błyskawiczny cios',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -35,9 +35,9 @@ const bladeDancer: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 18,
+        initialCost: 16,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 2,
+        growth: 3,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
@@ -46,7 +46,7 @@ const bladeDancer: Proffesion = {
     },
     {
       id: 3,
-      name: "Podstępne uderzenie",
+      name: 'Podstępne uderzenie',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -66,7 +66,27 @@ const bladeDancer: Proffesion = {
     },
     {
       id: 4,
-      name: "Stłamszenie",
+      name: 'Stłamszenie',
+      mana: {
+        initialCost: null,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: null,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      energy: {
+        initialCost: 18,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: 2,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      cooldown: 2,
+      minLevel: 35,
+    },
+    {
+      id: 5,
+      name: 'Zadziorny atak',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -77,27 +97,7 @@ const bladeDancer: Proffesion = {
       energy: {
         initialCost: 15,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 1,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      cooldown: 3,
-      minLevel: 35,
-    },
-    {
-      id: 5,
-      name: "Zadziorny atak",
-      mana: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      energy: {
-        initialCost: 21,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: 1,
+        growth: 2,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
@@ -106,7 +106,7 @@ const bladeDancer: Proffesion = {
     },
     {
       id: 6,
-      name: "Rozpraszający atak",
+      name: 'Rozpraszający atak',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -126,7 +126,7 @@ const bladeDancer: Proffesion = {
     },
     {
       id: 7,
-      name: "Wirujące ostrze",
+      name: 'Wirujące ostrze',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -146,7 +146,7 @@ const bladeDancer: Proffesion = {
     },
     {
       id: 8,
-      name: "Jadowity podmuch",
+      name: 'Jadowity podmuch',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -155,18 +155,18 @@ const bladeDancer: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 15,
+        initialCost: 21,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 5,
+        growth: 1,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
-      cooldown: 5,
+      cooldown: 0,
       minLevel: 50,
     },
     {
       id: 9,
-      name: "Furia",
+      name: 'Furia',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -181,12 +181,38 @@ const bladeDancer: Proffesion = {
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
-      cooldown: 7,
-      minLevel: 120,
+      cooldown: 8,
+      minLevel: 80,
     },
     {
       id: 10,
-      name: "Opatrywanie ran",
+      name: 'Odetchnięcie',
+      new: true,
+      mana: {
+        initialCost: null,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: null,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      energy: {
+        initialCost: null,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: null,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+        retrieve: {
+          initialPercentageValue: 32,
+          percentageGrowth: 2,
+          percentageWeakening: 10,
+        },
+      },
+      cooldown: 0,
+      minLevel: 80,
+    },
+    {
+      id: 11,
+      name: 'Opatrywanie ran',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -201,12 +227,13 @@ const bladeDancer: Proffesion = {
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
-      cooldown: 0,
+      cooldown: 8,
       minLevel: 120,
     },
     {
-      id: 11,
-      name: "Zamroczenie",
+      id: 12,
+      name: 'Zamroczenie',
+      new: true,
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -215,18 +242,18 @@ const bladeDancer: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 15,
+        initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 1,
+        growth: null,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
-      cooldown: 6,
+      cooldown: 12,
       minLevel: 170,
     },
     {
-      id: 12,
-      name: "Amok",
+      id: 13,
+      name: 'Amok',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -235,14 +262,14 @@ const bladeDancer: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 15,
+        initialCost: 32,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 1,
+        growth: 2,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
-      cooldown: 0,
-      minLevel: 230,
+      cooldown: 16,
+      minLevel: 170,
     },
   ],
 };

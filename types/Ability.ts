@@ -18,6 +18,7 @@ export type PowerUnit = {
 export type Ability = {
   id: number;
   name: string;
+  new?: boolean;
   mana: PowerUnit;
   energy: PowerUnit;
   cooldown: number;
