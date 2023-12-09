@@ -1,12 +1,12 @@
-import { Proffesion } from "../../types/Proffesion";
+import { Proffesion } from '../../types/Proffesion';
 
 const warrior: Proffesion = {
-  value: "warrior",
-  label: "Wojownik",
+  value: 'warrior',
+  label: 'Wojownik',
   abilities: [
     {
       id: 1,
-      name: "Niszczycielski cios",
+      name: 'Niszczycielski cios',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -15,7 +15,7 @@ const warrior: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 19,
+        initialCost: 16,
         multiplierForInitialCostBasedOnLevel: null,
         growth: 1,
         multiplierForGrowthCostBasedOnLevel: null,
@@ -26,7 +26,7 @@ const warrior: Proffesion = {
     },
     {
       id: 2,
-      name: "Błyskawiczny atak",
+      name: 'Błyskawiczny atak',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -35,7 +35,7 @@ const warrior: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 14,
+        initialCost: 16,
         multiplierForInitialCostBasedOnLevel: null,
         growth: 2,
         multiplierForGrowthCostBasedOnLevel: null,
@@ -46,7 +46,7 @@ const warrior: Proffesion = {
     },
     {
       id: 3,
-      name: "Ogłuszający cios",
+      name: 'Okrzyk bojowy',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -55,9 +55,29 @@ const warrior: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 20,
+        initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 5,
+        growth: null,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      cooldown: 9,
+      minLevel: 25,
+    },
+    {
+      id: 4,
+      name: 'Ogłuszający cios',
+      mana: {
+        initialCost: null,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: null,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      energy: {
+        initialCost: 18,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: [4, 4, 4, 4, 6, 8, 6, 6, 6],
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: 0.5,
       },
@@ -65,8 +85,8 @@ const warrior: Proffesion = {
       minLevel: 35,
     },
     {
-      id: 4,
-      name: "Uderzenie zza tarczy",
+      id: 5,
+      name: 'Zdruzgotanie',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -75,7 +95,7 @@ const warrior: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 10,
+        initialCost: 15,
         multiplierForInitialCostBasedOnLevel: null,
         growth: 1,
         multiplierForGrowthCostBasedOnLevel: null,
@@ -85,8 +105,8 @@ const warrior: Proffesion = {
       minLevel: 35,
     },
     {
-      id: 5,
-      name: "Wyzywający okrzyk",
+      id: 6,
+      name: 'Wyzywający okrzyk',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -95,9 +115,9 @@ const warrior: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 6,
+        initialCost: 5,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: [0, 1, 0, 1, 0, 1, 0, 1, 0],
+        growth: 1,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
@@ -105,8 +125,8 @@ const warrior: Proffesion = {
       minLevel: 35,
     },
     {
-      id: 6,
-      name: "Krwiożerczy szał",
+      id: 7,
+      name: 'Przemożenie zmęczenia',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -115,18 +135,23 @@ const warrior: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 19,
+        initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 1,
+        growth: null,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
+        retrieve: {
+          initialPercentageValue: 23,
+          percentageGrowth: 3,
+          percentageWeakening: 10,
+        },
       },
-      cooldown: 5,
+      cooldown: 0,
       minLevel: 50,
     },
     {
-      id: 7,
-      name: "Agresywny atak",
+      id: 8,
+      name: 'Szarża',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -135,9 +160,29 @@ const warrior: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 12,
+        initialCost: null,
+        multiplierForInitialCostBasedOnLevel: 0.3,
+        growth: null,
+        multiplierForGrowthCostBasedOnLevel: 0,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      cooldown: 8,
+      minLevel: 50,
+    },
+    {
+      id: 9,
+      name: 'Agresywny atak',
+      mana: {
+        initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 1,
+        growth: null,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      energy: {
+        initialCost: 15,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: 2,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
@@ -145,8 +190,8 @@ const warrior: Proffesion = {
       minLevel: 50,
     },
     {
-      id: 8,
-      name: "Osłona tarczą",
+      id: 10,
+      name: 'Osłona tarczą',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -165,8 +210,8 @@ const warrior: Proffesion = {
       minLevel: 50,
     },
     {
-      id: 9,
-      name: "Krwawa szarża",
+      id: 11,
+      name: 'Krwiożerczy szał',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -175,83 +220,38 @@ const warrior: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 21,
+        initialCost: 18,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: 2,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      cooldown: 8,
+      minLevel: 170,
+    },
+    {
+      id: 12,
+      name: 'Kamienna skóra',
+      mana: {
+        initialCost: null,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: null,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      energy: {
+        initialCost: 27,
         multiplierForInitialCostBasedOnLevel: null,
         growth: 1,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
       cooldown: 8,
-      minLevel: 80,
-    },
-    {
-      id: 10,
-      name: "Kamienna skóra",
-      mana: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      energy: {
-        initialCost: 21,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: 1,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      cooldown: 7,
-      minLevel: 120,
-    },
-    {
-      id: 11,
-      name: "Przemożenie zmęczenia",
-      mana: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      energy: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-        retrieve: {
-          initialPercentageValue: 24,
-          percentageGrowth: 4,
-          percentageWeakening: 10,
-        },
-      },
-      cooldown: 7,
-      minLevel: 120,
-    },
-    {
-      id: 12,
-      name: "Wampiryzm",
-      mana: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      energy: {
-        initialCost: 31,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: 1,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      cooldown: 2,
       minLevel: 170,
     },
     {
       id: 13,
-      name: "Paraliżujący cios",
+      name: 'Paraliżujący cios',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -260,34 +260,14 @@ const warrior: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 10,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: 1,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      cooldown: 0,
-      minLevel: 170,
-    },
-    {
-      id: 14,
-      name: "Okrzyk bojowy",
-      mana: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      energy: {
-        initialCost: 10,
+        initialCost: 25,
         multiplierForInitialCostBasedOnLevel: null,
         growth: 2,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
-      cooldown: 7,
-      minLevel: 230,
+      cooldown: 3,
+      minLevel: 170,
     },
   ],
 };
