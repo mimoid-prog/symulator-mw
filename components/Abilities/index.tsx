@@ -101,7 +101,7 @@ const Abilities = observer(
                     <StatNumber>{abilityWithState.points}/10</StatNumber>
                   )}
                   <StatHelpText>
-                    Koszt many: {abilityWithState.manaCost}, koszt energii:{' '}
+                    Koszty | Mana: {abilityWithState.manaCost}, Energia:{' '}
                     {abilityWithState.energyCost}
                   </StatHelpText>
                 </Stat>

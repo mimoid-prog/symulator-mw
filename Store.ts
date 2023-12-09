@@ -1,21 +1,21 @@
-import {action, makeAutoObservable} from "mobx";
-import {nanoid} from "nanoid";
-import defaultAbility from "./data/defaultAbility";
-import proffesions from "./data/proffesions";
-import {AbilityWithState} from "./types/AbilityWithState";
-import {Basics} from "./types/Basics";
-import {BasicsFormValues} from "./types/BasicsFormValues";
-import {MwSlotType} from "./types/MwSlotType";
-import {Round, Simulation, Turn} from "./types/Simulation";
+import { action, makeAutoObservable } from 'mobx';
+import { nanoid } from 'nanoid';
+import defaultAbility from './data/defaultAbility';
+import proffesions from './data/proffesions';
+import { AbilityWithState } from './types/AbilityWithState';
+import { Basics } from './types/Basics';
+import { BasicsFormValues } from './types/BasicsFormValues';
+import { MwSlotType } from './types/MwSlotType';
+import { Round, Simulation, Turn } from './types/Simulation';
 
 export class Store {
   basicsFormValues: BasicsFormValues = {
-    level: "",
-    mana: "",
-    energy: "",
-    manaRegen: "",
-    energyRegen: "",
-    proffesion: "",
+    level: '',
+    mana: '',
+    energy: '',
+    manaRegen: '',
+    energyRegen: '',
+    proffesion: '',
   };
 
   basics: Basics = {
@@ -24,7 +24,7 @@ export class Store {
     energy: 0,
     manaRegen: 0,
     energyRegen: 0,
-    proffesion: "",
+    proffesion: '',
   };
 
   abilitiesWithState: AbilityWithState[] = [defaultAbility];
@@ -32,7 +32,7 @@ export class Store {
   mw: MwSlotType[] = [];
   mwTotalGold = 0;
   mwTotalCurrency = 0;
-  mwSpentGoldAndCurrencyHistory: {gold: number; currency: number}[] = [];
+  mwSpentGoldAndCurrencyHistory: { gold: number; currency: number }[] = [];
   isMwSimulationInfinite = true;
 
   isMwSimulationModalOpen = false;
@@ -105,12 +105,12 @@ export class Store {
 
   clearBasics() {
     this.basicsFormValues = {
-      level: "",
-      mana: "",
-      energy: "",
-      manaRegen: "",
-      energyRegen: "",
-      proffesion: "trailer",
+      level: '',
+      mana: '',
+      energy: '',
+      manaRegen: '',
+      energyRegen: '',
+      proffesion: 'trailer',
     };
 
     this.basics = {
@@ -119,7 +119,7 @@ export class Store {
       energy: 0,
       manaRegen: 0,
       energyRegen: 0,
-      proffesion: "trailer",
+      proffesion: 'trailer',
     };
   }
 
@@ -172,7 +172,7 @@ export class Store {
           newManaCost = ability.mana.initialCost;
         } else {
           if (ability.mana.growth !== null) {
-            if (typeof ability.mana.growth === "number") {
+            if (typeof ability.mana.growth === 'number') {
               newManaCost = !ability.mana.growthDown
                 ? ability.mana.initialCost +
                   (newPoints - 1) * ability.mana.growth
@@ -231,7 +231,7 @@ export class Store {
           newEnergyCost = ability.energy.initialCost;
         } else {
           if (ability.energy.growth !== null) {
-            if (typeof ability.energy.growth === "number") {
+            if (typeof ability.energy.growth === 'number') {
               newEnergyCost = !ability.energy.growthDown
                 ? ability.energy.initialCost +
                   (newPoints - 1) * ability.energy.growth
@@ -293,7 +293,7 @@ export class Store {
     }
   }
 
-  addMwSlot({gold, currency}: {gold?: number; currency?: number}) {
+  addMwSlot({ gold, currency }: { gold?: number; currency?: number }) {
     if (gold) {
       this.mwTotalGold += gold;
     }
@@ -348,12 +348,12 @@ export class Store {
     );
   }
 
-  changeMwSlotOrder(id: string, direction: "up" | "down") {
+  changeMwSlotOrder(id: string, direction: 'up' | 'down') {
     const mwSlotIndex = this.mw.findIndex((mwSlot) => mwSlot.id === id);
 
     if (mwSlotIndex !== -1) {
       const temporaryMwSlotIndex =
-        direction === "up" ? mwSlotIndex - 1 : mwSlotIndex + 1;
+        direction === 'up' ? mwSlotIndex - 1 : mwSlotIndex + 1;
 
       const temporaryMwSlot = {
         ...this.mw[temporaryMwSlotIndex],
@@ -395,7 +395,7 @@ export class Store {
     let turnsCounter = 0;
 
     let turns: Turn[] = [];
-    let message = "";
+    let message = '';
     let currentMana = this.basics.mana;
     let currentEnergy = this.basics.energy;
 
@@ -416,11 +416,14 @@ export class Store {
           //Skip performing ability if it is on cooldown and move to the next turn
           let isAbilityOnCooldown = false;
 
-          if (abilityWithState.cooldown) {
+          const cooldown =
+            typeof abilityWithState.cooldown === 'number'
+              ? abilityWithState.cooldown
+              : abilityWithState.cooldown[abilityWithState.points - 1];
+
+          if (cooldown > 0) {
             const turnsToCheckForCooldown = turns.slice(
-              turnsCounter - abilityWithState.cooldown < 0
-                ? 0
-                : turnsCounter - abilityWithState.cooldown,
+              turnsCounter - cooldown < 0 ? 0 : turnsCounter - cooldown,
               turnsCounter
             );
 
