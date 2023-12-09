@@ -6,11 +6,12 @@ import {
   StatNumber,
   StatHelpText,
   Button,
-} from "@chakra-ui/react";
-import {Heading} from "@chakra-ui/layout";
-import {observer} from "mobx-react-lite";
-import {AbilityWithState} from "../../types/AbilityWithState";
-import {MouseEvent} from "react";
+  Tag,
+} from '@chakra-ui/react';
+import { Heading } from '@chakra-ui/layout';
+import { observer } from 'mobx-react-lite';
+import { AbilityWithState } from '../../types/AbilityWithState';
+import { MouseEvent } from 'react';
 
 export type Props = {
   abilitiesWithState: AbilityWithState[];
@@ -22,7 +23,7 @@ export type Props = {
 };
 
 const Abilities = observer(
-  ({abilitiesWithState, changeAbilityPoints}: Props) => {
+  ({ abilitiesWithState, changeAbilityPoints }: Props) => {
     const handlePointsChange = (
       e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
       id: number
@@ -38,12 +39,12 @@ const Abilities = observer(
 
     const getBorderColor = (abilityId: number, points: number) => {
       return abilityId === 0
-        ? "green.400"
+        ? 'green.400'
         : points === 0
-        ? "red.400"
+        ? 'red.400'
         : points === 10
-        ? "green.400"
-        : "yellow.600";
+        ? 'green.400'
+        : 'yellow.600';
     };
 
     return (
@@ -54,8 +55,8 @@ const Abilities = observer(
             <Button
               variant="outline"
               style={{
-                height: "100%",
-                paddingTop: "6px",
+                height: '100%',
+                paddingTop: '6px',
               }}
               key={abilityWithState.id}
               onClick={(e) => handlePointsChange(e, abilityWithState.id)}
@@ -66,6 +67,33 @@ const Abilities = observer(
               )}
               disabled={abilityWithState.id === 0}
             >
+              {abilityWithState.new && (
+                <Tag
+                  colorScheme="blue"
+                  variant="outline"
+                  size="sm"
+                  style={{
+                    position: 'absolute',
+                    top: 8,
+                    left: 8,
+                  }}
+                >
+                  Nowość
+                </Tag>
+              )}
+
+              <Tag
+                colorScheme="blue"
+                size="sm"
+                style={{
+                  position: 'absolute',
+                  top: 8,
+                  right: 8,
+                }}
+              >
+                lvl: {abilityWithState.minLevel}
+              </Tag>
+
               <Box>
                 <Stat>
                   <StatLabel>{abilityWithState.name}</StatLabel>
@@ -73,7 +101,7 @@ const Abilities = observer(
                     <StatNumber>{abilityWithState.points}/10</StatNumber>
                   )}
                   <StatHelpText>
-                    Koszt many: {abilityWithState.manaCost}, koszt energii:{" "}
+                    Koszty | Mana: {abilityWithState.manaCost}, Energia:{' '}
                     {abilityWithState.energyCost}
                   </StatHelpText>
                 </Stat>

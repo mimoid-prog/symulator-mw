@@ -1,8 +1,8 @@
-import { Box } from "@chakra-ui/layout";
-import { Select, Text, IconButton, HStack } from "@chakra-ui/react";
-import { AbilityWithState } from "../../types/AbilityWithState";
-import { ArrowUpIcon, ArrowDownIcon, CloseIcon } from "@chakra-ui/icons";
-import { ChangeEvent } from "react";
+import { Box } from '@chakra-ui/layout';
+import { Select, Text, IconButton, HStack } from '@chakra-ui/react';
+import { AbilityWithState } from '../../types/AbilityWithState';
+import { ArrowUpIcon, ArrowDownIcon, CloseIcon } from '@chakra-ui/icons';
+import { ChangeEvent } from 'react';
 
 export type Props = {
   index: number;
@@ -14,7 +14,7 @@ export type Props = {
   })[];
   removeMwSlot: (id: string) => void;
   changeMwSlotAbility: (id: string, abilityId: number) => void;
-  changeMwSlotOrder: (id: string, direction: "up" | "down") => void;
+  changeMwSlotOrder: (id: string, direction: 'up' | 'down') => void;
 };
 
 const MwSlot = ({
@@ -43,7 +43,7 @@ const MwSlot = ({
               key={ability.id}
               disabled={ability.disabled}
             >
-              {ability.name}
+              {ability.name} {ability.disabled && '(odnawia się)'}
             </option>
           ))}
         </Select>
@@ -52,7 +52,7 @@ const MwSlot = ({
           icon={<ArrowUpIcon />}
           size="xs"
           colorScheme="green"
-          onClick={() => changeMwSlotOrder(id, "up")}
+          onClick={() => changeMwSlotOrder(id, 'up')}
           disabled={index === 0}
         />
         <IconButton
@@ -60,7 +60,7 @@ const MwSlot = ({
           icon={<ArrowDownIcon />}
           size="xs"
           colorScheme="green"
-          onClick={() => changeMwSlotOrder(id, "down")}
+          onClick={() => changeMwSlotOrder(id, 'down')}
           disabled={index === mwSlotsAmount - 1}
         />
         <IconButton

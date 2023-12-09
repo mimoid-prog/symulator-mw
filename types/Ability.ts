@@ -18,8 +18,22 @@ export type PowerUnit = {
 export type Ability = {
   id: number;
   name: string;
+  new?: boolean;
   mana: PowerUnit;
   energy: PowerUnit;
-  cooldown: number;
+  cooldown:
+    | number
+    | [
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number,
+        number
+      ];
   minLevel: number;
 };

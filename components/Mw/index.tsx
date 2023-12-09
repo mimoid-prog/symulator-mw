@@ -1,10 +1,10 @@
-import { Box, Checkbox } from "@chakra-ui/react";
-import { Heading, Stack } from "@chakra-ui/layout";
-import { observer } from "mobx-react-lite";
-import { MwSlotType } from "../../types/MwSlotType";
-import MwSlot from "./MwSlot";
-import MwSlotToBuy from "./MwSlotToBuy";
-import { AbilityWithState } from "../../types/AbilityWithState";
+import { Box, Checkbox } from '@chakra-ui/react';
+import { Heading, Stack } from '@chakra-ui/layout';
+import { observer } from 'mobx-react-lite';
+import { MwSlotType } from '../../types/MwSlotType';
+import MwSlot from './MwSlot';
+import MwSlotToBuy from './MwSlotToBuy';
+import { AbilityWithState } from '../../types/AbilityWithState';
 
 const allMwSlotsToBuy = [
   {
@@ -39,7 +39,7 @@ export type Props = {
   activeAbilities: AbilityWithState[];
   removeMwSlot: (id: string) => void;
   changeMwSlotAbility: (id: string, abilityId: number) => void;
-  changeMwSlotOrder: (id: string, direction: "up" | "down") => void;
+  changeMwSlotOrder: (id: string, direction: 'up' | 'down') => void;
   isMwSimulationInfinite: boolean;
   changeMwInfinite: () => void;
 };
@@ -73,9 +73,14 @@ const Mw = observer(
           <Stack>
             {mw.map((mwItem, i) => {
               const abilities = activeAbilities.map((ability) => {
-                if (ability.cooldown > 0) {
+                const cooldown =
+                  typeof ability.cooldown === 'number'
+                    ? ability.cooldown
+                    : ability.cooldown[ability.points - 1];
+
+                if (cooldown > 0) {
                   const mwSlotsToCheck = mw.slice(
-                    i - ability.cooldown < 0 ? 0 : i - ability.cooldown,
+                    i - cooldown < 0 ? 0 : i - cooldown,
                     i
                   );
 

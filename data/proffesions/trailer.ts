@@ -1,12 +1,12 @@
-import { Proffesion } from "../../types/Proffesion";
+import { Proffesion } from '../../types/Proffesion';
 
 const trailer: Proffesion = {
-  value: "trailer",
-  label: "Tropciciel",
+  value: 'trailer',
+  label: 'Tropciciel',
   abilities: [
     {
       id: 1,
-      name: "Lodowa strzała",
+      name: 'Lodowa strzała',
       mana: {
         initialCost: 20,
         multiplierForInitialCostBasedOnLevel: null,
@@ -26,11 +26,11 @@ const trailer: Proffesion = {
     },
     {
       id: 2,
-      name: "Płonąca strzała",
+      name: 'Płonąca strzała',
       mana: {
         initialCost: 30,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 20,
+        growth: 10,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: 1,
       },
@@ -46,11 +46,11 @@ const trailer: Proffesion = {
     },
     {
       id: 3,
-      name: "Porażająca strzała",
+      name: 'Porażająca strzała',
       mana: {
         initialCost: 30,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 10,
+        growth: 5,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: 1,
       },
@@ -66,7 +66,7 @@ const trailer: Proffesion = {
     },
     {
       id: 4,
-      name: "Podwójne trafienie",
+      name: 'Podwójne trafienie',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -75,7 +75,7 @@ const trailer: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
-        initialCost: 31,
+        initialCost: 25,
         multiplierForInitialCostBasedOnLevel: null,
         growth: 1,
         multiplierForGrowthCostBasedOnLevel: null,
@@ -86,11 +86,11 @@ const trailer: Proffesion = {
     },
     {
       id: 5,
-      name: "Podwójny dech",
+      name: 'Podwójny dech',
       mana: {
         initialCost: 30,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 10,
+        growth: 5,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
@@ -106,11 +106,11 @@ const trailer: Proffesion = {
     },
     {
       id: 6,
-      name: "Strzała z niespodzianką",
+      name: 'Strzała z niespodzianką',
       mana: {
-        initialCost: 10,
+        initialCost: 12,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 3,
+        growth: 2,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
@@ -121,12 +121,12 @@ const trailer: Proffesion = {
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
-      cooldown: 0,
+      cooldown: 3,
       minLevel: 35,
     },
     {
       id: 7,
-      name: "Wycieńczająca strzała",
+      name: 'Wycieńczająca strzała',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
@@ -137,36 +137,37 @@ const trailer: Proffesion = {
       energy: {
         initialCost: 22,
         multiplierForInitialCostBasedOnLevel: null,
-        growth: 2,
+        growth: [2, 1, 2, 1, 2, 1, 2, 1, 2],
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
-      cooldown: 3,
+      cooldown: 5,
       minLevel: 35,
     },
     {
       id: 8,
-      name: "Grad strzał",
+      name: 'Zaklęty grot',
+      new: true,
       mana: {
+        initialCost: 13,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: 2,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      energy: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: null,
         growth: null,
         multiplierForGrowthCostBasedOnLevel: null,
         multiplierForUsingAbilityTwiceInARow: null,
       },
-      energy: {
-        initialCost: 50,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: 3,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      cooldown: 2,
+      cooldown: 4,
       minLevel: 50,
     },
     {
       id: 9,
-      name: "Kojące ochłodzenie",
+      name: 'Kojące ochłodzenie',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: 1,
@@ -186,7 +187,37 @@ const trailer: Proffesion = {
     },
     {
       id: 10,
-      name: "Emanująca strzała",
+      name: 'Przywracanie mocy',
+      mana: {
+        initialCost: null,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: null,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+        retrieve: {
+          initialPercentageValue: 23,
+          percentageGrowth: 3,
+          percentageWeakening: 10,
+        },
+      },
+      energy: {
+        initialCost: null,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: null,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+        retrieve: {
+          initialPercentageValue: 23,
+          percentageGrowth: 3,
+          percentageWeakening: 10,
+        },
+      },
+      cooldown: 0,
+      minLevel: 50,
+    },
+    {
+      id: 11,
+      name: 'Emanująca strzała',
       mana: {
         initialCost: null,
         multiplierForInitialCostBasedOnLevel: 1,
@@ -202,16 +233,36 @@ const trailer: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       cooldown: 5,
-      minLevel: 80,
+      minLevel: 120,
     },
     {
-      id: 11,
-      name: "Śmierdzący ładunek",
+      id: 12,
+      name: 'Gwałtowny strzał',
       mana: {
         initialCost: null,
-        multiplierForInitialCostBasedOnLevel: 0.15,
+        multiplierForInitialCostBasedOnLevel: null,
         growth: null,
-        multiplierForGrowthCostBasedOnLevel: 0.05,
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      energy: {
+        initialCost: 30,
+        multiplierForInitialCostBasedOnLevel: null,
+        growth: [1, 1, 1, 1, 2, 2, 2, 2, 2],
+        multiplierForGrowthCostBasedOnLevel: null,
+        multiplierForUsingAbilityTwiceInARow: null,
+      },
+      cooldown: 5,
+      minLevel: 120,
+    },
+    {
+      id: 13,
+      name: 'Śmierdzący ładunek',
+      mana: {
+        initialCost: null,
+        multiplierForInitialCostBasedOnLevel: 0.42,
+        growth: null,
+        multiplierForGrowthCostBasedOnLevel: 0.02,
         multiplierForUsingAbilityTwiceInARow: null,
       },
       energy: {
@@ -222,102 +273,7 @@ const trailer: Proffesion = {
         multiplierForUsingAbilityTwiceInARow: null,
       },
       cooldown: 7,
-      minLevel: 120,
-    },
-    {
-      id: 12,
-      name: "Przywracanie mocy",
-      mana: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-        retrieve: {
-          initialPercentageValue: 23,
-          percentageGrowth: 3,
-          percentageWeakening: 10,
-        },
-      },
-      energy: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-        retrieve: {
-          initialPercentageValue: 23,
-          percentageGrowth: 3,
-          percentageWeakening: 10,
-        },
-      },
-      cooldown: 0,
-      minLevel: 120,
-    },
-    {
-      id: 13,
-      name: "Rytuał ochrony żywiołów",
-      mana: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: 0.75,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: 0.05,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      energy: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      cooldown: 8,
-      minLevel: 120,
-    },
-    {
-      id: 14,
-      name: "Gwałtowny strzał",
-      mana: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      energy: {
-        initialCost: 32,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: 2,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      cooldown: 3,
       minLevel: 170,
-    },
-    {
-      id: 15,
-      name: "Mistyczny strzał",
-      mana: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-        retrieve: {
-          initialPercentageValue: 10,
-          percentageGrowth: null,
-          percentageWeakening: 10,
-        },
-      },
-      energy: {
-        initialCost: null,
-        multiplierForInitialCostBasedOnLevel: null,
-        growth: null,
-        multiplierForGrowthCostBasedOnLevel: null,
-        multiplierForUsingAbilityTwiceInARow: null,
-      },
-      cooldown: 0,
-      minLevel: 230,
     },
   ],
 };
