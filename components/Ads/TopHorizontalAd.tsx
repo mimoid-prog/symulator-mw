@@ -4,6 +4,7 @@ import Script from 'next/script';
 export const TopHoriozntalAd = () => {
  useEffect(() => {
   try {
+   //@ts-ignore
    (window.adsbygoogle = window.adsbygoogle || []).push({});
   } catch (err) {
    console.error(err);
