@@ -22,9 +22,9 @@ const Home: NextPage = observer(() => {
     />
    </Head>
    <Container maxW="container.xl">
-    {/* <div>
+    <div>
      <TopHoriozntalAd />
-    </div> */}
+    </div>
     <Header />
     <Box mt={8}>
      <Grid templateColumns="repeat(3,1fr)" gap={6}>
