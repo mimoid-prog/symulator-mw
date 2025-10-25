@@ -1,8 +1,12 @@
 import { createSystem, defaultConfig, defineConfig } from '@chakra-ui/react';
 
 const config = defineConfig({
+ globalCss: {
+  html: {
+   colorPalette: 'brand',
+  },
+ },
  theme: {
-  tokens: {},
   semanticTokens: {
    colors: {
     brand: {
