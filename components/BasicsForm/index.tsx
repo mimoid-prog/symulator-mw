@@ -136,7 +136,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
      </Field.Root>
     </Stack>
     <Box mt={6}>
-     <Button colorPalette="teal" type="submit">
+     <Button colorPalette="brand" type="submit">
       Zapisz
      </Button>
     </Box>

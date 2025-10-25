@@ -20,7 +20,10 @@ const GenerateMwSimulationButtonSection = ({
   >
    <Button
     size="lg"
-    colorPalette="teal"
+    colorPalette="brand"
+    bgGradient="to-r"
+    gradientFrom="{colors.brand.primary}"
+    gradientTo="{colors.brand.secondary}"
     disabled={isAtLeastOneMwSlot === false}
     onClick={openMwSimulationModal}
    >
