@@ -1,3 +1,4 @@
+'use client';
 import { Grid, GridItem, Box, Container } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import type { NextPage } from 'next';

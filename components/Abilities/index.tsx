@@ -1,3 +1,4 @@
+'use client';
 import { Box, Stack, Stat, Button, Tag } from '@chakra-ui/react';
 import { Heading } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';

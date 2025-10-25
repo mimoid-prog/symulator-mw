@@ -21,17 +21,18 @@ type Props = {
 const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
  const [values, setValues] = useState<BasicsFormValues>(defaultFormValues);
 
- const errors = useMemo(
-  () => ({
-   level: values.level === undefined || values.level < 0,
-   mana: values.mana === undefined || values.mana < 0,
-   energy: values.energy === undefined || values.energy < 0,
-   manaRegen: values.manaRegen === undefined || values.manaRegen < 0,
-   energyRegen: values.energyRegen === undefined || values.energyRegen < 0,
+ const errors = useMemo(() => {
+  const isInvalidNumber = (v: string) =>
+   v === '' || Number.isNaN(Number(v)) || Number(v) < 0;
+  return {
+   level: isInvalidNumber(values.level),
+   mana: isInvalidNumber(values.mana),
+   energy: isInvalidNumber(values.energy),
+   manaRegen: isInvalidNumber(values.manaRegen),
+   energyRegen: isInvalidNumber(values.energyRegen),
    proffesion: !values.proffesion,
-  }),
-  [values]
- );
+  };
+ }, [values]);
 
  const onSubmit = (e: React.FormEvent) => {
   e.preventDefault();
@@ -47,9 +48,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
       <Field.Label>Poziom postaci</Field.Label>
       <Input
        value={values.level}
-       onChange={(e) =>
-        setValues((v) => ({ ...v, level: Number(e.target.value) }))
-       }
+       onChange={(e) => setValues((v) => ({ ...v, level: e.target.value }))}
       />
       {errors.level && (
        <Field.HelperText>
@@ -62,9 +61,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
       <Field.Label>Mana</Field.Label>
       <Input
        value={values.mana}
-       onChange={(e) =>
-        setValues((v) => ({ ...v, mana: Number(e.target.value) }))
-       }
+       onChange={(e) => setValues((v) => ({ ...v, mana: e.target.value }))}
       />
       {errors.mana && (
        <Field.HelperText>
@@ -77,9 +74,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
       <Field.Label>Energia</Field.Label>
       <Input
        value={values.energy}
-       onChange={(e) =>
-        setValues((v) => ({ ...v, energy: Number(e.target.value) }))
-       }
+       onChange={(e) => setValues((v) => ({ ...v, energy: e.target.value }))}
       />
       {errors.energy && (
        <Field.HelperText>
@@ -92,9 +87,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
       <Field.Label>Regeneracja many</Field.Label>
       <Input
        value={values.manaRegen}
-       onChange={(e) =>
-        setValues((v) => ({ ...v, manaRegen: Number(e.target.value) }))
-       }
+       onChange={(e) => setValues((v) => ({ ...v, manaRegen: e.target.value }))}
       />
       {errors.manaRegen && (
        <Field.HelperText>
@@ -108,7 +101,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
       <Input
        value={values.energyRegen}
        onChange={(e) =>
-        setValues((v) => ({ ...v, energyRegen: Number(e.target.value) }))
+        setValues((v) => ({ ...v, energyRegen: e.target.value }))
        }
       />
       {errors.energyRegen && (
@@ -124,7 +117,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
        <NativeSelect.Field
         value={values.proffesion}
         onChange={(e) =>
-         setValues((v) => ({ ...v, proffesion: e.target.value as any }))
+         setValues((v) => ({ ...v, proffesion: e.target.value }))
         }
        >
         {proffesions.map((proffesion) => (

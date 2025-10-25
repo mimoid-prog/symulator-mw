@@ -165,7 +165,6 @@ export class Store {
    let newManaCost = 0;
 
    if (ability.mana.initialCost !== null) {
-    ability.mana.initialCost + 4;
     if (newPoints === 0) {
      newManaCost = 0;
     } else if (newPoints === 1) {
@@ -220,7 +219,6 @@ export class Store {
    let newEnergyCost = 0;
 
    if (ability.energy.initialCost !== null) {
-    ability.energy.initialCost + 4;
     if (newPoints === 0) {
      newEnergyCost = 0;
     } else if (newPoints === 1) {

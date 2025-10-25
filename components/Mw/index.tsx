@@ -1,3 +1,4 @@
+'use client';
 import { Box, Checkbox, Heading, Stack } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import { MwSlotType } from '../../types/MwSlotType';
@@ -26,7 +27,7 @@ const allMwSlotsToBuy = [
   gold: 3000000,
   currency: 125,
  },
- ...Array.from(Array(15)).map((x) => ({
+ ...Array.from(Array(15)).map(() => ({
   gold: 5000000,
   currency: 150,
  })),
