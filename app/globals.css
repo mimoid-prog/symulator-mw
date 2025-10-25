@@ -1,11 +1,5 @@
 @import 'tailwindcss';
 
-.chakra-theme,
-.chakra-theme.light {
- --background: #eddcbe;
- --foreground: #171717;
-}
-
 @theme inline {
  --color-background: var(--background);
  --color-foreground: var(--foreground);
@@ -13,9 +7,16 @@
  --font-mono: var(--font-geist-mono);
 }
 
+.chakra-theme.light {
+ --background: #eddcbe;
+ --foreground: #171717;
+ --chakra-colors-border: var(--chakra-colors-brand-primary);
+}
+
 .chakra-theme.dark {
  --background: #1a202c; /* requested dark background */
  --foreground: #ededed;
+ --chakra-colors-border: var(--chakra-colors-gray-600);
 }
 
 /* Ensure the viewport background follows color mode (fixes overscroll black) */

@@ -11,21 +11,15 @@ const GenerateMwSimulationButtonSection = ({
  openMwSimulationModal,
 }: Props) => {
  return (
-  <Box
-   position="fixed"
-   bottom={4}
-   left="50%"
-   transform="translateX(-50%)"
-   background="linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.3785889355742297) 100%)"
-  >
+  <Box position="fixed" bottom={4} left="50%" transform="translateX(-50%)">
    <Button
     size="lg"
-    colorPalette="brand"
     bgGradient="to-r"
     gradientFrom="{colors.brand.primary}"
     gradientTo="{colors.brand.secondary}"
     disabled={isAtLeastOneMwSlot === false}
     onClick={openMwSimulationModal}
+    border="none"
    >
     Generuj symulację MW <LuSettings />
    </Button>
