@@ -1,134 +1,155 @@
-import { Heading } from "@chakra-ui/layout";
+'use client';
+import { Heading } from '@chakra-ui/react';
 import {
-  Input,
-  Stack,
-  Button,
-  Select,
-  Box,
-  FormControl,
-  FormLabel,
-  FormHelperText,
-} from "@chakra-ui/react";
-import { observer } from "mobx-react-lite";
-import { SubmitHandler, useForm } from "react-hook-form";
-import proffesions from "../../data/proffesions";
-import { BasicsFormValues } from "../../types/BasicsFormValues";
+ Input,
+ Stack,
+ Button,
+ NativeSelect,
+ Box,
+ Field,
+} from '@chakra-ui/react';
+import { observer } from 'mobx-react-lite';
+import { useMemo, useState } from 'react';
+import proffesions from '../../data/proffesions';
+import { BasicsFormValues } from '../../types/BasicsFormValues';
 
 type Props = {
-  defaultFormValues: BasicsFormValues;
-  saveBasics: (formValues: BasicsFormValues) => void;
+ defaultFormValues: BasicsFormValues;
+ saveBasics: (formValues: BasicsFormValues) => void;
 };
 
 const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<BasicsFormValues>({
-    defaultValues: defaultFormValues,
-  });
+ const [values, setValues] = useState<BasicsFormValues>(defaultFormValues);
 
-  const onSubmit: SubmitHandler<BasicsFormValues> = (formValues) => {
-    saveBasics(formValues);
-  };
+ const errors = useMemo(
+  () => ({
+   level: values.level === undefined || values.level < 0,
+   mana: values.mana === undefined || values.mana < 0,
+   energy: values.energy === undefined || values.energy < 0,
+   manaRegen: values.manaRegen === undefined || values.manaRegen < 0,
+   energyRegen: values.energyRegen === undefined || values.energyRegen < 0,
+   proffesion: !values.proffesion,
+  }),
+  [values]
+ );
 
-  return (
-    <Box>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Stack spacing="12px">
-          <Heading size="md">Podstawowe informacje:</Heading>
-          <FormControl id="level">
-            <FormLabel>Poziom postaci</FormLabel>
-            <Input
-              {...register("level", { required: true, min: 0 })}
-              isInvalid={!!errors.level}
-            />
-            {errors.level && (
-              <FormHelperText>
-                To pole jest wymagane, a wartość musi być dodatnia.
-              </FormHelperText>
-            )}
-          </FormControl>
+ const onSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
+  saveBasics(values);
+ };
 
-          <FormControl id="mana">
-            <FormLabel>Mana</FormLabel>
-            <Input
-              {...register("mana", { required: true, min: 0 })}
-              isInvalid={!!errors.mana}
-            />
-            {errors.mana && (
-              <FormHelperText>
-                To pole jest wymagane, a wartość musi być dodatnia.
-              </FormHelperText>
-            )}
-          </FormControl>
+ return (
+  <Box>
+   <form onSubmit={onSubmit}>
+    <Stack gap="12px">
+     <Heading size="md">Podstawowe informacje:</Heading>
+     <Field.Root invalid={!!errors.level}>
+      <Field.Label>Poziom postaci</Field.Label>
+      <Input
+       value={values.level}
+       onChange={(e) =>
+        setValues((v) => ({ ...v, level: Number(e.target.value) }))
+       }
+      />
+      {errors.level && (
+       <Field.HelperText>
+        To pole jest wymagane, a wartość musi być dodatnia.
+       </Field.HelperText>
+      )}
+     </Field.Root>
 
-          <FormControl id="energy">
-            <FormLabel>Energia</FormLabel>
-            <Input
-              {...register("energy", { required: true, min: 0 })}
-              isInvalid={!!errors.energy}
-            />
-            {errors.energy && (
-              <FormHelperText>
-                To pole jest wymagane, a wartość musi być dodatnia.
-              </FormHelperText>
-            )}
-          </FormControl>
+     <Field.Root invalid={!!errors.mana}>
+      <Field.Label>Mana</Field.Label>
+      <Input
+       value={values.mana}
+       onChange={(e) =>
+        setValues((v) => ({ ...v, mana: Number(e.target.value) }))
+       }
+      />
+      {errors.mana && (
+       <Field.HelperText>
+        To pole jest wymagane, a wartość musi być dodatnia.
+       </Field.HelperText>
+      )}
+     </Field.Root>
 
-          <FormControl id="manaRegen">
-            <FormLabel>Regeneracja many</FormLabel>
-            <Input
-              {...register("manaRegen", { required: true, min: 0 })}
-              isInvalid={!!errors.manaRegen}
-            />
-            {errors.manaRegen && (
-              <FormHelperText>
-                To pole jest wymagane, a wartość musi być dodatnia.
-              </FormHelperText>
-            )}
-          </FormControl>
+     <Field.Root invalid={!!errors.energy}>
+      <Field.Label>Energia</Field.Label>
+      <Input
+       value={values.energy}
+       onChange={(e) =>
+        setValues((v) => ({ ...v, energy: Number(e.target.value) }))
+       }
+      />
+      {errors.energy && (
+       <Field.HelperText>
+        To pole jest wymagane, a wartość musi być dodatnia.
+       </Field.HelperText>
+      )}
+     </Field.Root>
 
-          <FormControl id="energyRegen">
-            <FormLabel>Regeneracja energii</FormLabel>
-            <Input
-              {...register("energyRegen", { required: true, min: 0 })}
-              isInvalid={!!errors.energyRegen}
-            />
-            {errors.energyRegen && (
-              <FormHelperText>
-                To pole jest wymagane, a wartość musi być dodatnia.
-              </FormHelperText>
-            )}
-          </FormControl>
+     <Field.Root invalid={!!errors.manaRegen}>
+      <Field.Label>Regeneracja many</Field.Label>
+      <Input
+       value={values.manaRegen}
+       onChange={(e) =>
+        setValues((v) => ({ ...v, manaRegen: Number(e.target.value) }))
+       }
+      />
+      {errors.manaRegen && (
+       <Field.HelperText>
+        To pole jest wymagane, a wartość musi być dodatnia.
+       </Field.HelperText>
+      )}
+     </Field.Root>
 
-          <FormControl id="proffesion">
-            <FormLabel>Profesja</FormLabel>
-            <Select
-              {...register("proffesion", { required: true })}
-              isInvalid={!!errors.proffesion}
-            >
-              {proffesions.map((proffesion) => (
-                <option value={proffesion.value} key={proffesion.value}>
-                  {proffesion.label}
-                </option>
-              ))}
-            </Select>
-            {errors.proffesion && (
-              <FormHelperText>
-                To pole jest wymagane, a wartość musi być dodatnia.
-              </FormHelperText>
-            )}
-          </FormControl>
-        </Stack>
-        <Box mt={6}>
-          <Button colorScheme="teal" type="submit">
-            Zapisz
-          </Button>
-        </Box>
-      </form>
+     <Field.Root invalid={!!errors.energyRegen}>
+      <Field.Label>Regeneracja energii</Field.Label>
+      <Input
+       value={values.energyRegen}
+       onChange={(e) =>
+        setValues((v) => ({ ...v, energyRegen: Number(e.target.value) }))
+       }
+      />
+      {errors.energyRegen && (
+       <Field.HelperText>
+        To pole jest wymagane, a wartość musi być dodatnia.
+       </Field.HelperText>
+      )}
+     </Field.Root>
+
+     <Field.Root invalid={!!errors.proffesion}>
+      <Field.Label>Profesja</Field.Label>
+      <NativeSelect.Root>
+       <NativeSelect.Field
+        value={values.proffesion}
+        onChange={(e) =>
+         setValues((v) => ({ ...v, proffesion: e.target.value as any }))
+        }
+       >
+        {proffesions.map((proffesion) => (
+         <option value={proffesion.value} key={proffesion.value}>
+          {proffesion.label}
+         </option>
+        ))}
+       </NativeSelect.Field>
+       <NativeSelect.Indicator />
+      </NativeSelect.Root>
+      {errors.proffesion && (
+       <Field.HelperText>
+        To pole jest wymagane, a wartość musi być dodatnia.
+       </Field.HelperText>
+      )}
+     </Field.Root>
+    </Stack>
+    <Box mt={6}>
+     <Button colorPalette="teal" type="submit">
+      Zapisz
+     </Button>
     </Box>
-  );
+   </form>
+  </Box>
+ );
 });
 
 export default BasicsForm;
