@@ -9,7 +9,7 @@ import GenerateMwSimulationButtonSection from '../components/GenerateMwSimulatio
 import Header from '../components/Header';
 import Mw from '../components/Mw';
 import MwSimulationModal from '../components/MwSimulationModal';
-import store from '../Store';
+import store from '../lib/Store';
 
 const Home: NextPage = observer(() => {
  return (

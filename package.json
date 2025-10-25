@@ -3,30 +3,31 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "next dev --turbopack",
+    "build": "next build --turbopack",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint"
   },
   "dependencies": {
-    "@chakra-ui/icons": "^1.0.16",
-    "@chakra-ui/react": "^1.6.10",
-    "@emotion/react": "^11.5.0",
-    "@emotion/styled": "^11.3.0",
-    "framer-motion": "^4.1.17",
-    "mobx": "^6.3.5",
-    "mobx-react-lite": "^3.2.1",
-    "nanoid": "^3.1.30",
-    "next": "11.1.2",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-hook-form": "^7.17.5"
+    "@chakra-ui/react": "^3.28.0",
+    "@emotion/react": "^11.14.0",
+    "mobx": "^6.15.0",
+    "mobx-react-lite": "^4.1.1",
+    "next": "16.0.0-beta.0",
+    "next-themes": "^0.4.6",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
-    "@types/gtag.js": "^0.0.7",
-    "@types/react": "17.0.32",
-    "eslint": "7.32.0",
-    "eslint-config-next": "11.1.2",
-    "typescript": "4.4.4"
+    "@eslint/eslintrc": "^3",
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.0-beta.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
   }
 }
