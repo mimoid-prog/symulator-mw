@@ -60,7 +60,7 @@ const Mw = observer(
   return (
    <Box>
     <Box display="flex" justifyContent="space-between">
-     <Heading size="md">Mistrzostwo walk:</Heading>
+     <Heading size="xl">Mistrzostwo walk:</Heading>
      <Checkbox.Root
       checked={isMwSimulationInfinite}
       onCheckedChange={changeMwInfinite}

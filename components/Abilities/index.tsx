@@ -42,7 +42,7 @@ const Abilities = observer(
   return (
    <Box>
     <Stack gap="12px">
-     <Heading size="md">Umiejętności do użycia:</Heading>
+     <Heading size="xl">Umiejętności do użycia:</Heading>
      {abilitiesWithState.map((abilityWithState) => (
       <Button
        variant="outline"

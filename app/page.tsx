@@ -14,7 +14,7 @@ import store from '../lib/Store';
 const Home: NextPage = observer(() => {
  return (
   <Box mt={8} mb={20}>
-   <Container maxW="container.xl">
+   <Container maxW="8xl">
     <div>
      <TopHoriozntalAd />
     </div>

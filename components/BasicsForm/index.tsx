@@ -43,9 +43,9 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
   <Box>
    <form onSubmit={onSubmit}>
     <Stack gap="12px">
-     <Heading size="md">Podstawowe informacje:</Heading>
+     <Heading size="xl">Podstawowe informacje:</Heading>
      <Field.Root invalid={!!errors.level}>
-      <Field.Label>Poziom postaci</Field.Label>
+      <Field.Label fontSize="md">Poziom postaci</Field.Label>
       <Input
        value={values.level}
        onChange={(e) => setValues((v) => ({ ...v, level: e.target.value }))}
@@ -58,7 +58,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
      </Field.Root>
 
      <Field.Root invalid={!!errors.mana}>
-      <Field.Label>Mana</Field.Label>
+      <Field.Label fontSize="md">Mana</Field.Label>
       <Input
        value={values.mana}
        onChange={(e) => setValues((v) => ({ ...v, mana: e.target.value }))}
@@ -71,7 +71,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
      </Field.Root>
 
      <Field.Root invalid={!!errors.energy}>
-      <Field.Label>Energia</Field.Label>
+      <Field.Label fontSize="md">Energia</Field.Label>
       <Input
        value={values.energy}
        onChange={(e) => setValues((v) => ({ ...v, energy: e.target.value }))}
@@ -84,7 +84,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
      </Field.Root>
 
      <Field.Root invalid={!!errors.manaRegen}>
-      <Field.Label>Regeneracja many</Field.Label>
+      <Field.Label fontSize="md">Regeneracja many</Field.Label>
       <Input
        value={values.manaRegen}
        onChange={(e) => setValues((v) => ({ ...v, manaRegen: e.target.value }))}
@@ -97,7 +97,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
      </Field.Root>
 
      <Field.Root invalid={!!errors.energyRegen}>
-      <Field.Label>Regeneracja energii</Field.Label>
+      <Field.Label fontSize="md">Regeneracja energii</Field.Label>
       <Input
        value={values.energyRegen}
        onChange={(e) =>
@@ -112,7 +112,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
      </Field.Root>
 
      <Field.Root invalid={!!errors.proffesion}>
-      <Field.Label>Profesja</Field.Label>
+      <Field.Label fontSize="md">Profesja</Field.Label>
       <NativeSelect.Root>
        <NativeSelect.Field
         value={values.proffesion}
@@ -136,7 +136,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
      </Field.Root>
     </Stack>
     <Box mt={6}>
-     <Button colorPalette="brand" type="submit">
+     <Button colorPalette="brand" size="md" fontSize="md" type="submit">
       Zapisz
      </Button>
     </Box>
