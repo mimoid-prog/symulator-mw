@@ -39,7 +39,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
   <Box>
    <form onSubmit={handleSubmit(onSubmit)}>
     <Stack gap="12px">
-     <Heading size="xl">Podstawowe informacje:</Heading>
+     <Heading size="xl">Podstawowe informacje</Heading>
      <Field.Root invalid={!!errors.level}>
       <Field.Label fontSize="md">Poziom postaci</Field.Label>
       <Input {...register('level', { validate: validateNumber })} />

@@ -7,26 +7,28 @@
  --font-mono: var(--font-geist-mono);
 }
 
+@keyframes spin {
+ from {
+  transform: rotate(0deg);
+ }
+ to {
+  transform: rotate(180deg);
+ }
+}
+
 .chakra-theme.light {
- --background: #eddcbe;
+ --background: #efe8da;
  --foreground: #171717;
  --chakra-colors-border: var(--chakra-colors-brand-primary);
 }
 
 .chakra-theme.dark {
- --background: #1a202c; /* requested dark background */
+ --background: #1a202c;
  --foreground: #ededed;
  --chakra-colors-border: var(--chakra-colors-gray-600);
 }
 
-/* Ensure the viewport background follows color mode (fixes overscroll black) */
 .chakra-theme {
  background: var(--background);
  color: var(--foreground);
-}
-
-body {
- background: var(--background);
- color: var(--foreground);
- font-family: Arial, Helvetica, sans-serif;
 }

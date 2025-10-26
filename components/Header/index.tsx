@@ -12,7 +12,7 @@ const Header = () => {
     <ColorModeButton />
     <Popover.Root>
      <Popover.Trigger asChild>
-      <Button>
+      <Button variant="surface">
        <LuMail />
        Kontakt
       </Button>

@@ -1,5 +1,5 @@
 'use client';
-import { Box, Stack, Stat, Button, Tag } from '@chakra-ui/react';
+import { Box, Stack, Text, Button, Tag, Flex } from '@chakra-ui/react';
 import { Heading } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import { AbilityWithState } from '../../types/AbilityWithState';
@@ -42,14 +42,12 @@ const Abilities = observer(
   return (
    <Box>
     <Stack gap="12px">
-     <Heading size="xl">Umiejętności do użycia:</Heading>
+     <Heading size="xl">Umiejętności do użycia</Heading>
      {abilitiesWithState.map((abilityWithState) => (
       <Button
        variant="outline"
-       style={{
-        height: '100%',
-        paddingTop: '6px',
-       }}
+       py="6px"
+       height="100%"
        key={abilityWithState.id}
        onClick={(e) => handlePointsChange(e, abilityWithState.id)}
        onContextMenu={(e) => handlePointsChange(e, abilityWithState.id)}
@@ -86,18 +84,16 @@ const Abilities = observer(
         <Tag.Label>lvl: {abilityWithState.minLevel}</Tag.Label>
        </Tag.Root>
 
-       <Box>
-        <Stat.Root>
-         <Stat.Label>{abilityWithState.name}</Stat.Label>
-         {abilityWithState.id !== 0 && (
-          <Stat.ValueText>{abilityWithState.points}/10</Stat.ValueText>
-         )}
-         <Stat.HelpText>
-          Koszty | Mana: {abilityWithState.manaCost}, Energia{' '}
-          {abilityWithState.energyCost}
-         </Stat.HelpText>
-        </Stat.Root>
-       </Box>
+       <Flex direction="column" gap="1">
+        <Text>{abilityWithState.name}</Text>
+        {abilityWithState.id !== 0 && (
+         <Text fontSize="2xl">{abilityWithState.points}/10</Text>
+        )}
+        <Text>
+         Koszty | Mana: {abilityWithState.manaCost}, Energia{' '}
+         {abilityWithState.energyCost}
+        </Text>
+       </Flex>
       </Button>
      ))}
     </Stack>

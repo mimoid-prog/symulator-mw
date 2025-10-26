@@ -1,5 +1,4 @@
 import { Box, Button } from '@chakra-ui/react';
-import { LuSettings } from 'react-icons/lu';
 
 export type Props = {
  isAtLeastOneMwSlot: boolean;
@@ -13,15 +12,22 @@ const GenerateMwSimulationButtonSection = ({
  return (
   <Box position="fixed" bottom={4} left="50%" transform="translateX(-50%)">
    <Button
-    size="lg"
+    size="2xl"
     bgGradient="to-r"
-    gradientFrom="{colors.brand.primary}"
-    gradientTo="{colors.brand.secondary}"
+    gradientTo="{colors.brand.primary}"
+    gradientFrom="{colors.brand.secondary}"
     disabled={isAtLeastOneMwSlot === false}
     onClick={openMwSimulationModal}
     border="none"
+    transition="all 0.3s ease"
+    shadow="xl"
+    _hover={{
+     '& .settings-icon': {
+      animation: 'spin 0.6s ease-in-out',
+     },
+    }}
    >
-    Generuj symulację MW <LuSettings />
+    Generuj symulację MW ⚡
    </Button>
   </Box>
  );

@@ -14,7 +14,12 @@ const MwSlotToBuy = ({ isActive, gold, currency, addMwSlot }: Props) => {
    <Grid templateColumns="repeat(2,1fr)" gap={2}>
     <GridItem>
      <Button
-      size="xs"
+      size="2xs"
+      color={{ _light: 'gray.900', _dark: 'white' }}
+      bgColor={{ _light: '#cfc4b0', _dark: 'gray.700' }}
+      _hover={{
+       bgColor: { _light: '#b8ac97', _dark: 'gray.600' },
+      }}
       disabled={!isActive}
       width="100%"
       onClick={() => addMwSlot({ gold })}
@@ -24,7 +29,12 @@ const MwSlotToBuy = ({ isActive, gold, currency, addMwSlot }: Props) => {
     </GridItem>
     <GridItem>
      <Button
-      size="xs"
+      size="2xs"
+      color={{ _light: 'gray.900', _dark: 'white' }}
+      bgColor={{ _light: '#cfc4b0', _dark: 'gray.700' }}
+      _hover={{
+       bgColor: { _light: '#b8ac97', _dark: 'gray.600' },
+      }}
       disabled={!isActive}
       width="100%"
       onClick={() => addMwSlot({ currency })}
