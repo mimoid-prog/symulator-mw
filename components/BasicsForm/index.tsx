@@ -12,19 +12,15 @@ import { observer } from 'mobx-react-lite';
 import { useForm } from 'react-hook-form';
 import proffesions from '../../data/proffesions';
 import { BasicsFormValues } from '../../types/BasicsFormValues';
+import store from '@/lib/Store';
 
-type Props = {
- defaultFormValues: BasicsFormValues;
- saveBasics: (formValues: BasicsFormValues) => void;
-};
-
-const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
+const BasicsForm = observer(() => {
  const {
   register,
   handleSubmit,
 
   formState: { errors },
- } = useForm<BasicsFormValues>({ defaultValues: defaultFormValues });
+ } = useForm<BasicsFormValues>({ defaultValues: store.basicsFormValues });
 
  const validateNumber = (v: string) =>
   v === '' || Number.isNaN(Number(v)) || Number(v) < 0
@@ -32,7 +28,7 @@ const BasicsForm = observer(({ defaultFormValues, saveBasics }: Props) => {
    : true;
 
  const onSubmit = (data: BasicsFormValues) => {
-  saveBasics(data);
+  store.saveBasics(data);
  };
 
  return (
