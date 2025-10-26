@@ -16,7 +16,7 @@ export default function RootLayout({
 }>) {
  return (
   <html lang="pl" suppressHydrationWarning className="chakra-theme">
-   <body className={`antialiased`}>
+   <body>
     <Provider>{children}</Provider>
    </body>
   </html>
