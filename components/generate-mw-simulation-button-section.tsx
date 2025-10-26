@@ -3,7 +3,7 @@ import { Box, Button } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import store from '@/lib/Store';
 
-const GenerateMwSimulationButtonSection = observer(() => {
+export const GenerateMwSimulationButtonSection = observer(() => {
  return (
   <Box position="fixed" bottom={4} left="50%" transform="translateX(-50%)">
    <Button
@@ -27,5 +27,3 @@ const GenerateMwSimulationButtonSection = observer(() => {
   </Box>
  );
 });
-
-export default GenerateMwSimulationButtonSection;

@@ -2,7 +2,7 @@ import { Flex, Heading, Button, Portal, Popover, Text } from '@chakra-ui/react';
 import { ColorModeButton } from '@/components/ui/color-mode';
 import { LuMail } from 'react-icons/lu';
 
-const Header = () => {
+export const Header = () => {
  return (
   <Flex justifyContent="space-between" alignItems="center">
    <Heading size="4xl" fontWeight="bold" color="{colors.brand.primary}">
@@ -49,5 +49,3 @@ const Header = () => {
   </Flex>
  );
 };
-
-export default Header;

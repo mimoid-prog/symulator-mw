@@ -10,11 +10,11 @@ import {
 } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import { useForm } from 'react-hook-form';
-import proffesions from '../../data/proffesions';
-import { BasicsFormValues } from '../../types/BasicsFormValues';
+import proffesions from '../data/proffesions';
+import { BasicsFormValues } from '../types/BasicsFormValues';
 import store from '@/lib/Store';
 
-const BasicsForm = observer(() => {
+export const BasicsForm = observer(() => {
  const {
   register,
   handleSubmit,
@@ -118,5 +118,3 @@ const BasicsForm = observer(() => {
   </Box>
  );
 });
-
-export default BasicsForm;

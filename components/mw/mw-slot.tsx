@@ -16,7 +16,7 @@ export type Props = {
  changeMwSlotOrder: (id: string, direction: 'up' | 'down') => void;
 };
 
-const MwSlot = ({
+export const MwSlot = ({
  index,
  mwSlotsAmount,
  id,
@@ -75,5 +75,3 @@ const MwSlot = ({
   </Box>
  );
 };
-
-export default MwSlot;

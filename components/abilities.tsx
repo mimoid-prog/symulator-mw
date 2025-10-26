@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 import { MouseEvent } from 'react';
 import store from '@/lib/Store';
 
-const Abilities = observer(() => {
+export const Abilities = observer(() => {
  const handlePointsChange = (
   e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
   id: number
@@ -87,5 +87,3 @@ const Abilities = observer(() => {
   </Box>
  );
 });
-
-export default Abilities;

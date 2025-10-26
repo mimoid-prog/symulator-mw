@@ -9,10 +9,10 @@ import {
  Heading,
 } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
-import shortenGold from '../../utils/shortenGold';
+import shortenGold from '../utils/shortenGold';
 import store from '@/lib/Store';
 
-const MwSimulationModal = observer(() => {
+export const MwSimulationModal = observer(() => {
  return (
   <Dialog.Root
    open={store.isMwSimulationModalOpen}
@@ -88,5 +88,3 @@ const MwSimulationModal = observer(() => {
   </Dialog.Root>
  );
 });
-
-export default MwSimulationModal;

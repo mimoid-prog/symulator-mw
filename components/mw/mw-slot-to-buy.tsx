@@ -8,7 +8,7 @@ export type Props = {
  addMwSlot: (arg: { gold?: number; currency?: number }) => void;
 };
 
-const MwSlotToBuy = ({ isActive, gold, currency, addMwSlot }: Props) => {
+export const MwSlotToBuy = ({ isActive, gold, currency, addMwSlot }: Props) => {
  return (
   <Box borderWidth={1} borderColor="gray.700" padding={2}>
    <Grid templateColumns="repeat(2,1fr)" gap={2}>
@@ -46,5 +46,3 @@ const MwSlotToBuy = ({ isActive, gold, currency, addMwSlot }: Props) => {
   </Box>
  );
 };
-
-export default MwSlotToBuy;
