@@ -7,6 +7,7 @@ import {
  Badge,
  HStack,
  Heading,
+ CloseButton,
 } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import shortenGold from '../utils/shortenGold';
@@ -21,53 +22,85 @@ export const MwSimulationModal = observer(() => {
    <Dialog.Backdrop />
    <Dialog.Positioner>
     <Dialog.Content>
+     <Dialog.CloseTrigger asChild>
+      <CloseButton size="md" />
+     </Dialog.CloseTrigger>
      <Dialog.Header>
-      <Dialog.Title>Symulacja MW</Dialog.Title>
+      <Dialog.Title fontSize="xl">Symulacja MW</Dialog.Title>
      </Dialog.Header>
      <Dialog.Body>
-      <Text fontWeight={700}>
+      <Text fontWeight={700} fontSize="md">
        Wydane złoto: {shortenGold(store.mwTotalGold)}
       </Text>
-      <Text fontWeight={700}>Wydane SŁ: {store.mwTotalCurrency}</Text>
+      <Text fontWeight={700} fontSize="md">
+       Wydane SŁ: {store.mwTotalCurrency}
+      </Text>
 
       {store.simulation && (
        <Box mt={3}>
-        <Box maxHeight="400px" overflow="auto" paddingRight={3}>
+        <Box
+         maxHeight="400px"
+         overflow="auto"
+         paddingRight={3}
+         display="flex"
+         flexDirection="column"
+         gap={1}
+        >
          {store.simulation.rounds.map((round, roundI) => (
           <Box key={roundI} mb={2}>
            {round.turns.length > 0 && (
-            <Badge mb={1}>Kolejka {roundI + 1}</Badge>
+            <Badge
+             mb={2}
+             fontSize="smaller"
+             textTransform="uppercase"
+             fontWeight={700}
+             variant="solid"
+            >
+             Kolejka {roundI + 1}
+            </Badge>
            )}
 
-           {round.turns.map((turn, turnI) => (
-            <Box key={turnI}>
-             <Box display="flex" justifyContent="space-between">
-              <Text>
-               {turn.id + 1}. {turn.abilityWithState.name}{' '}
-              </Text>
-              <HStack>
-               <Badge colorPalette="blue" width="90px">
-                <Box display="flex" justifyContent="space-between">
-                 <span>{turn.mana.current}</span>
-                 <span>mana</span>
-                </Box>
-               </Badge>
-               <Badge colorPalette="yellow" width="100px">
-                <Box display="flex" justifyContent="space-between">
-                 <span>{turn.energy.current}</span>
-                 <span>energia</span>{' '}
-                </Box>
-               </Badge>
-              </HStack>
+           <Box display="flex" flexDirection="column" gap={1}>
+            {round.turns.map((turn) => (
+             <Box key={turn.id}>
+              <Box display="flex" justifyContent="space-between">
+               <Text fontSize="md">
+                {turn.id + 1}. {turn.abilityWithState.name}{' '}
+               </Text>
+               <HStack>
+                <Badge colorPalette="blue" variant="solid" width="90px">
+                 <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  textTransform="uppercase"
+                  width="100%"
+                 >
+                  <span>{turn.mana.current}</span>
+                  <span>mana</span>
+                 </Box>
+                </Badge>
+                <Badge colorPalette="yellow" variant="solid" width="95px">
+                 <Box
+                  display="flex"
+                  justifyContent="space-between"
+                  textTransform="uppercase"
+                  width="100%"
+                 >
+                  <span>{turn.energy.current}</span>
+                  <span>energia</span>{' '}
+                 </Box>
+                </Badge>
+               </HStack>
+              </Box>
              </Box>
-            </Box>
-           ))}
+            ))}
+           </Box>
           </Box>
          ))}
         </Box>
         <Box mt={4}>
-         <Heading size="sm">{store.simulation.message}</Heading>
-         <Heading size="sm">
+         <Heading size="md">{store.simulation.message}</Heading>
+         <Heading size="md">
           Wykonane tury: {store.simulation.turnsCount}
          </Heading>
          {store.simulation.turnsCount >= 1000 && (
@@ -77,11 +110,7 @@ export const MwSimulationModal = observer(() => {
        </Box>
       )}
      </Dialog.Body>
-     <Dialog.Footer>
-      <Button colorPalette="blue" mr={3} onClick={store.closeMwSimulationModal}>
-       Zamknij
-      </Button>
-     </Dialog.Footer>
+
      <Dialog.CloseTrigger />
     </Dialog.Content>
    </Dialog.Positioner>

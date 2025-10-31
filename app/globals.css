@@ -15,12 +15,14 @@ html {
 .chakra-theme.light {
  --background: #efe8da;
  --foreground: #171717;
+ --chakra-colors-bg-panel: #faf7f2;
  --chakra-colors-border: var(--chakra-colors-brand-primary);
 }
 
 .chakra-theme.dark {
  --background: #1a202c;
  --foreground: #ededed;
+ --chakra-colors-bg-panel: #2d3748;
  --chakra-colors-border: var(--chakra-colors-gray-600);
 }
 
