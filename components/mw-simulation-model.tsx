@@ -104,7 +104,7 @@ export const MwSimulationModal = observer(() => {
           Wykonane tury: {store.simulation.turnsCount}
          </Heading>
          {store.simulation.turnsCount >= 1000 && (
-          <Text>Wystarczy bo zaraz ci komputer wybuchnie!</Text>
+          <Text fontSize="md">Wystarczy bo zaraz ci komputer wybuchnie!</Text>
          )}
         </Box>
        </Box>
