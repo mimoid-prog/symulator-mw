@@ -1,4 +1,14 @@
-import { Flex, Heading, Button, Portal, Popover, Text } from '@chakra-ui/react';
+import {
+ Flex,
+ Heading,
+ Button,
+ Portal,
+ Popover,
+ Text,
+ CloseButton,
+ Separator,
+ Link,
+} from '@chakra-ui/react';
 import { ColorModeButton } from '@/components/ui/color-mode';
 import { LuMail } from 'react-icons/lu';
 
@@ -20,23 +30,38 @@ export const Header = () => {
      <Portal>
       <Popover.Positioner>
        <Popover.Content>
-        <Popover.CloseTrigger />
-        <Popover.Header>Kontakt</Popover.Header>
-        <Popover.Body>
-         <Button variant="plain" asChild>
-          <a
-           href="https://www.margonem.pl/profile/view,8686722#char_359294,aldous"
-           target="_blank"
-           rel="noreferrer noopener"
-          >
-           Link do profilu
-          </a>
-         </Button>
+        <Popover.Header
+         fontSize="md"
+         display="flex"
+         justifyContent="space-between"
+         alignItems="center"
+         py={1}
+        >
+         <Text>Kontakt</Text>
+         <Popover.CloseTrigger>
+          <CloseButton size="md" />
+         </Popover.CloseTrigger>
+        </Popover.Header>
+
+        <Separator />
+
+        <Popover.Body pt={3}>
+         <Link
+          variant="underline"
+          fontWeight="bold"
+          href="https://www.margonem.pl/profile/view,8686722#char_359294,aldous"
+          target="_blank"
+          rel="noreferrer noopener"
+          mb={2}
+         >
+          Link do profilu
+         </Link>
+
          <Text fontSize="sm">Nick w grze: Vlk Romanov, świat Aldous</Text>
          <Text fontSize="sm">Discord: shcopec#1329</Text>
          <Text fontSize="sm">Email: rzyrkunka@gmail.com</Text>
-         <br />
-         <Text fontSize="sm">
+
+         <Text fontSize="sm" mt={2} fontStyle="italic">
           Jeśli zauważyłeś błąd, masz jakąś propozycję lub pytanie to śmiało
           odzywaj się do mnie.
          </Text>
