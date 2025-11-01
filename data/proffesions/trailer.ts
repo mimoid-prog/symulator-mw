@@ -8,9 +8,9 @@ const trailer: Proffesion = {
    id: 1,
    name: 'Lodowa strzała',
    mana: {
-    initialCost: 20,
+    initialCost: 22,
     multiplierForInitialCostBasedOnLevel: null,
-    growth: [3, 3, 4, 4, 4, 4, 4, 4, 5],
+    growth: 2,
     multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },

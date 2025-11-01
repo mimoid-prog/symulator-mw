@@ -8,9 +8,9 @@ const mage: Proffesion = {
    id: 1,
    name: 'Kula ognia',
    mana: {
-    initialCost: 30,
+    initialCost: 27,
     multiplierForInitialCostBasedOnLevel: null,
-    growth: [5, 5, 5, 5, 20, 10, 10, 10, 10],
+    growth: [7, 7, 7, 7, 7, 7, 7, 7, 7],
     multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },
@@ -28,9 +28,9 @@ const mage: Proffesion = {
    id: 2,
    name: 'Lodowy pocisk',
    mana: {
-    initialCost: 24,
+    initialCost: 23,
     multiplierForInitialCostBasedOnLevel: null,
-    growth: [2, 2, 2, 3, 4, 4, 6, 6, 7],
+    growth: 3,
     multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },

@@ -77,7 +77,7 @@ const warrior: Proffesion = {
    energy: {
     initialCost: 18,
     multiplierForInitialCostBasedOnLevel: null,
-    growth: [4, 4, 4, 4, 6, 8, 6, 6, 6],
+    growth: [4, 4, 4, 4, 6, 5, 5, 5, 5],
     multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },
@@ -97,7 +97,7 @@ const warrior: Proffesion = {
    energy: {
     initialCost: 15,
     multiplierForInitialCostBasedOnLevel: null,
-    growth: 1,
+    growth: [1, 1, 1, 2, 2, 2, 2, 2, 2],
     multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },
@@ -161,7 +161,7 @@ const warrior: Proffesion = {
    },
    energy: {
     initialCost: null,
-    multiplierForInitialCostBasedOnLevel: 0.3,
+    multiplierForInitialCostBasedOnLevel: 0.25,
     growth: null,
     multiplierForGrowthCostBasedOnLevel: 0,
     multiplierForUsingAbilityTwiceInARow: null,
