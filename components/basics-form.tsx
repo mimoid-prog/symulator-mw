@@ -7,12 +7,14 @@ import {
  NativeSelect,
  Box,
  Field,
+ Text,
 } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import { useForm } from 'react-hook-form';
 import proffesions from '../data/proffesions';
 import { BasicsFormValues } from '../types/BasicsFormValues';
 import store from '@/lib/Store';
+import { useState } from 'react';
 
 export const BasicsForm = observer(() => {
  const {
@@ -22,6 +24,8 @@ export const BasicsForm = observer(() => {
   formState: { errors },
  } = useForm<BasicsFormValues>({ defaultValues: store.basicsFormValues });
 
+ const [saveNoticeActive, setSaveNoticeActive] = useState(false);
+
  const validateNumber = (v: string) =>
   v === '' || Number.isNaN(Number(v)) || Number(v) < 0
    ? 'To pole jest wymagane, a wartość musi być dodatnia.'
@@ -29,6 +33,13 @@ export const BasicsForm = observer(() => {
 
  const onSubmit = (data: BasicsFormValues) => {
   store.saveBasics(data);
+
+  if (saveNoticeActive) {
+   setSaveNoticeActive(false);
+   requestAnimationFrame(() => setSaveNoticeActive(true));
+  } else {
+   setSaveNoticeActive(true);
+  }
  };
 
  return (
@@ -113,6 +124,19 @@ export const BasicsForm = observer(() => {
      <Button colorPalette="brand" size="md" fontSize="md" type="submit">
       Zapisz
      </Button>
+     <Text
+      fontSize="sm"
+      fontStyle="italic"
+      mt="2"
+      color="gray.500"
+      opacity={0}
+      animation={
+       saveNoticeActive ? 'mw-fade-in-out 2s ease-in-out forwards' : 'none'
+      }
+      onAnimationEnd={() => setSaveNoticeActive(false)}
+     >
+      Zapisano
+     </Text>
     </Box>
    </form>
   </Box>
