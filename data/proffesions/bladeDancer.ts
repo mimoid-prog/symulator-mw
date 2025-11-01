@@ -7,6 +7,7 @@ const bladeDancer: Proffesion = {
   {
    id: 1,
    name: 'Trujące pchnięcie',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -27,6 +28,7 @@ const bladeDancer: Proffesion = {
   {
    id: 2,
    name: 'Błyskawiczny cios',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -47,6 +49,7 @@ const bladeDancer: Proffesion = {
   {
    id: 3,
    name: 'Podstępne uderzenie',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -67,6 +70,7 @@ const bladeDancer: Proffesion = {
   {
    id: 4,
    name: 'Stłamszenie',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -87,6 +91,7 @@ const bladeDancer: Proffesion = {
   {
    id: 5,
    name: 'Zadziorny atak',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -107,6 +112,7 @@ const bladeDancer: Proffesion = {
   {
    id: 6,
    name: 'Rozpraszający atak',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -234,6 +240,7 @@ const bladeDancer: Proffesion = {
    id: 12,
    name: 'Zamroczenie',
    new: true,
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,

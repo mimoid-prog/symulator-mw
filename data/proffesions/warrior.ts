@@ -7,6 +7,7 @@ const warrior: Proffesion = {
   {
    id: 1,
    name: 'Niszczycielski cios',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -27,6 +28,7 @@ const warrior: Proffesion = {
   {
    id: 2,
    name: 'Błyskawiczny atak',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -47,6 +49,7 @@ const warrior: Proffesion = {
   {
    id: 3,
    name: 'Okrzyk bojowy',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -67,6 +70,7 @@ const warrior: Proffesion = {
   {
    id: 4,
    name: 'Ogłuszający cios',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -87,6 +91,7 @@ const warrior: Proffesion = {
   {
    id: 5,
    name: 'Zdruzgotanie',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -192,6 +197,7 @@ const warrior: Proffesion = {
   {
    id: 10,
    name: 'Osłona tarczą',
+   cpUse: 5,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,

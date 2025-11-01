@@ -7,6 +7,7 @@ const hunter: Proffesion = {
   {
    id: 1,
    name: 'Błyskawiczny strzał',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -27,6 +28,7 @@ const hunter: Proffesion = {
   {
    id: 2,
    name: 'Podwójny strzał',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -47,6 +49,7 @@ const hunter: Proffesion = {
   {
    id: 3,
    name: 'Zatruta strzała',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -67,6 +70,7 @@ const hunter: Proffesion = {
   {
    id: 4,
    name: 'Wyniszczające rany',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -173,6 +177,7 @@ const hunter: Proffesion = {
   {
    id: 9,
    name: 'Diamentowa strzała',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,

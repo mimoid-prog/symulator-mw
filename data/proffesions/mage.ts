@@ -7,6 +7,7 @@ const mage: Proffesion = {
   {
    id: 1,
    name: 'Kula ognia',
+   cpAdd: 1,
    mana: {
     initialCost: 27,
     multiplierForInitialCostBasedOnLevel: null,
@@ -27,6 +28,7 @@ const mage: Proffesion = {
   {
    id: 2,
    name: 'Lodowy pocisk',
+   cpAdd: 1,
    mana: {
     initialCost: 23,
     multiplierForInitialCostBasedOnLevel: null,
@@ -47,6 +49,7 @@ const mage: Proffesion = {
   {
    id: 3,
    name: 'Porażenie',
+   cpAdd: 1,
    mana: {
     initialCost: 25,
     multiplierForInitialCostBasedOnLevel: null,
@@ -67,6 +70,7 @@ const mage: Proffesion = {
   {
    id: 4,
    name: 'Fuzja żywiołów',
+   cpUse: 4,
    mana: {
     initialCost: 25,
     multiplierForInitialCostBasedOnLevel: null,
@@ -152,6 +156,7 @@ const mage: Proffesion = {
   {
    id: 8,
    name: 'Duszący pocisk',
+   cpAdd: 1,
    mana: {
     initialCost: 24,
     multiplierForInitialCostBasedOnLevel: null,
@@ -295,6 +300,7 @@ const mage: Proffesion = {
   {
    id: 15,
    name: 'Klątwa',
+   cpUse: 4,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: 0.3,

@@ -7,6 +7,7 @@ const paladin: Proffesion = {
   {
    id: 1,
    name: 'Szybki atak',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -27,6 +28,7 @@ const paladin: Proffesion = {
   {
    id: 2,
    name: 'Pchnięcie mrozu',
+   cpAdd: 1,
    mana: {
     initialCost: 22,
     multiplierForInitialCostBasedOnLevel: null,
@@ -47,6 +49,7 @@ const paladin: Proffesion = {
   {
    id: 3,
    name: 'Gorące uderzenie',
+   cpAdd: 1,
    mana: {
     initialCost: 35,
     multiplierForInitialCostBasedOnLevel: null,
@@ -67,6 +70,7 @@ const paladin: Proffesion = {
   {
    id: 4,
    name: 'Porażający cios',
+   cpAdd: 1,
    mana: {
     initialCost: 30,
     multiplierForInitialCostBasedOnLevel: null,
@@ -87,6 +91,7 @@ const paladin: Proffesion = {
   {
    id: 5,
    name: 'Gniew bogów',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -147,6 +152,7 @@ const paladin: Proffesion = {
   {
    id: 8,
    name: 'Srebrzysty blask',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: 0.8,
@@ -237,6 +243,7 @@ const paladin: Proffesion = {
   {
    id: 12,
    name: 'Rozpraszający cios',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,

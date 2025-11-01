@@ -7,6 +7,7 @@ const trailer: Proffesion = {
   {
    id: 1,
    name: 'Lodowa strzała',
+   cpAdd: 1,
    mana: {
     initialCost: 22,
     multiplierForInitialCostBasedOnLevel: null,
@@ -27,6 +28,7 @@ const trailer: Proffesion = {
   {
    id: 2,
    name: 'Płonąca strzała',
+   cpAdd: 1,
    mana: {
     initialCost: 30,
     multiplierForInitialCostBasedOnLevel: null,
@@ -47,6 +49,7 @@ const trailer: Proffesion = {
   {
    id: 3,
    name: 'Porażająca strzała',
+   cpAdd: 1,
    mana: {
     initialCost: 30,
     multiplierForInitialCostBasedOnLevel: null,
@@ -67,6 +70,7 @@ const trailer: Proffesion = {
   {
    id: 4,
    name: 'Podwójne trafienie',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -107,6 +111,7 @@ const trailer: Proffesion = {
   {
    id: 6,
    name: 'Strzała z niespodzianką',
+   cpUse: 3,
    mana: {
     initialCost: 12,
     multiplierForInitialCostBasedOnLevel: null,
@@ -127,6 +132,7 @@ const trailer: Proffesion = {
   {
    id: 7,
    name: 'Wycieńczająca strzała',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,

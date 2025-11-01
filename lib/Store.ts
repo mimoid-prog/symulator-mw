@@ -389,6 +389,16 @@ export class Store {
   let currentMana = this.basics.mana;
   let currentEnergy = this.basics.energy;
 
+  // Determine combination points cap based on profession
+  let combinationPointsCap = 3;
+  if (this.basics.proffesion === 'warrior') {
+   combinationPointsCap = 5;
+  } else if (this.basics.proffesion === 'mage') {
+   combinationPointsCap = 4;
+  }
+
+  let currentCombinationPoints = 0;
+
   while (shouldLoopRun) {
    for (const mwSlot of this.mw) {
     //Finish loop if more than 1000 turns
@@ -539,6 +549,21 @@ export class Store {
        currentEnergy += this.basics.energyRegen;
       }
 
+      // Update combination points after ability is used
+      if (abilityWithState.id !== 0) {
+       if (typeof abilityWithState.cpUse === 'number') {
+        currentCombinationPoints = 0;
+       } else if (
+        typeof abilityWithState.cpAdd === 'number' &&
+        abilityWithState.cpAdd > 0
+       ) {
+        // Ability adds CP - increment by cpAdd up to profession cap
+        const next = currentCombinationPoints + abilityWithState.cpAdd;
+        currentCombinationPoints =
+         next > combinationPointsCap ? combinationPointsCap : next;
+       }
+      }
+
       turns.push({
        id: turnsCounter,
        roundId: roundsCounter,
@@ -551,6 +576,7 @@ export class Store {
         current: currentEnergy,
         abilityCost: abilityEnergyCost,
        },
+       combinationPoints: currentCombinationPoints,
       });
 
       turnsCounter++;
@@ -589,6 +615,7 @@ export class Store {
    rounds,
    message,
    turnsCount: turns.length,
+   combinationPointsCap,
   };
  }
 }

@@ -12,6 +12,7 @@ export type Turn = {
     current: number;
     abilityCost: number;
   };
+  combinationPoints: number;
 };
 
 export type Round = {
@@ -23,4 +24,5 @@ export type Simulation = {
   rounds: Round[];
   turnsCount: number;
   message: string;
+  combinationPointsCap: number;
 };

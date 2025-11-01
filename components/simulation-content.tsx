@@ -32,9 +32,24 @@ export const SimulationContent = memo(({ simulation }: { simulation: Simulation 
        {round.turns.map((turn) => (
         <Box key={turn.id}>
          <Box display="flex" justifyContent="space-between">
-          <Text fontSize="md">
-           {turn.id + 1}. {turn.abilityWithState.name}{' '}
-          </Text>
+          <Box display="flex" alignItems="center" gap={2}>
+           <Text fontSize="md">
+            {turn.id + 1}. {turn.abilityWithState.name}
+           </Text>
+           <HStack gap="1">
+            {Array.from({ length: simulation.combinationPointsCap }).map((_, i) => (
+             <Box
+              key={i}
+              w="8px"
+              h="8px"
+              borderRadius="full"
+              borderWidth="1px"
+              borderColor="gray.400"
+              bg={i < turn.combinationPoints ? "yellow.500" : "transparent"}
+             />
+            ))}
+           </HStack>
+          </Box>
           <HStack>
            <Badge colorPalette="blue" variant="solid" width="90px">
             <Box

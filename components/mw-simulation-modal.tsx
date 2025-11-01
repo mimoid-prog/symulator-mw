@@ -10,6 +10,7 @@ export const MwSimulationModal = observer(() => {
   <Dialog.Root
    open={store.isMwSimulationModalOpen}
    onOpenChange={(d) => !d.open && store.closeMwSimulationModal()}
+   size="lg"
   >
    <Dialog.Backdrop />
    <Dialog.Positioner>
