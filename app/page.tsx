@@ -5,7 +5,7 @@ import { BasicsForm } from '../components/basics-form';
 import { GenerateMwSimulationButtonSection } from '../components/generate-mw-simulation-button-section';
 import { Header } from '../components/header';
 import { Mw } from '../components/mw/mw';
-import { MwSimulationModal } from '../components/mw-simulation-model';
+import { MwSimulationModal } from '../components/mw-simulation-modal';
 
 const Home: NextPage = () => {
  return (
