@@ -1,4 +1,5 @@
 import { action, makeAutoObservable } from 'mobx';
+import { computedFn } from 'mobx-utils';
 import { nanoid } from 'nanoid';
 import defaultAbility from '@/data/defaultAbility';
 import proffesions from '@/data/proffesions';
@@ -64,6 +65,57 @@ export class Store {
  get isAtLeastOneMwSlot() {
   return this.mw.length > 0;
  }
+
+ get cooldownByAbilityId() {
+  const map = new Map<number, number>();
+  for (const ability of this.activeAbilities) {
+   const cooldown =
+    typeof ability.cooldown === 'number'
+     ? ability.cooldown
+     : ability.cooldown[ability.points - 1];
+   map.set(ability.id, cooldown || 0);
+  }
+  return map;
+ }
+
+ get positionsByAbilityId() {
+  const map = new Map<number, number[]>();
+  this.mw.forEach((slot, i) => {
+   if (!map.has(slot.abilityId)) {
+    map.set(slot.abilityId, []);
+   }
+   map.get(slot.abilityId)!.push(i);
+  });
+  return map;
+ }
+
+ isAbilityDisabledAtSlot = computedFn(
+  (slotIndex: number, abilityId: number): boolean => {
+   const cooldown = this.cooldownByAbilityId.get(abilityId) ?? 0;
+   if (cooldown <= 0) return false;
+
+   const positions = this.positionsByAbilityId.get(abilityId);
+   if (!positions || positions.length === 0) return false;
+
+   // Binary search for the last position < slotIndex
+   let lo = 0;
+   let hi = positions.length - 1;
+   let last = -1;
+
+   while (lo <= hi) {
+    const mid = (lo + hi) >> 1;
+    if (positions[mid] < slotIndex) {
+     last = positions[mid];
+     lo = mid + 1;
+    } else {
+     hi = mid - 1;
+    }
+   }
+
+   if (last === -1) return false;
+   return slotIndex - last <= cooldown;
+  }
+ );
 
  saveBasics(formValues: BasicsFormValues) {
   if (
@@ -324,18 +376,17 @@ export class Store {
   this.mwSpentGoldAndCurrencyHistory.pop();
 
   //Remove mw slot
-  this.mw = this.mw.filter((mw) => mw.id !== id);
+  const index = this.mw.findIndex((mw) => mw.id === id);
+  if (index !== -1) {
+   this.mw.splice(index, 1);
+  }
  }
 
  changeMwSlotAbility(id: string, abilityId: number) {
-  this.mw = this.mw.map((mwItem) =>
-   mwItem.id === id
-    ? {
-       ...mwItem,
-       abilityId,
-      }
-    : mwItem
-  );
+  const index = this.mw.findIndex((mwItem) => mwItem.id === id);
+  if (index !== -1) {
+   this.mw[index].abilityId = abilityId;
+  }
  }
 
  changeMwSlotOrder(id: string, direction: 'up' | 'down') {
@@ -355,14 +406,11 @@ export class Store {
  }
 
  exchangeNonActiveAbilityFromMw(abilityId: number) {
-  this.mw = this.mw.map((mwItem) =>
-   mwItem.abilityId === abilityId
-    ? {
-       ...mwItem,
-       abilityId: 0,
-      }
-    : mwItem
-  );
+  for (let i = 0; i < this.mw.length; i++) {
+   if (this.mw[i].abilityId === abilityId) {
+    this.mw[i].abilityId = 0;
+   }
+  }
  }
 
  changeMwInfinite() {

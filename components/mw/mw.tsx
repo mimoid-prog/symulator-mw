@@ -81,56 +81,18 @@ export const Mw = observer(() => {
 
    <Box mt={3}>
     <Stack>
-     {store.mw.map((mwItem, i) => {
-      const abilities = store.activeAbilities.map((ability) => {
-       const cooldown =
-        typeof ability.cooldown === 'number'
-         ? ability.cooldown
-         : ability.cooldown[ability.points - 1];
-
-       if (cooldown > 0) {
-        const mwSlotsToCheck = store.mw.slice(
-         i - cooldown < 0 ? 0 : i - cooldown,
-         i
-        );
-
-        if (mwSlotsToCheck.length > 0) {
-         let isAbilityOnCooldown = false;
-
-         for (const mwSlotToCheck of mwSlotsToCheck) {
-          if (mwSlotToCheck.abilityId === ability.id) {
-           isAbilityOnCooldown = true;
-           break;
-          }
-         }
-
-         return {
-          ...ability,
-          disabled: isAbilityOnCooldown,
-         };
-        }
-       }
-
-       return {
-        ...ability,
-        disabled: false,
-       };
-      });
-
-      return (
-       <MwSlot
-        key={mwItem.id}
-        index={i}
-        mwSlotsAmount={store.mw.length}
-        id={mwItem.id}
-        abilityId={mwItem.abilityId}
-        abilities={abilities}
-        removeMwSlot={store.removeMwSlot}
-        changeMwSlotAbility={store.changeMwSlotAbility}
-        changeMwSlotOrder={store.changeMwSlotOrder}
-       />
-      );
-     })}
+     {store.mw.map((mwItem, i) => (
+      <MwSlot
+       key={mwItem.id}
+       index={i}
+       mwSlotsAmount={store.mw.length}
+       id={mwItem.id}
+       abilityId={mwItem.abilityId}
+       removeMwSlot={store.removeMwSlot}
+       changeMwSlotAbility={store.changeMwSlotAbility}
+       changeMwSlotOrder={store.changeMwSlotOrder}
+      />
+     ))}
 
      {mwSlotsToBuy.map((mwSlotToBuy, i) => (
       <MwSlotToBuy
