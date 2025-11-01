@@ -49,6 +49,7 @@ export const MwSlot = ({
      aria-label="Do góry"
      size="xs"
      colorPalette="green"
+     rounded="full"
      onClick={() => changeMwSlotOrder(id, 'up')}
      disabled={index === 0}
     >
@@ -58,6 +59,7 @@ export const MwSlot = ({
      aria-label="Do dołu"
      size="xs"
      colorPalette="green"
+     rounded="full"
      onClick={() => changeMwSlotOrder(id, 'down')}
      disabled={index === mwSlotsAmount - 1}
     >
@@ -67,6 +69,7 @@ export const MwSlot = ({
      aria-label="Usuń"
      size="xs"
      colorPalette="red"
+     rounded="full"
      onClick={() => removeMwSlot(id)}
     >
      <LuX />
