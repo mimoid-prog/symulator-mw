@@ -436,6 +436,12 @@ export class Store {
   let message = '';
   let currentMana = this.basics.mana;
   let currentEnergy = this.basics.energy;
+  const activeEnergyBuffs: {
+   sourceAbilityId: number;
+   valuePerTurn: number;
+   remainingTurns: number;
+   isPendingFirstTick: boolean;
+  }[] = [];
 
   // Determine combination points cap based on profession
   let combinationPointsCap = 3;
@@ -585,6 +591,36 @@ export class Store {
        }
       }
 
+      if (
+       abilityWithState.id !== 0 &&
+       abilityWithState.effects?.energyPerTurn &&
+       abilityWithState.points > 0
+      ) {
+       const energyPerTurnEffect = abilityWithState.effects.energyPerTurn;
+       const progressionIndex = Math.min(
+        abilityWithState.points - 1,
+        energyPerTurnEffect.progression.length - 1
+       );
+
+       const valuePerTurn =
+        energyPerTurnEffect.progression[progressionIndex] ?? 0;
+
+       for (let i = activeEnergyBuffs.length - 1; i >= 0; i--) {
+        if (activeEnergyBuffs[i].sourceAbilityId === abilityWithState.id) {
+         activeEnergyBuffs.splice(i, 1);
+        }
+       }
+
+       if (valuePerTurn > 0 && energyPerTurnEffect.duration > 0) {
+        activeEnergyBuffs.push({
+         sourceAbilityId: abilityWithState.id,
+         valuePerTurn,
+         remainingTurns: energyPerTurnEffect.duration,
+         isPendingFirstTick: true,
+        });
+       }
+      }
+
       // Apply cpEffect (combo points effects) before regen and CP reset
       if (
        abilityWithState.id !== 0 &&
@@ -637,16 +673,40 @@ export class Store {
        }
       }
 
+      let totalEnergyBuffGain = 0;
+
+      for (const buff of activeEnergyBuffs) {
+       if (buff.isPendingFirstTick) {
+        buff.isPendingFirstTick = false;
+        continue;
+       }
+
+       if (buff.remainingTurns > 0) {
+        totalEnergyBuffGain += buff.valuePerTurn;
+        buff.remainingTurns -= 1;
+       }
+      }
+
+      for (let i = activeEnergyBuffs.length - 1; i >= 0; i--) {
+       if (activeEnergyBuffs[i].remainingTurns <= 0) {
+        activeEnergyBuffs.splice(i, 1);
+       }
+      }
+
       //Mana and energy regen
       if (currentMana + this.basics.manaRegen > this.basics.mana) {
        currentMana = this.basics.mana;
       } else {
        currentMana += this.basics.manaRegen;
       }
-      if (currentEnergy + this.basics.energyRegen > this.basics.energy) {
-       currentEnergy = this.basics.energy;
-      } else {
-       currentEnergy += this.basics.energyRegen;
+
+      const energyGainFromBuffsAndRegen =
+       this.basics.energyRegen + totalEnergyBuffGain;
+
+      if (energyGainFromBuffsAndRegen > 0) {
+       const nextEnergy = currentEnergy + energyGainFromBuffsAndRegen;
+       currentEnergy =
+        nextEnergy > this.basics.energy ? this.basics.energy : nextEnergy;
       }
 
       // Update combination points after ability is used

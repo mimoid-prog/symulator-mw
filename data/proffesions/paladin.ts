@@ -168,6 +168,12 @@ const paladin: Proffesion = {
     multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },
+   effects: {
+    energyPerTurn: {
+     progression: [2, 2, 3, 3, 4, 4, 5, 5, 6, 6],
+     duration: 8,
+    },
+   },
    cooldown: 6,
    minLevel: 50,
   },

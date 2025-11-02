@@ -15,6 +15,22 @@ export type PowerUnit = {
  };
 };
 
+export type EnergyPerTurnEffect = {
+ progression: [
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number
+ ];
+ duration: number;
+};
+
 export type Ability = {
  id: number;
  name: string;
@@ -38,4 +54,7 @@ export type Ability = {
      number
     ];
  minLevel: number;
+ effects?: {
+  energyPerTurn?: EnergyPerTurnEffect;
+ };
 };
