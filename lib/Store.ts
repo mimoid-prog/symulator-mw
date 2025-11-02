@@ -11,11 +11,11 @@ import { Round, Simulation, Turn } from '@/types/Simulation';
 
 export class Store {
  basicsFormValues: BasicsFormValues = {
-  level: '200',
-  mana: '200',
-  energy: '20',
-  manaRegen: '15',
-  energyRegen: '15',
+  level: '',
+  mana: '',
+  energy: '',
+  manaRegen: '',
+  energyRegen: '',
   proffesion: '',
  };
 
