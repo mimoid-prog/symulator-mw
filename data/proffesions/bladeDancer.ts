@@ -1,3 +1,4 @@
+import { getId } from '@/utils/get-id';
 import { Proffesion } from '../../types/Proffesion';
 
 const bladeDancer: Proffesion = {
@@ -5,7 +6,7 @@ const bladeDancer: Proffesion = {
  label: 'Tancerz ostrzy',
  abilities: [
   {
-   id: 1,
+   id: getId(),
    name: 'Trujące pchnięcie',
    cpAdd: 1,
    mana: {
@@ -26,7 +27,7 @@ const bladeDancer: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 2,
+   id: getId(),
    name: 'Błyskawiczny cios',
    cpAdd: 1,
    mana: {
@@ -47,7 +48,7 @@ const bladeDancer: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 3,
+   id: getId(),
    name: 'Podstępne uderzenie',
    cpUse: 3,
    mana: {
@@ -68,7 +69,7 @@ const bladeDancer: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 4,
+   id: getId(),
    name: 'Stłamszenie',
    cpUse: 3,
    mana: {
@@ -89,7 +90,7 @@ const bladeDancer: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 5,
+   id: getId(),
    name: 'Zadziorny atak',
    cpAdd: 1,
    mana: {
@@ -110,7 +111,7 @@ const bladeDancer: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 6,
+   id: getId(),
    name: 'Rozpraszający atak',
    cpAdd: 1,
    mana: {
@@ -131,7 +132,7 @@ const bladeDancer: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 7,
+   id: getId(),
    name: 'Wirujące ostrze',
    mana: {
     initialCost: null,
@@ -151,7 +152,7 @@ const bladeDancer: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 8,
+   id: getId(),
    name: 'Jadowity podmuch',
    mana: {
     initialCost: null,
@@ -171,7 +172,7 @@ const bladeDancer: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 9,
+   id: getId(),
    name: 'Furia',
    mana: {
     initialCost: null,
@@ -191,7 +192,7 @@ const bladeDancer: Proffesion = {
    minLevel: 80,
   },
   {
-   id: 10,
+   id: getId(),
    name: 'Odetchnięcie',
    new: true,
    mana: {
@@ -217,7 +218,7 @@ const bladeDancer: Proffesion = {
    minLevel: 80,
   },
   {
-   id: 11,
+   id: getId(),
    name: 'Opatrywanie ran',
    mana: {
     initialCost: null,
@@ -237,7 +238,7 @@ const bladeDancer: Proffesion = {
    minLevel: 120,
   },
   {
-   id: 12,
+   id: getId(),
    name: 'Zamroczenie',
    new: true,
    cpAdd: 1,
@@ -259,7 +260,7 @@ const bladeDancer: Proffesion = {
    minLevel: 170,
   },
   {
-   id: 13,
+   id: getId(),
    name: 'Amok',
    mana: {
     initialCost: null,

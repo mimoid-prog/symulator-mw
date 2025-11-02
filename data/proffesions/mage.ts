@@ -1,3 +1,4 @@
+import { getId } from '@/utils/get-id';
 import { Proffesion } from '../../types/Proffesion';
 
 const mage: Proffesion = {
@@ -5,7 +6,7 @@ const mage: Proffesion = {
  label: 'Mag',
  abilities: [
   {
-   id: 1,
+   id: getId(),
    name: 'Kula ognia',
    cpAdd: 1,
    mana: {
@@ -26,7 +27,7 @@ const mage: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 2,
+   id: getId(),
    name: 'Lodowy pocisk',
    cpAdd: 1,
    mana: {
@@ -47,7 +48,7 @@ const mage: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 3,
+   id: getId(),
    name: 'Porażenie',
    cpAdd: 1,
    mana: {
@@ -68,7 +69,7 @@ const mage: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 4,
+   id: getId(),
    name: 'Fuzja żywiołów',
    cpUse: 4,
    mana: {
@@ -89,7 +90,7 @@ const mage: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 5,
+   id: getId(),
    name: 'Leczenie ran',
    mana: {
     initialCost: null,
@@ -109,7 +110,7 @@ const mage: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 6,
+   id: getId(),
    name: 'Zdrowa atmosfera',
    mana: {
     initialCost: null,
@@ -129,7 +130,7 @@ const mage: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 7,
+   id: getId(),
    name: 'Chwila skupienia',
    mana: {
     initialCost: null,
@@ -154,7 +155,7 @@ const mage: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 8,
+   id: getId(),
    name: 'Duszący pocisk',
    cpAdd: 1,
    mana: {
@@ -175,7 +176,7 @@ const mage: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 9,
+   id: getId(),
    name: 'Szadź',
    mana: {
     initialCost: null,
@@ -195,7 +196,7 @@ const mage: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 10,
+   id: getId(),
    name: 'Magiczna osłona',
    mana: {
     initialCost: 41,
@@ -215,7 +216,7 @@ const mage: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 11,
+   id: getId(),
    name: 'Krytyczna potęga',
    mana: {
     initialCost: null,
@@ -235,7 +236,7 @@ const mage: Proffesion = {
    minLevel: 80,
   },
   {
-   id: 12,
+   id: getId(),
    name: 'Lodowa bariera',
    new: true,
    mana: {
@@ -256,7 +257,7 @@ const mage: Proffesion = {
    minLevel: 170,
   },
   {
-   id: 13,
+   id: getId(),
    name: 'Elektryczna bariera',
    new: true,
    mana: {
@@ -277,7 +278,7 @@ const mage: Proffesion = {
    minLevel: 170,
   },
   {
-   id: 14,
+   id: getId(),
    name: 'Płonąca bariera',
    new: true,
    mana: {
@@ -298,7 +299,7 @@ const mage: Proffesion = {
    minLevel: 170,
   },
   {
-   id: 15,
+   id: getId(),
    name: 'Klątwa',
    cpUse: 4,
    mana: {
@@ -319,7 +320,7 @@ const mage: Proffesion = {
    minLevel: 230,
   },
   {
-   id: 16,
+   id: getId(),
    name: 'Wewnętrzny spokój',
    mana: {
     initialCost: null,

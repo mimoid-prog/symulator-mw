@@ -1,3 +1,4 @@
+import { getId } from '@/utils/get-id';
 import { Proffesion } from '../../types/Proffesion';
 
 const paladin: Proffesion = {
@@ -5,7 +6,7 @@ const paladin: Proffesion = {
  label: 'Paladyn',
  abilities: [
   {
-   id: 1,
+   id: getId(),
    name: 'Szybki atak',
    cpAdd: 1,
    mana: {
@@ -26,7 +27,7 @@ const paladin: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 2,
+   id: getId(),
    name: 'Pchnięcie mrozu',
    cpAdd: 1,
    mana: {
@@ -47,7 +48,7 @@ const paladin: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 3,
+   id: getId(),
    name: 'Gorące uderzenie',
    cpAdd: 1,
    mana: {
@@ -68,7 +69,7 @@ const paladin: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 4,
+   id: getId(),
    name: 'Porażający cios',
    cpAdd: 1,
    mana: {
@@ -89,7 +90,7 @@ const paladin: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 5,
+   id: getId(),
    name: 'Gniew bogów',
    cpUse: 3,
    mana: {
@@ -110,7 +111,7 @@ const paladin: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 6,
+   id: getId(),
    name: 'Prowokujący okrzyk',
    mana: {
     initialCost: null,
@@ -130,7 +131,7 @@ const paladin: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 7,
+   id: getId(),
    name: 'Aura szybkości',
    mana: {
     initialCost: 50,
@@ -150,7 +151,7 @@ const paladin: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 8,
+   id: getId(),
    name: 'Srebrzysty blask',
    cpUse: 3,
    mana: {
@@ -171,7 +172,7 @@ const paladin: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 9,
+   id: getId(),
    name: 'Odnowa mocy',
    mana: {
     initialCost: null,
@@ -201,7 +202,7 @@ const paladin: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 10,
+   id: getId(),
    name: 'Aura ochrony',
    mana: {
     initialCost: null,
@@ -221,7 +222,7 @@ const paladin: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 11,
+   id: getId(),
    name: 'Fala leczenia',
    mana: {
     initialCost: null,
@@ -241,7 +242,7 @@ const paladin: Proffesion = {
    minLevel: 80,
   },
   {
-   id: 12,
+   id: getId(),
    name: 'Rozpraszający cios',
    cpAdd: 1,
    mana: {
@@ -262,7 +263,7 @@ const paladin: Proffesion = {
    minLevel: 120,
   },
   {
-   id: 13,
+   id: getId(),
    name: 'Porażająca tarcza',
    mana: {
     initialCost: null,
@@ -282,7 +283,7 @@ const paladin: Proffesion = {
    minLevel: 120,
   },
   {
-   id: 14,
+   id: getId(),
    name: 'Tarcza słońca',
    mana: {
     initialCost: null,
@@ -302,7 +303,7 @@ const paladin: Proffesion = {
    minLevel: 170,
   },
   {
-   id: 15,
+   id: getId(),
    name: 'Kula światłości',
    mana: {
     initialCost: null,

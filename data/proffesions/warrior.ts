@@ -1,3 +1,4 @@
+import { getId } from '@/utils/get-id';
 import { Proffesion } from '../../types/Proffesion';
 
 const warrior: Proffesion = {
@@ -5,7 +6,7 @@ const warrior: Proffesion = {
  label: 'Wojownik',
  abilities: [
   {
-   id: 1,
+   id: getId(),
    name: 'Niszczycielski cios',
    cpAdd: 1,
    mana: {
@@ -26,7 +27,7 @@ const warrior: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 2,
+   id: getId(),
    name: 'Błyskawiczny atak',
    cpAdd: 1,
    mana: {
@@ -47,7 +48,7 @@ const warrior: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 3,
+   id: getId(),
    name: 'Okrzyk bojowy',
    cpAdd: 1,
    mana: {
@@ -68,7 +69,7 @@ const warrior: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 4,
+   id: getId(),
    name: 'Ogłuszający cios',
    cpUse: 3,
    mana: {
@@ -89,7 +90,7 @@ const warrior: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 5,
+   id: getId(),
    name: 'Zdruzgotanie',
    cpUse: 3,
    mana: {
@@ -110,7 +111,7 @@ const warrior: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 6,
+   id: getId(),
    name: 'Wyzywający okrzyk',
    mana: {
     initialCost: null,
@@ -130,7 +131,7 @@ const warrior: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 7,
+   id: getId(),
    name: 'Przemożenie zmęczenia',
    mana: {
     initialCost: null,
@@ -155,7 +156,7 @@ const warrior: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 8,
+   id: getId(),
    name: 'Szarża',
    mana: {
     initialCost: null,
@@ -175,7 +176,7 @@ const warrior: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 9,
+   id: getId(),
    name: 'Agresywny atak',
    mana: {
     initialCost: null,
@@ -195,7 +196,7 @@ const warrior: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 10,
+   id: getId(),
    name: 'Osłona tarczą',
    cpUse: 5,
    mana: {
@@ -216,7 +217,7 @@ const warrior: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 11,
+   id: getId(),
    name: 'Krwiożerczy szał',
    mana: {
     initialCost: null,
@@ -236,7 +237,7 @@ const warrior: Proffesion = {
    minLevel: 170,
   },
   {
-   id: 12,
+   id: getId(),
    name: 'Kamienna skóra',
    mana: {
     initialCost: null,
@@ -256,7 +257,7 @@ const warrior: Proffesion = {
    minLevel: 170,
   },
   {
-   id: 13,
+   id: getId(),
    name: 'Paraliżujący cios',
    mana: {
     initialCost: null,
