@@ -585,6 +585,58 @@ export class Store {
        }
       }
 
+      // Apply cpEffect (combo points effects) before regen and CP reset
+      if (
+       abilityWithState.id !== 0 &&
+       typeof abilityWithState.cpUse === 'number'
+      ) {
+       const cpEffect = (
+        abilityWithState as unknown as {
+         cpEffect?: {
+          energy?: { percentageRetrieve: number | null };
+          mana?: { percentageRetrieve: number | null };
+         };
+        }
+       ).cpEffect;
+
+       if (!cpEffect) {
+        // no cpEffect defined for this ability
+       } else {
+        const cpSpent = Math.min(
+         currentCombinationPoints,
+         abilityWithState.cpUse
+        );
+
+        if (cpSpent > 0) {
+         // Energy retrieve based on combo points spent
+         if (
+          cpEffect.energy &&
+          cpEffect.energy.percentageRetrieve !== null &&
+          cpEffect.energy.percentageRetrieve !== undefined
+         ) {
+          const totalPercentage = cpEffect.energy.percentageRetrieve * cpSpent;
+          const energyRetrieved = Math.round(
+           this.basics.energy * (totalPercentage / 100)
+          );
+          currentEnergy += energyRetrieved;
+         }
+
+         // Mana retrieve based on combo points spent
+         if (
+          cpEffect.mana &&
+          cpEffect.mana.percentageRetrieve !== null &&
+          cpEffect.mana.percentageRetrieve !== undefined
+         ) {
+          const totalPercentage = cpEffect.mana.percentageRetrieve * cpSpent;
+          const manaRetrieved = Math.round(
+           this.basics.mana * (totalPercentage / 100)
+          );
+          currentMana += manaRetrieved;
+         }
+        }
+       }
+      }
+
       //Mana and energy regen
       if (currentMana + this.basics.manaRegen > this.basics.mana) {
        currentMana = this.basics.mana;

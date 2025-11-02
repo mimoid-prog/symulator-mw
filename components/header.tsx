@@ -38,7 +38,7 @@ export const Header = () => {
          py={1}
         >
          <Text>Kontakt</Text>
-         <Popover.CloseTrigger>
+         <Popover.CloseTrigger asChild>
           <CloseButton size="md" />
          </Popover.CloseTrigger>
         </Popover.Header>
