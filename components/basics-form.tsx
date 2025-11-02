@@ -4,13 +4,15 @@ import {
  Input,
  Stack,
  Button,
- NativeSelect,
  Box,
  Field,
  Text,
+ Select,
+ Portal,
+ createListCollection,
 } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import proffesions from '../data/proffesions';
 import { BasicsFormValues } from '../types/BasicsFormValues';
 import store from '@/lib/Store';
@@ -20,11 +22,18 @@ export const BasicsForm = observer(() => {
  const {
   register,
   handleSubmit,
+  control,
 
   formState: { errors },
  } = useForm<BasicsFormValues>({ defaultValues: store.basicsFormValues });
 
  const [saveNoticeActive, setSaveNoticeActive] = useState(false);
+
+ const proffesionCollection = createListCollection({
+  items: proffesions,
+  itemToString: (item) => item.label,
+  itemToValue: (item) => item.value,
+ });
 
  const validateNumber = (v: string) =>
   v === '' || Number.isNaN(Number(v)) || Number(v) < 0
@@ -49,7 +58,11 @@ export const BasicsForm = observer(() => {
      <Heading size="xl">Podstawowe informacje</Heading>
      <Field.Root invalid={!!errors.level}>
       <Field.Label fontSize="md">Poziom postaci</Field.Label>
-      <Input {...register('level', { validate: validateNumber })} />
+      <Input
+       fontSize="md"
+       _placeholder={{ fontSize: 'md' }}
+       {...register('level', { validate: validateNumber })}
+      />
       {errors.level && (
        <Field.HelperText>
         To pole jest wymagane, a wartość musi być dodatnia.
@@ -59,7 +72,11 @@ export const BasicsForm = observer(() => {
 
      <Field.Root invalid={!!errors.mana}>
       <Field.Label fontSize="md">Mana</Field.Label>
-      <Input {...register('mana', { validate: validateNumber })} />
+      <Input
+       fontSize="md"
+       _placeholder={{ fontSize: 'md' }}
+       {...register('mana', { validate: validateNumber })}
+      />
       {errors.mana && (
        <Field.HelperText>
         To pole jest wymagane, a wartość musi być dodatnia.
@@ -69,7 +86,11 @@ export const BasicsForm = observer(() => {
 
      <Field.Root invalid={!!errors.energy}>
       <Field.Label fontSize="md">Energia</Field.Label>
-      <Input {...register('energy', { validate: validateNumber })} />
+      <Input
+       fontSize="md"
+       _placeholder={{ fontSize: 'md' }}
+       {...register('energy', { validate: validateNumber })}
+      />
       {errors.energy && (
        <Field.HelperText>
         To pole jest wymagane, a wartość musi być dodatnia.
@@ -79,7 +100,11 @@ export const BasicsForm = observer(() => {
 
      <Field.Root invalid={!!errors.manaRegen}>
       <Field.Label fontSize="md">Regeneracja many</Field.Label>
-      <Input {...register('manaRegen', { validate: validateNumber })} />
+      <Input
+       fontSize="md"
+       _placeholder={{ fontSize: 'md' }}
+       {...register('manaRegen', { validate: validateNumber })}
+      />
       {errors.manaRegen && (
        <Field.HelperText>
         To pole jest wymagane, a wartość musi być dodatnia.
@@ -89,7 +114,11 @@ export const BasicsForm = observer(() => {
 
      <Field.Root invalid={!!errors.energyRegen}>
       <Field.Label fontSize="md">Regeneracja energii</Field.Label>
-      <Input {...register('energyRegen', { validate: validateNumber })} />
+      <Input
+       fontSize="md"
+       _placeholder={{ fontSize: 'md' }}
+       {...register('energyRegen', { validate: validateNumber })}
+      />
       {errors.energyRegen && (
        <Field.HelperText>
         To pole jest wymagane, a wartość musi być dodatnia.
@@ -99,20 +128,49 @@ export const BasicsForm = observer(() => {
 
      <Field.Root invalid={!!errors.proffesion}>
       <Field.Label fontSize="md">Profesja</Field.Label>
-      <NativeSelect.Root>
-       <NativeSelect.Field
-        {...register('proffesion', {
-         required: 'To pole jest wymagane, a wartość musi być dodatnia.',
-        })}
-       >
-        {proffesions.map((proffesion) => (
-         <option value={proffesion.value} key={proffesion.value}>
-          {proffesion.label}
-         </option>
-        ))}
-       </NativeSelect.Field>
-       <NativeSelect.Indicator />
-      </NativeSelect.Root>
+      <Controller
+       control={control}
+       name="proffesion"
+       rules={{ required: 'To pole jest wymagane.' }}
+       render={({ field }) => (
+        <Select.Root
+         size="md"
+         name={field.name}
+         collection={proffesionCollection}
+         value={field.value ? [field.value] : []}
+         onValueChange={({ value }) => field.onChange(value[0])}
+         onInteractOutside={() => field.onBlur?.()}
+        >
+         <Select.HiddenSelect />
+         <Select.Control>
+          <Select.Trigger>
+           <Select.ValueText fontSize="md" placeholder="Wybierz profesję" />
+          </Select.Trigger>
+          <Select.IndicatorGroup>
+           <Select.Indicator />
+          </Select.IndicatorGroup>
+         </Select.Control>
+         <Portal>
+          <Select.Positioner>
+           <Select.Content
+            bg={{ _light: 'white' }}
+            borderWidth={{ _light: '1px' }}
+            borderColor={{ _light: 'gray.300' }}
+            rounded={{ _light: 'md' }}
+            shadow={{ _light: 'md' }}
+           >
+            {proffesionCollection.items.map((item) => (
+             <Select.Item item={item} key={item.value}>
+              <Select.ItemText>{item.label}</Select.ItemText>
+              <Select.ItemIndicator />
+             </Select.Item>
+            ))}
+           </Select.Content>
+          </Select.Positioner>
+         </Portal>
+        </Select.Root>
+       )}
+      />
       {errors.proffesion && (
        <Field.HelperText>
         To pole jest wymagane, a wartość musi być dodatnia.

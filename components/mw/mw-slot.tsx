@@ -1,7 +1,14 @@
-import { Box, NativeSelect, Text, IconButton, HStack } from '@chakra-ui/react';
+import {
+ Box,
+ Text,
+ IconButton,
+ HStack,
+ Select,
+ Portal,
+ createListCollection,
+} from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import { LuArrowUp, LuArrowDown, LuX } from 'react-icons/lu';
-import { ChangeEvent } from 'react';
 import store from '@/lib/Store';
 
 export type Props = {
@@ -24,28 +31,64 @@ export const MwSlot = observer(
   changeMwSlotAbility,
   changeMwSlotOrder,
  }: Props) => {
-  const handleMwSlotChange = (e: ChangeEvent<HTMLSelectElement>) => {
-   changeMwSlotAbility(id, parseInt(e.target.value));
-  };
+  const selectItems = [
+   { label: 'Zwykły atak', value: '0' },
+   ...store.activeAbilities.map((ability) => ({
+    label: `${ability.name}${
+     store.isAbilityDisabledAtSlot(index, ability.id) ? ' (odnawia się)' : ''
+    }`,
+    value: String(ability.id),
+    disabled: store.isAbilityDisabledAtSlot(index, ability.id),
+   })),
+  ];
+
+  const collection = createListCollection({
+   items: selectItems,
+   itemToString: (item) => item.label,
+   itemToValue: (item) => item.value,
+  });
 
   return (
    <Box padding={2}>
     <HStack>
      <Text>{index + 1}.</Text>
-     <NativeSelect.Root size="sm">
-      <NativeSelect.Field value={abilityId} onChange={handleMwSlotChange}>
-       <option value={0}>Zwykły atak</option>
-       {store.activeAbilities.map((ability) => {
-        const isDisabled = store.isAbilityDisabledAtSlot(index, ability.id);
-        return (
-         <option value={ability.id} key={ability.id} disabled={isDisabled}>
-          {ability.name} {isDisabled && '(odnawia się)'}
-         </option>
-        );
-       })}
-      </NativeSelect.Field>
-      <NativeSelect.Indicator />
-     </NativeSelect.Root>
+     <Select.Root
+      size="sm"
+      collection={collection}
+      value={[String(abilityId)]}
+      onValueChange={({ value }) => {
+       const next = parseInt(value[0] ?? '0');
+       changeMwSlotAbility(id, next);
+      }}
+     >
+      <Select.HiddenSelect />
+      <Select.Control>
+       <Select.Trigger>
+        <Select.ValueText placeholder="Wybierz" />
+       </Select.Trigger>
+       <Select.IndicatorGroup>
+        <Select.Indicator />
+       </Select.IndicatorGroup>
+      </Select.Control>
+      <Portal>
+       <Select.Positioner>
+        <Select.Content
+         bg={{ _light: 'white' }}
+         borderWidth={{ _light: '1px' }}
+         borderColor={{ _light: 'gray.300' }}
+         rounded={{ _light: 'md' }}
+         shadow={{ _light: 'lg' }}
+        >
+         {selectItems.map((item) => (
+          <Select.Item item={item} key={item.value}>
+           <Select.ItemText>{item.label}</Select.ItemText>
+           <Select.ItemIndicator />
+          </Select.Item>
+         ))}
+        </Select.Content>
+       </Select.Positioner>
+      </Portal>
+     </Select.Root>
      <IconButton
       aria-label="Do góry"
       size="xs"
