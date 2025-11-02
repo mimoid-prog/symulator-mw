@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Script from 'next/script';
+import { Suspense } from 'react';
 
 import './globals.css';
 import { Provider } from '@/components/ui/provider';
@@ -33,7 +34,9 @@ export default function RootLayout({
      `}
     </Script>
     <Provider>
-     <GaProvider />
+     <Suspense fallback={null}>
+      <GaProvider />
+     </Suspense>
      {children}
     </Provider>
    </body>
