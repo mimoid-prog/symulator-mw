@@ -2,6 +2,7 @@
 import { Box, Button } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import store from '@/lib/Store';
+import { wrapOnClickWithGa } from '@/lib/ga-react';
 
 export const GenerateMwSimulationButtonSection = observer(() => {
  return (
@@ -12,7 +13,11 @@ export const GenerateMwSimulationButtonSection = observer(() => {
     gradientTo="{colors.brand.primary}"
     gradientFrom="{colors.brand.secondary}"
     disabled={store.isAtLeastOneMwSlot === false}
-    onClick={store.openMwSimulationModal}
+    onClick={wrapOnClickWithGa(
+     store.openMwSimulationModal,
+     'generate-simulation',
+     { area: 'cta' }
+    )}
     border="none"
     boxShadow="0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2)"
     _dark={{

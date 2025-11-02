@@ -13,6 +13,7 @@ import { MwSlotToBuy } from './mw-slot-to-buy';
 import store from '@/lib/Store';
 import { Tooltip } from '@/components/ui/tooltip';
 import { LuDollarSign } from 'react-icons/lu';
+import { wrapOnClickWithGa } from '@/lib/ga-react';
 
 const allMwSlotsToBuy = [
  {
@@ -67,11 +68,15 @@ export const Mw = observer(() => {
        aria-label="Kup wszystkie na raz"
        size="xs"
        variant="solid"
-       onClick={() => {
-        mwSlotsToBuy.forEach((slot) => {
-         store.addMwSlot({ currency: slot.currency });
-        });
-       }}
+       onClick={wrapOnClickWithGa(
+        () => {
+         mwSlotsToBuy.forEach((slot) => {
+          store.addMwSlot({ currency: slot.currency });
+         });
+        },
+        'mw-buy-all',
+        { area: 'mw' }
+       )}
       >
        <LuDollarSign />
       </IconButton>

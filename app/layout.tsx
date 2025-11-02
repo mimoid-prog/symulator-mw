@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 
 import './globals.css';
 import { Provider } from '@/components/ui/provider';
+import { GaProvider } from './ga-provider';
 
 export const metadata: Metadata = {
  title: 'Symulator MW = Mistrzostwo walk',
@@ -14,10 +16,26 @@ export default function RootLayout({
 }: Readonly<{
  children: React.ReactNode;
 }>) {
+ const GA_ID = process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS;
  return (
   <html lang="pl" suppressHydrationWarning className="chakra-theme">
    <body>
-    <Provider>{children}</Provider>
+    <Script
+     src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+     strategy="afterInteractive"
+    />
+    <Script id="gtag-init" strategy="afterInteractive">
+     {`
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);} 
+      gtag('js', new Date());
+      gtag('config', '${GA_ID}', { send_page_view: false });
+     `}
+    </Script>
+    <Provider>
+     <GaProvider />
+     {children}
+    </Provider>
    </body>
   </html>
  );

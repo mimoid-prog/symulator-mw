@@ -1,3 +1,4 @@
+'use client';
 import {
  Flex,
  Heading,
@@ -11,6 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { ColorModeButton } from '@/components/ui/color-mode';
 import { LuMail } from 'react-icons/lu';
+import { trackClick } from '@/lib/ga';
 
 export const Header = () => {
  return (
@@ -22,7 +24,11 @@ export const Header = () => {
     <ColorModeButton />
     <Popover.Root>
      <Popover.Trigger asChild>
-      <Button variant="solid" size="sm">
+      <Button
+       variant="solid"
+       size="sm"
+       onPointerDown={() => trackClick('header-contact', { area: 'header' })}
+      >
        <LuMail />
        Kontakt
       </Button>

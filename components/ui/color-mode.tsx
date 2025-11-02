@@ -6,6 +6,7 @@ import { ThemeProvider, useTheme } from 'next-themes';
 import type { ThemeProviderProps } from 'next-themes';
 import * as React from 'react';
 import { LuMoon, LuSun } from 'react-icons/lu';
+import { wrapOnClickWithGa } from '@/lib/ga-react';
 
 export type ColorModeProviderProps = ThemeProviderProps;
 
@@ -56,7 +57,11 @@ export const ColorModeButton = React.forwardRef<
  return (
   <ClientOnly fallback={<Skeleton boxSize="9" />}>
    <IconButton
-    onClick={toggleColorMode}
+    onClick={wrapOnClickWithGa(
+     toggleColorMode,
+     'toggle-color-mode',
+     { area: 'header' }
+    )}
     variant="solid"
     aria-label="Toggle color mode"
     size="sm"
