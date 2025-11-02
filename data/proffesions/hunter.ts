@@ -132,7 +132,6 @@ const hunter: Proffesion = {
   {
    id: getId(),
    name: 'Medytacja',
-   new: true,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,

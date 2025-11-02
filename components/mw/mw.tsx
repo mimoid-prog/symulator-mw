@@ -66,7 +66,7 @@ export const Mw = observer(() => {
       <IconButton
        aria-label="Kup wszystkie na raz"
        size="xs"
-       variant="surface"
+       variant="solid"
        onClick={() => {
         mwSlotsToBuy.forEach((slot) => {
          store.addMwSlot({ currency: slot.currency });

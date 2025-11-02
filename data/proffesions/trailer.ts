@@ -154,7 +154,6 @@ const trailer: Proffesion = {
   {
    id: getId(),
    name: 'Zaklęty grot',
-   new: true,
    mana: {
     initialCost: 13,
     multiplierForInitialCostBasedOnLevel: null,

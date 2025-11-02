@@ -69,11 +69,11 @@ export const AbilityItem = observer(
     </Tag.Root>
 
     <Flex direction="column" gap="1">
-     <Text>{abilityWithState.name}</Text>
+     <Text fontWeight="600">{abilityWithState.name}</Text>
      {abilityWithState.id !== 0 && (
       <Text fontSize="2xl">{abilityWithState.points}/10</Text>
      )}
-     <Text>
+     <Text fontWeight="500" color={{ _dark: 'rgba(255,255,255, 0.8)' }}>
       Koszty | Mana: {abilityWithState.manaCost}, Energia{' '}
       {abilityWithState.energyCost}
      </Text>

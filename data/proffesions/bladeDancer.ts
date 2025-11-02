@@ -194,7 +194,6 @@ const bladeDancer: Proffesion = {
   {
    id: getId(),
    name: 'Odetchnięcie',
-   new: true,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -240,7 +239,6 @@ const bladeDancer: Proffesion = {
   {
    id: getId(),
    name: 'Zamroczenie',
-   new: true,
    cpAdd: 1,
    mana: {
     initialCost: null,

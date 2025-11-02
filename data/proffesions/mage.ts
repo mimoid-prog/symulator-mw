@@ -238,7 +238,6 @@ const mage: Proffesion = {
   {
    id: getId(),
    name: 'Lodowa bariera',
-   new: true,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: 0.3,
@@ -259,7 +258,6 @@ const mage: Proffesion = {
   {
    id: getId(),
    name: 'Elektryczna bariera',
-   new: true,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: 0.3,
@@ -280,7 +278,6 @@ const mage: Proffesion = {
   {
    id: getId(),
    name: 'Płonąca bariera',
-   new: true,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: 0.3,

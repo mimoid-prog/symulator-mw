@@ -22,7 +22,7 @@ export const Header = () => {
     <ColorModeButton />
     <Popover.Root>
      <Popover.Trigger asChild>
-      <Button variant="surface">
+      <Button variant="solid" size="sm">
        <LuMail />
        Kontakt
       </Button>
