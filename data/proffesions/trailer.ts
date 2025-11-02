@@ -1,3 +1,4 @@
+import { getId } from '@/utils/get-id';
 import { Proffesion } from '../../types/Proffesion';
 
 const trailer: Proffesion = {
@@ -5,12 +6,13 @@ const trailer: Proffesion = {
  label: 'Tropciciel',
  abilities: [
   {
-   id: 1,
+   id: getId(),
    name: 'Lodowa strzała',
+   cpAdd: 1,
    mana: {
-    initialCost: 20,
+    initialCost: 22,
     multiplierForInitialCostBasedOnLevel: null,
-    growth: [3, 3, 4, 4, 4, 4, 4, 4, 5],
+    growth: 2,
     multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },
@@ -25,8 +27,9 @@ const trailer: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 2,
+   id: getId(),
    name: 'Płonąca strzała',
+   cpAdd: 1,
    mana: {
     initialCost: 30,
     multiplierForInitialCostBasedOnLevel: null,
@@ -45,8 +48,9 @@ const trailer: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 3,
+   id: getId(),
    name: 'Porażająca strzała',
+   cpAdd: 1,
    mana: {
     initialCost: 30,
     multiplierForInitialCostBasedOnLevel: null,
@@ -65,8 +69,9 @@ const trailer: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 4,
+   id: getId(),
    name: 'Podwójne trafienie',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -85,7 +90,7 @@ const trailer: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 5,
+   id: getId(),
    name: 'Podwójny dech',
    mana: {
     initialCost: 30,
@@ -105,8 +110,9 @@ const trailer: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 6,
+   id: getId(),
    name: 'Strzała z niespodzianką',
+   cpUse: 3,
    mana: {
     initialCost: 12,
     multiplierForInitialCostBasedOnLevel: null,
@@ -125,8 +131,9 @@ const trailer: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 7,
+   id: getId(),
    name: 'Wycieńczająca strzała',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -145,9 +152,8 @@ const trailer: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 8,
+   id: getId(),
    name: 'Zaklęty grot',
-   new: true,
    mana: {
     initialCost: 13,
     multiplierForInitialCostBasedOnLevel: null,
@@ -166,7 +172,7 @@ const trailer: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 9,
+   id: getId(),
    name: 'Kojące ochłodzenie',
    mana: {
     initialCost: null,
@@ -186,7 +192,7 @@ const trailer: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 10,
+   id: getId(),
    name: 'Przywracanie mocy',
    mana: {
     initialCost: null,
@@ -216,7 +222,7 @@ const trailer: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 11,
+   id: getId(),
    name: 'Emanująca strzała',
    mana: {
     initialCost: null,
@@ -236,7 +242,7 @@ const trailer: Proffesion = {
    minLevel: 120,
   },
   {
-   id: 12,
+   id: getId(),
    name: 'Gwałtowny strzał',
    mana: {
     initialCost: null,
@@ -256,7 +262,7 @@ const trailer: Proffesion = {
    minLevel: 120,
   },
   {
-   id: 13,
+   id: getId(),
    name: 'Śmierdzący ładunek',
    mana: {
     initialCost: null,

@@ -1,3 +1,4 @@
+import { getId } from '@/utils/get-id';
 import { Proffesion } from '../../types/Proffesion';
 
 const hunter: Proffesion = {
@@ -5,8 +6,9 @@ const hunter: Proffesion = {
  label: 'Łowca',
  abilities: [
   {
-   id: 1,
+   id: getId(),
    name: 'Błyskawiczny strzał',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -25,8 +27,9 @@ const hunter: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 2,
+   id: getId(),
    name: 'Podwójny strzał',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -45,8 +48,9 @@ const hunter: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 3,
+   id: getId(),
    name: 'Zatruta strzała',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -65,8 +69,9 @@ const hunter: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 4,
+   id: getId(),
    name: 'Wyniszczające rany',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -85,7 +90,7 @@ const hunter: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 5,
+   id: getId(),
    name: 'Piętno bestii',
    mana: {
     initialCost: null,
@@ -105,7 +110,7 @@ const hunter: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 6,
+   id: getId(),
    name: 'Krytyczne wzmocnienie',
    mana: {
     initialCost: null,
@@ -125,9 +130,8 @@ const hunter: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 7,
+   id: getId(),
    name: 'Medytacja',
-   new: true,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -151,7 +155,7 @@ const hunter: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 8,
+   id: getId(),
    name: 'Bandażowanie ran',
    mana: {
     initialCost: null,
@@ -171,8 +175,9 @@ const hunter: Proffesion = {
    minLevel: 80,
   },
   {
-   id: 9,
+   id: getId(),
    name: 'Diamentowa strzała',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -191,7 +196,7 @@ const hunter: Proffesion = {
    minLevel: 80,
   },
   {
-   id: 10,
+   id: getId(),
    name: 'Oczyszczenie',
    mana: {
     initialCost: null,
@@ -212,7 +217,7 @@ const hunter: Proffesion = {
    minLevel: 80,
   },
   {
-   id: 11,
+   id: getId(),
    name: 'Rozpraszająca strzała',
    mana: {
     initialCost: null,
@@ -232,7 +237,7 @@ const hunter: Proffesion = {
    minLevel: 120,
   },
   {
-   id: 12,
+   id: getId(),
    name: 'Dziki zapał',
    mana: {
     initialCost: null,
@@ -252,7 +257,7 @@ const hunter: Proffesion = {
    minLevel: 170,
   },
   {
-   id: 13,
+   id: getId(),
    name: 'Zdradziecki grot',
    mana: {
     initialCost: null,

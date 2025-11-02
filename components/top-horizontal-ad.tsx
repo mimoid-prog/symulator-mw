@@ -1,10 +1,11 @@
+'use client';
 import React, { useEffect } from 'react';
 import Script from 'next/script';
 
 export const TopHoriozntalAd = () => {
  useEffect(() => {
   try {
-   //@ts-ignore
+   // @ts-expect-error: adsbygoogle is injected by the AdSense script
    (window.adsbygoogle = window.adsbygoogle || []).push({});
   } catch (err) {
    console.error(err);

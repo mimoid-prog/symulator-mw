@@ -1,3 +1,4 @@
+import { getId } from '@/utils/get-id';
 import { Proffesion } from '../../types/Proffesion';
 
 const warrior: Proffesion = {
@@ -5,8 +6,9 @@ const warrior: Proffesion = {
  label: 'Wojownik',
  abilities: [
   {
-   id: 1,
+   id: getId(),
    name: 'Niszczycielski cios',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -25,8 +27,9 @@ const warrior: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 2,
+   id: getId(),
    name: 'Błyskawiczny atak',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -45,8 +48,9 @@ const warrior: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 3,
+   id: getId(),
    name: 'Okrzyk bojowy',
+   cpAdd: 1,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -65,8 +69,9 @@ const warrior: Proffesion = {
    minLevel: 25,
   },
   {
-   id: 4,
+   id: getId(),
    name: 'Ogłuszający cios',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -77,7 +82,7 @@ const warrior: Proffesion = {
    energy: {
     initialCost: 18,
     multiplierForInitialCostBasedOnLevel: null,
-    growth: [4, 4, 4, 4, 6, 8, 6, 6, 6],
+    growth: [4, 4, 4, 4, 6, 5, 5, 5, 5],
     multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },
@@ -85,8 +90,9 @@ const warrior: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 5,
+   id: getId(),
    name: 'Zdruzgotanie',
+   cpUse: 3,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -97,7 +103,7 @@ const warrior: Proffesion = {
    energy: {
     initialCost: 15,
     multiplierForInitialCostBasedOnLevel: null,
-    growth: 1,
+    growth: [1, 1, 1, 2, 2, 2, 2, 2, 2],
     multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },
@@ -105,7 +111,7 @@ const warrior: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 6,
+   id: getId(),
    name: 'Wyzywający okrzyk',
    mana: {
     initialCost: null,
@@ -125,7 +131,7 @@ const warrior: Proffesion = {
    minLevel: 35,
   },
   {
-   id: 7,
+   id: getId(),
    name: 'Przemożenie zmęczenia',
    mana: {
     initialCost: null,
@@ -150,7 +156,7 @@ const warrior: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 8,
+   id: getId(),
    name: 'Szarża',
    mana: {
     initialCost: null,
@@ -161,7 +167,7 @@ const warrior: Proffesion = {
    },
    energy: {
     initialCost: null,
-    multiplierForInitialCostBasedOnLevel: 0.3,
+    multiplierForInitialCostBasedOnLevel: 0.25,
     growth: null,
     multiplierForGrowthCostBasedOnLevel: 0,
     multiplierForUsingAbilityTwiceInARow: null,
@@ -170,7 +176,7 @@ const warrior: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 9,
+   id: getId(),
    name: 'Agresywny atak',
    mana: {
     initialCost: null,
@@ -190,8 +196,9 @@ const warrior: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 10,
+   id: getId(),
    name: 'Osłona tarczą',
+   cpUse: 5,
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,
@@ -210,7 +217,7 @@ const warrior: Proffesion = {
    minLevel: 50,
   },
   {
-   id: 11,
+   id: getId(),
    name: 'Krwiożerczy szał',
    mana: {
     initialCost: null,
@@ -230,7 +237,7 @@ const warrior: Proffesion = {
    minLevel: 170,
   },
   {
-   id: 12,
+   id: getId(),
    name: 'Kamienna skóra',
    mana: {
     initialCost: null,
@@ -250,7 +257,7 @@ const warrior: Proffesion = {
    minLevel: 170,
   },
   {
-   id: 13,
+   id: getId(),
    name: 'Paraliżujący cios',
    mana: {
     initialCost: null,

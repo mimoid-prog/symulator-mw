@@ -1,0 +1,47 @@
+html {
+ -webkit-font-smoothing: antialiased;
+ -moz-osx-font-smoothing: grayscale;
+}
+
+@keyframes buttonShimmer {
+ 0% {
+  background-position: -200% center;
+ }
+ 100% {
+  background-position: 200% center;
+ }
+}
+
+@keyframes mw-fade-in-out {
+ 0% {
+  opacity: 0;
+ }
+ 30% {
+  opacity: 1;
+ }
+ 85% {
+  opacity: 1;
+ }
+ 100% {
+  opacity: 0;
+ }
+}
+
+.chakra-theme.light {
+ --background: #efe8da;
+ --foreground: #171717;
+ --chakra-colors-bg-panel: #faf7f2;
+ --chakra-colors-border: var(--chakra-colors-brand-primary);
+}
+
+.chakra-theme.dark {
+ --background: #1a202c;
+ --foreground: #ededed;
+ --chakra-colors-bg-panel: #2d3748;
+ --chakra-colors-border: var(--chakra-colors-gray-600);
+}
+
+.chakra-theme {
+ background: var(--background);
+ color: var(--foreground);
+}
