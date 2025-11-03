@@ -9,6 +9,11 @@ const hunter: Proffesion = {
    id: getId(),
    name: 'Błyskawiczny strzał',
    cpUse: 3,
+   cpEffect: {
+    energy: {
+     percentageRetrieve: 5,
+    },
+   },
    mana: {
     initialCost: null,
     multiplierForInitialCostBasedOnLevel: null,

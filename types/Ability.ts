@@ -37,6 +37,14 @@ export type Ability = {
  new?: boolean;
  cpAdd?: number;
  cpUse?: number;
+ cpEffect?: {
+  energy?: {
+   percentageRetrieve: number;
+  };
+  mana?: {
+   percentageRetrieve: number;
+  };
+ };
  mana: PowerUnit;
  energy: PowerUnit;
  cooldown:
