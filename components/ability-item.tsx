@@ -2,11 +2,12 @@
 import { Text, Button, Tag, Flex } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import { MouseEvent } from 'react';
-import store from '@/lib/Store';
+import { useStore } from '@/lib/store-context';
 import { AbilityWithState } from '@/types/AbilityWithState';
 
 export const AbilityItem = observer(
  ({ abilityWithState }: { abilityWithState: AbilityWithState }) => {
+  const store = useStore();
   const handlePointsChange = (
    e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>,
    id: number

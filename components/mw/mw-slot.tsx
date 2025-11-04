@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import { LuArrowUp, LuArrowDown, LuX } from 'react-icons/lu';
-import store from '@/lib/Store';
+import { useStore } from '@/lib/store-context';
 
 export type Props = {
  index: number;
@@ -31,6 +31,7 @@ export const MwSlot = observer(
   changeMwSlotAbility,
   changeMwSlotOrder,
  }: Props) => {
+  const store = useStore();
   const selectItems = [
    { label: 'Zwykły atak', value: '0' },
    ...store.activeAbilities.map((ability) => ({

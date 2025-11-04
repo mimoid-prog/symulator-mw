@@ -2,13 +2,14 @@
 
 import { useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
-import store from '@/lib/Store';
+import { useStore } from '@/lib/store-context';
 import { decodeShareState } from '@/utils/share';
 
 export const ShareHydrator = () => {
  const searchParams = useSearchParams();
  const shareParam = searchParams?.get('s');
  const appliedShareRef = useRef<string | null>(null);
+ const store = useStore();
 
  useEffect(() => {
   if (!shareParam) {
@@ -30,4 +31,3 @@ export const ShareHydrator = () => {
 
  return null;
 };
-

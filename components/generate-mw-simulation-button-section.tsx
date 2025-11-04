@@ -1,10 +1,11 @@
 'use client';
 import { Box, Button } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
-import store from '@/lib/Store';
+import { useStore } from '@/lib/store-context';
 import { wrapOnClickWithGa } from '@/lib/ga-react';
 
 export const GenerateMwSimulationButtonSection = observer(() => {
+ const store = useStore();
  return (
   <Box position="fixed" bottom={4} left="50%" transform="translateX(-50%)">
    <Button

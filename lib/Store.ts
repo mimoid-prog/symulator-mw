@@ -40,7 +40,7 @@ export class Store {
  isMwSimulationModalOpen = false;
  simulation: Simulation | null = null;
 
- constructor() {
+ constructor(initial?: DecodedShareState) {
   makeAutoObservable(this, {
    saveBasics: action.bound,
    changeAbilityPoints: action.bound,
@@ -56,6 +56,11 @@ export class Store {
    setMwFromAbilityIds: action.bound,
    hydrateFromShare: action.bound,
   });
+
+  if (initial) {
+   // Initialize store from decoded share state during SSR/first render
+   this.hydrateFromShare(initial as DecodedShareState);
+  }
  }
 
  get activeAbilities() {
@@ -894,6 +899,6 @@ export class Store {
  }
 }
 
-const store = new Store();
-
-export default store;
+export function createStore(initial?: DecodedShareState) {
+ return new Store(initial);
+}

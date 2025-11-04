@@ -2,13 +2,14 @@
 import { Dialog, Button, Text, Box, CloseButton } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import shortenGold from '../utils/shortenGold';
-import store from '@/lib/Store';
+import { useStore } from '@/lib/store-context';
 import { SimulationContent } from './simulation-content';
 import { useEffect, useState } from 'react';
 import { FiCopy, FiCheck } from 'react-icons/fi';
 import { encodeShareState } from '@/utils/share';
 
 export const MwSimulationModal = observer(() => {
+ const store = useStore();
  const [copyState, setCopyState] = useState<'idle' | 'copied'>('idle');
 
  useEffect(() => {
