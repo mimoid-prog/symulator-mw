@@ -6,10 +6,12 @@ import { GenerateMwSimulationButtonSection } from '../components/generate-mw-sim
 import { Header } from '../components/header';
 import { Mw } from '../components/mw/mw';
 import { MwSimulationModal } from '../components/mw-simulation-modal';
+import { ShareHydrator } from '../components/share-hydrator';
 
 const Home: NextPage = () => {
  return (
   <Box mt={8} mb={24}>
+   <ShareHydrator />
    <Container maxW="1280px">
     <Header />
     <Box mt={8}>
