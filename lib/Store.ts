@@ -8,6 +8,7 @@ import { Basics } from '@/types/Basics';
 import { BasicsFormValues } from '@/types/BasicsFormValues';
 import { MwSlotType } from '@/types/MwSlotType';
 import { Round, Simulation, Turn } from '@/types/Simulation';
+import type { DecodedShareState } from '@/utils/share';
 
 export class Store {
  basicsFormValues: BasicsFormValues = {
@@ -39,7 +40,7 @@ export class Store {
  isMwSimulationModalOpen = false;
  simulation: Simulation | null = null;
 
- constructor() {
+ constructor(initial?: DecodedShareState) {
   makeAutoObservable(this, {
    saveBasics: action.bound,
    changeAbilityPoints: action.bound,
@@ -51,7 +52,14 @@ export class Store {
    closeMwSimulationModal: action.bound,
    changeMwInfinite: action.bound,
    generateMwSimulation: action.bound,
+   setAbilityPointsBulk: action.bound,
+   setMwFromAbilityIds: action.bound,
+   hydrateFromShare: action.bound,
   });
+
+  if (initial) {
+   this.hydrateFromShare(initial);
+  }
  }
 
  get activeAbilities() {
@@ -87,6 +95,116 @@ export class Store {
    map.get(slot.abilityId)!.push(i);
   });
   return map;
+ }
+
+ private calculateManaCost(ability: AbilityWithState, newPoints: number) {
+  let newManaCost = 0;
+
+  if (ability.mana.initialCost !== null) {
+   if (newPoints === 0) {
+    newManaCost = 0;
+   } else if (newPoints === 1) {
+    newManaCost = ability.mana.initialCost;
+   } else if (ability.mana.growth !== null) {
+    if (typeof ability.mana.growth === 'number') {
+     newManaCost = !ability.mana.growthDown
+      ? ability.mana.initialCost + (newPoints - 1) * ability.mana.growth
+      : ability.mana.initialCost - (newPoints - 1) * ability.mana.growth;
+    } else {
+     newManaCost = !ability.mana.growthDown
+      ? ability.mana.initialCost +
+        ability.mana.growth
+         .slice(0, newPoints - 1)
+         .reduce((prev, curr) => prev + curr)
+      : ability.mana.initialCost +
+        ability.mana.growth
+         .slice(0, newPoints - 1)
+         .reduce((prev, curr) => prev + curr);
+    }
+   }
+  } else if (
+   ability.mana.multiplierForInitialCostBasedOnLevel &&
+   ability.mana.multiplierForGrowthCostBasedOnLevel !== null
+  ) {
+   if (newPoints === 0) {
+    newManaCost = 0;
+   } else if (newPoints === 1) {
+    newManaCost = Math.round(
+     this.basics.level * ability.mana.multiplierForInitialCostBasedOnLevel
+    );
+   } else {
+    const initialManaCost =
+     this.basics.level * ability.mana.multiplierForInitialCostBasedOnLevel;
+
+    newManaCost = Math.round(
+     !ability.mana.growthDown
+      ? initialManaCost +
+         (newPoints - 1) *
+          (this.basics.level * ability.mana.multiplierForGrowthCostBasedOnLevel)
+      : initialManaCost -
+         (newPoints - 1) *
+          (this.basics.level * ability.mana.multiplierForGrowthCostBasedOnLevel)
+    );
+   }
+  }
+
+  return newManaCost;
+ }
+
+ private calculateEnergyCost(ability: AbilityWithState, newPoints: number) {
+  let newEnergyCost = 0;
+
+  if (ability.energy.initialCost !== null) {
+   if (newPoints === 0) {
+    newEnergyCost = 0;
+   } else if (newPoints === 1) {
+    newEnergyCost = ability.energy.initialCost;
+   } else if (ability.energy.growth !== null) {
+    if (typeof ability.energy.growth === 'number') {
+     newEnergyCost = !ability.energy.growthDown
+      ? ability.energy.initialCost + (newPoints - 1) * ability.energy.growth
+      : ability.energy.initialCost - (newPoints - 1) * ability.energy.growth;
+    } else {
+     newEnergyCost = !ability.energy.growthDown
+      ? ability.energy.initialCost +
+        ability.energy.growth
+         .slice(0, newPoints - 1)
+         .reduce((prev, curr) => prev + curr)
+      : ability.energy.initialCost +
+        ability.energy.growth
+         .slice(0, newPoints - 1)
+         .reduce((prev, curr) => prev + curr);
+    }
+   }
+  } else if (
+   ability.energy.multiplierForInitialCostBasedOnLevel &&
+   ability.energy.multiplierForGrowthCostBasedOnLevel !== null
+  ) {
+   if (newPoints === 0) {
+    newEnergyCost = 0;
+   } else if (newPoints === 1) {
+    newEnergyCost = Math.round(
+     this.basics.level * ability.energy.multiplierForInitialCostBasedOnLevel
+    );
+   } else {
+    const initialEnergyCost =
+     this.basics.level * ability.energy.multiplierForInitialCostBasedOnLevel;
+
+    newEnergyCost = Math.round(
+     !ability.energy.growthDown
+      ? initialEnergyCost +
+         (newPoints - 1) *
+          (this.basics.level *
+           ability.energy.multiplierForGrowthCostBasedOnLevel)
+      : initialEnergyCost -
+         (newPoints - 1) *
+          (this.basics.level *
+           ability.energy.multiplierForGrowthCostBasedOnLevel)
+    );
+   }
+  }
+
+  return newEnergyCost;
  }
 
  isAbilityDisabledAtSlot = computedFn(
@@ -214,113 +332,8 @@ export class Store {
     }
    }
 
-   let newManaCost = 0;
-
-   if (ability.mana.initialCost !== null) {
-    if (newPoints === 0) {
-     newManaCost = 0;
-    } else if (newPoints === 1) {
-     newManaCost = ability.mana.initialCost;
-    } else {
-     if (ability.mana.growth !== null) {
-      if (typeof ability.mana.growth === 'number') {
-       newManaCost = !ability.mana.growthDown
-        ? ability.mana.initialCost + (newPoints - 1) * ability.mana.growth
-        : ability.mana.initialCost - (newPoints - 1) * ability.mana.growth;
-      } else {
-       newManaCost = !ability.mana.growthDown
-        ? ability.mana.initialCost +
-          ability.mana.growth
-           .slice(0, newPoints - 1)
-           .reduce((prev, curr) => prev + curr)
-        : ability.mana.initialCost +
-          ability.mana.growth
-           .slice(0, newPoints - 1)
-           .reduce((prev, curr) => prev + curr);
-      }
-     }
-    }
-   } else if (
-    ability.mana.multiplierForInitialCostBasedOnLevel &&
-    ability.mana.multiplierForGrowthCostBasedOnLevel !== null
-   ) {
-    if (newPoints === 0) {
-     newManaCost = 0;
-    } else if (newPoints === 1) {
-     newManaCost = Math.round(
-      this.basics.level * ability.mana.multiplierForInitialCostBasedOnLevel
-     );
-    } else {
-     const initialManaCost =
-      this.basics.level * ability.mana.multiplierForInitialCostBasedOnLevel;
-
-     newManaCost = Math.round(
-      !ability.mana.growthDown
-       ? initialManaCost +
-          (newPoints - 1) *
-           (this.basics.level *
-            ability.mana.multiplierForGrowthCostBasedOnLevel)
-       : initialManaCost -
-          (newPoints - 1) *
-           (this.basics.level *
-            ability.mana.multiplierForGrowthCostBasedOnLevel)
-     );
-    }
-   }
-
-   let newEnergyCost = 0;
-
-   if (ability.energy.initialCost !== null) {
-    if (newPoints === 0) {
-     newEnergyCost = 0;
-    } else if (newPoints === 1) {
-     newEnergyCost = ability.energy.initialCost;
-    } else {
-     if (ability.energy.growth !== null) {
-      if (typeof ability.energy.growth === 'number') {
-       newEnergyCost = !ability.energy.growthDown
-        ? ability.energy.initialCost + (newPoints - 1) * ability.energy.growth
-        : ability.energy.initialCost - (newPoints - 1) * ability.energy.growth;
-      } else {
-       newEnergyCost = !ability.energy.growthDown
-        ? ability.energy.initialCost +
-          ability.energy.growth
-           .slice(0, newPoints - 1)
-           .reduce((prev, curr) => prev + curr)
-        : ability.energy.initialCost +
-          ability.energy.growth
-           .slice(0, newPoints - 1)
-           .reduce((prev, curr) => prev + curr);
-      }
-     }
-    }
-   } else if (
-    ability.energy.multiplierForInitialCostBasedOnLevel &&
-    ability.energy.multiplierForGrowthCostBasedOnLevel !== null
-   ) {
-    if (newPoints === 0) {
-     newEnergyCost = 0;
-    } else if (newPoints === 1) {
-     newEnergyCost = Math.round(
-      this.basics.level * ability.energy.multiplierForInitialCostBasedOnLevel
-     );
-    } else {
-     const initialEnergyCost =
-      this.basics.level * ability.energy.multiplierForInitialCostBasedOnLevel;
-
-     newEnergyCost = Math.round(
-      !ability.energy.growthDown
-       ? initialEnergyCost +
-          (newPoints - 1) *
-           (this.basics.level *
-            ability.energy.multiplierForGrowthCostBasedOnLevel)
-       : initialEnergyCost -
-          (newPoints - 1) *
-           (this.basics.level *
-            ability.energy.multiplierForGrowthCostBasedOnLevel)
-     );
-    }
-   }
+   const newManaCost = this.calculateManaCost(ability, newPoints);
+   const newEnergyCost = this.calculateEnergyCost(ability, newPoints);
 
    this.abilitiesWithState[indexOfAbility] = {
     ...this.abilitiesWithState[indexOfAbility],
@@ -333,6 +346,87 @@ export class Store {
     this.exchangeNonActiveAbilityFromMw(id);
    }
   }
+ }
+
+ setAbilityPointsBulk(entries: Array<[number, number]>) {
+  const pointsMap = new Map<number, number>(entries);
+
+  const zeroedAbilityIds: number[] = [];
+
+  this.abilitiesWithState = this.abilitiesWithState.map((ability) => {
+   const targetPoints = pointsMap.get(ability.id) ?? 0;
+   const manaCost = this.calculateManaCost(ability, targetPoints);
+   const energyCost = this.calculateEnergyCost(ability, targetPoints);
+
+   if (ability.id !== 0 && ability.points > 0 && targetPoints === 0) {
+    zeroedAbilityIds.push(ability.id);
+   }
+
+   return {
+    ...ability,
+    points: targetPoints,
+    manaCost,
+    energyCost,
+   };
+  });
+
+  zeroedAbilityIds.forEach((abilityId) =>
+   this.exchangeNonActiveAbilityFromMw(abilityId)
+  );
+ }
+
+ setMwFromAbilityIds(ids: number[]) {
+  const idsTyped = ids as number[];
+  const normalizedIds = idsTyped.map((abilityId) => {
+   if (abilityId === 0) {
+    return 0;
+   }
+
+   const ability = this.abilitiesWithState?.find(
+    (abilityWithState) => abilityWithState.id === abilityId
+   );
+
+   if (!ability || ability.points <= 0) {
+    return 0;
+   }
+
+   return abilityId;
+  });
+
+  this.mw = normalizedIds.map((abilityId) => ({
+   id: nanoid(),
+   abilityId,
+  }));
+
+  this.mwTotalGold = 0;
+  this.mwTotalCurrency = 0;
+  this.mwSpentGoldAndCurrencyHistory = normalizedIds.map(() => ({
+   gold: 0,
+   currency: 0,
+  }));
+ }
+
+ hydrateFromShare(payload: DecodedShareState) {
+  const decoded = payload as DecodedShareState;
+  const proffesion = proffesions[decoded.pIndex];
+  if (!proffesion) {
+   return;
+  }
+
+  const basicsFormValues: BasicsFormValues = {
+   level: String(decoded.basics.level),
+   mana: String(decoded.basics.mana),
+   energy: String(decoded.basics.energy),
+   manaRegen: String(decoded.basics.manaRegen),
+   energyRegen: String(decoded.basics.energyRegen),
+   proffesion: proffesion.value,
+  };
+
+  this.saveBasics(basicsFormValues);
+  this.setAbilityPointsBulk(decoded.abilityPoints);
+  this.setMwFromAbilityIds(decoded.mw);
+  this.isMwSimulationModalOpen = false;
+  this.simulation = null;
  }
 
  addMwSlot({ gold, currency }: { gold?: number; currency?: number }) {
@@ -780,6 +874,6 @@ export class Store {
  }
 }
 
-const store = new Store();
-
-export default store;
+export function createStore(initialState?: DecodedShareState) {
+ return new Store(initialState);
+}

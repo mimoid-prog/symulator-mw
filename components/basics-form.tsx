@@ -15,17 +15,23 @@ import { observer } from 'mobx-react-lite';
 import { Controller, useForm } from 'react-hook-form';
 import proffesions from '../data/proffesions';
 import { BasicsFormValues } from '../types/BasicsFormValues';
-import store from '@/lib/Store';
-import { useState } from 'react';
+import { useStore } from '@/lib/store-context';
+import { useState, useEffect } from 'react';
 
 export const BasicsForm = observer(() => {
+ const store = useStore();
  const {
   register,
   handleSubmit,
   control,
+  reset,
 
   formState: { errors },
  } = useForm<BasicsFormValues>({ defaultValues: store.basicsFormValues });
+
+ useEffect(() => {
+  reset(store.basicsFormValues);
+ }, [reset, store.basicsFormValues]);
 
  const [saveNoticeActive, setSaveNoticeActive] = useState(false);
 

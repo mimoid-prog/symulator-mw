@@ -10,7 +10,7 @@ import {
 import { observer } from 'mobx-react-lite';
 import { MwSlot } from './mw-slot';
 import { MwSlotToBuy } from './mw-slot-to-buy';
-import store from '@/lib/Store';
+import { useStore } from '@/lib/store-context';
 import { Tooltip } from '@/components/ui/tooltip';
 import { LuDollarSign } from 'react-icons/lu';
 import { wrapOnClickWithGa } from '@/lib/ga-react';
@@ -43,6 +43,7 @@ const allMwSlotsToBuy = [
 ];
 
 export const Mw = observer(() => {
+ const store = useStore();
  const mwSlotsToBuy = allMwSlotsToBuy.slice(store.mw.length);
 
  return (
