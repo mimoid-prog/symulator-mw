@@ -58,7 +58,7 @@ export class Store {
   });
 
   if (initial) {
-   this.hydrateFromShare(initial as DecodedShareState);
+   this.hydrateFromShare(initial);
   }
  }
 
@@ -95,24 +95,6 @@ export class Store {
    map.get(slot.abilityId)!.push(i);
   });
   return map;
- }
-
- private clampAbilityPoints(points: number) {
-  if (!Number.isFinite(points)) {
-   return 0;
-  }
-
-  const truncated = Math.trunc(points);
-
-  if (truncated < 0) {
-   return 0;
-  }
-
-  if (truncated > 10) {
-   return 10;
-  }
-
-  return truncated;
  }
 
  private calculateManaCost(ability: AbilityWithState, newPoints: number) {
@@ -350,45 +332,39 @@ export class Store {
     }
    }
 
-   const normalizedPoints = this.clampAbilityPoints(newPoints);
-   const newManaCost = this.calculateManaCost(ability, normalizedPoints);
-   const newEnergyCost = this.calculateEnergyCost(ability, normalizedPoints);
+   const newManaCost = this.calculateManaCost(ability, newPoints);
+   const newEnergyCost = this.calculateEnergyCost(ability, newPoints);
 
    this.abilitiesWithState[indexOfAbility] = {
     ...this.abilitiesWithState[indexOfAbility],
-    points: normalizedPoints,
+    points: newPoints,
     manaCost: newManaCost,
     energyCost: newEnergyCost,
    };
 
-   if (normalizedPoints === 0) {
+   if (newPoints === 0) {
     this.exchangeNonActiveAbilityFromMw(id);
    }
   }
  }
 
  setAbilityPointsBulk(entries: Array<[number, number]>) {
-  const entriesTyped = entries as Array<[number, number]>;
-  const pointsMap = new Map<number, number>();
-  for (const [abilityId, points] of entriesTyped) {
-   pointsMap.set(abilityId, this.clampAbilityPoints(points));
-  }
+  const pointsMap = new Map<number, number>(entries);
 
   const zeroedAbilityIds: number[] = [];
 
   this.abilitiesWithState = this.abilitiesWithState.map((ability) => {
    const targetPoints = pointsMap.get(ability.id) ?? 0;
-   const normalizedPoints = this.clampAbilityPoints(targetPoints);
-   const manaCost = this.calculateManaCost(ability, normalizedPoints);
-   const energyCost = this.calculateEnergyCost(ability, normalizedPoints);
+   const manaCost = this.calculateManaCost(ability, targetPoints);
+   const energyCost = this.calculateEnergyCost(ability, targetPoints);
 
-   if (ability.id !== 0 && ability.points > 0 && normalizedPoints === 0) {
+   if (ability.id !== 0 && ability.points > 0 && targetPoints === 0) {
     zeroedAbilityIds.push(ability.id);
    }
 
    return {
     ...ability,
-    points: normalizedPoints,
+    points: targetPoints,
     manaCost,
     energyCost,
    };

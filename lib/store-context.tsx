@@ -10,6 +10,10 @@ import {
 import { createStore, Store } from '@/lib/Store';
 import { decodeShareState } from '@/utils/share';
 import { useSearchParams } from 'next/navigation';
+import { enableStaticRendering } from 'mobx-react-lite';
+
+// SSR support for MobX
+enableStaticRendering(typeof window === 'undefined');
 
 type StoreProviderProps = {
  initialSearchParams?: Record<string, string | string[] | undefined> | null;
