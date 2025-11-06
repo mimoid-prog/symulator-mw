@@ -32,6 +32,7 @@ export const MwSimulationModal = observer(() => {
     return true;
    } catch {
     // fall back to execCommand below
+    console.error('Failed to copy to clipboard');
    }
   }
 
@@ -58,7 +59,7 @@ export const MwSimulationModal = observer(() => {
   }
 
   const url = new URL(`${window.location.origin}${window.location.pathname}`);
-  url.searchParams.set('s', shareValue);
+  url.searchParams.set('share', shareValue);
   const shareUrl = url.toString();
 
   const copied = await copyShareLink(shareUrl);
@@ -96,7 +97,7 @@ export const MwSimulationModal = observer(() => {
      <Dialog.Footer display="flex" justifyContent="flex-end" pt="4">
       <Button
        size="sm"
-       colorPalette="brand"
+       variant="outline"
        onClick={handleCopy}
        gap="2"
        disabled={isCopyDisabled}

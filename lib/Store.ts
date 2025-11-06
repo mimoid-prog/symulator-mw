@@ -58,7 +58,6 @@ export class Store {
   });
 
   if (initial) {
-   // Initialize store from decoded share state during SSR/first render
    this.hydrateFromShare(initial as DecodedShareState);
   }
  }
@@ -899,6 +898,6 @@ export class Store {
  }
 }
 
-export function createStore(initial?: DecodedShareState) {
- return new Store(initial);
+export function createStore(initialState?: DecodedShareState) {
+ return new Store(initialState);
 }

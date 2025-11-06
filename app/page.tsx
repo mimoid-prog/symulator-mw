@@ -15,8 +15,8 @@ export default async function Home({
  const sp = await searchParams;
 
  return (
-  <Box mt={8} mb={24}>
-   <StoreProvider initialSearchParams={sp}>
+  <StoreProvider initialSearchParams={sp}>
+   <Box mt={8} mb={24}>
     <Container maxW="1280px">
      <Header />
      <Box mt={8}>
@@ -35,7 +35,7 @@ export default async function Home({
     </Container>
     <GenerateMwSimulationButtonSection />
     <MwSimulationModal />
-   </StoreProvider>
-  </Box>
+   </Box>
+  </StoreProvider>
  );
 }

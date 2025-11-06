@@ -1,6 +1,12 @@
 'use client';
 
-import { createContext, useContext, useEffect, useMemo, useRef, type ReactNode } from 'react';
+import {
+ createContext,
+ useContext,
+ useEffect,
+ useRef,
+ type ReactNode,
+} from 'react';
 import { createStore, Store } from '@/lib/Store';
 import { decodeShareState } from '@/utils/share';
 import { useSearchParams } from 'next/navigation';
@@ -12,19 +18,22 @@ type StoreProviderProps = {
 
 const StoreContext = createContext<Store | null>(null);
 
-export function StoreProvider({ initialSearchParams = null, children }: StoreProviderProps) {
+export function StoreProvider({
+ initialSearchParams = null,
+ children,
+}: StoreProviderProps) {
  const storeRef = useRef<Store | null>(null);
  const searchParams = useSearchParams();
 
- // Synchronously create and hydrate the store on first render (SSR-safe)
  if (storeRef.current === null) {
-  const sParamRaw = initialSearchParams?.['s'];
-  const sParam = Array.isArray(sParamRaw) ? sParamRaw[0] : sParamRaw ?? null;
-  const decoded = sParam ? decodeShareState(sParam) : null;
+  const shareParamRaw = initialSearchParams?.['share'];
+  const shareParam = Array.isArray(shareParamRaw)
+   ? shareParamRaw[0]
+   : shareParamRaw ?? null;
+  const decoded = shareParam ? decodeShareState(shareParam) : null;
   storeRef.current = createStore(decoded ?? undefined);
  }
 
- // React to client-side URL changes and re-hydrate if needed
  useEffect(() => {
   const currentShare = searchParams?.get('s');
   if (!currentShare) return;
@@ -34,9 +43,11 @@ export function StoreProvider({ initialSearchParams = null, children }: StorePro
   }
  }, [searchParams]);
 
- const value = useMemo(() => storeRef.current as Store, []);
-
- return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
+ return (
+  <StoreContext.Provider value={storeRef.current as Store}>
+   {children}
+  </StoreContext.Provider>
+ );
 }
 
 export function useStore(): Store {
@@ -46,5 +57,3 @@ export function useStore(): Store {
  }
  return ctx;
 }
-
-
