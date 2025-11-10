@@ -31,6 +31,21 @@ export const AbilityItem = observer(
     : 'yellow.600';
   };
 
+  const cooldownValue = (() => {
+   const { cooldown, points } = abilityWithState;
+
+   if (typeof cooldown === 'number') {
+    return cooldown || 0;
+   }
+
+   if (points <= 0) {
+    return cooldown[0] || 0;
+   }
+
+   const index = Math.min(points - 1, cooldown.length - 1);
+   return cooldown[index] || 0;
+  })();
+
   return (
    <Button
     variant="outline"
@@ -42,32 +57,37 @@ export const AbilityItem = observer(
     borderColor={getBorderColor(abilityWithState.id, abilityWithState.points)}
     disabled={abilityWithState.id === 0}
    >
-    {abilityWithState.new && (
-     <Tag.Root
-      colorPalette="blue"
-      variant="outline"
-      size="sm"
-      style={{
-       position: 'absolute',
-       top: 8,
-       left: 8,
-      }}
-     >
-      <Tag.Label>Nowość</Tag.Label>
-     </Tag.Root>
-    )}
+    <Flex position="absolute" top="8px" left="8px" gap="2">
+     {abilityWithState.new && (
+      <Tag.Root colorPalette="blue" variant="outline" size="sm">
+       <Tag.Label>Nowość</Tag.Label>
+      </Tag.Root>
+     )}
+    </Flex>
 
-    <Tag.Root
-     colorPalette="blue"
-     size="sm"
-     style={{
-      position: 'absolute',
-      top: 8,
-      right: 8,
-     }}
+    <Flex
+     direction="column"
+     alignItems="flex-end"
+     position="absolute"
+     top="8px"
+     right="8px"
+     gap="1.5"
     >
-     <Tag.Label>lvl: {abilityWithState.minLevel}</Tag.Label>
-    </Tag.Root>
+     <Tag.Root colorPalette="blue" size="sm">
+      <Tag.Label>lvl: {abilityWithState.minLevel}</Tag.Label>
+     </Tag.Root>
+
+     {cooldownValue > 0 && (
+      <Tag.Root
+       colorPalette="purple"
+       variant="outline"
+       size="sm"
+       width="fit-content"
+      >
+       <Tag.Label>cd: {cooldownValue}</Tag.Label>
+      </Tag.Root>
+     )}
+    </Flex>
 
     <Flex direction="column" gap="1">
      <Text fontWeight="600">{abilityWithState.name}</Text>
