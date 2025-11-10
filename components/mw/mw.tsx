@@ -6,6 +6,7 @@ import {
  Stack,
  IconButton,
  Separator,
+ Text,
 } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import { MwSlot } from './mw-slot';
@@ -87,7 +88,7 @@ export const Mw = observer(() => {
 
    <Box mt={3}>
     <Stack>
-     {store.mw.map((mwItem, i) => (
+     {store.mw.slice(0, 20).map((mwItem, i) => (
       <MwSlot
        key={mwItem.id}
        index={i}
@@ -100,7 +101,7 @@ export const Mw = observer(() => {
       />
      ))}
 
-     {mwSlotsToBuy.map((mwSlotToBuy, i) => (
+     {mwSlotsToBuy.slice(0, 20).map((mwSlotToBuy, i) => (
       <MwSlotToBuy
        key={i}
        isActive={i === 0 ? true : false}
@@ -109,6 +110,37 @@ export const Mw = observer(() => {
        addMwSlot={store.addMwSlot}
       />
      ))}
+
+     {store.mw.length >= 20 && (
+      <>
+       <Separator />
+       <Text fontSize="sm">
+        W Margonem możesz mieć max 20 tur w MW, ale jak chcesz potestować to
+        dokup sobie więcej:
+       </Text>
+       <Separator />
+
+       {store.mw.slice(20).map((mwItem, i) => (
+        <MwSlot
+         key={mwItem.id}
+         index={i + 20}
+         mwSlotsAmount={store.mw.length}
+         id={mwItem.id}
+         abilityId={mwItem.abilityId}
+         removeMwSlot={store.removeMwSlot}
+         changeMwSlotAbility={store.changeMwSlotAbility}
+         changeMwSlotOrder={store.changeMwSlotOrder}
+        />
+       ))}
+
+       <MwSlotToBuy
+        isActive={true}
+        gold={5000000}
+        currency={150}
+        addMwSlot={store.addMwSlot}
+       />
+      </>
+     )}
     </Stack>
    </Box>
   </Box>
