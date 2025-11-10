@@ -226,9 +226,9 @@ const trailer: Proffesion = {
    name: 'Emanująca strzała',
    mana: {
     initialCost: null,
-    multiplierForInitialCostBasedOnLevel: 1,
+    multiplierForInitialCostBasedOnLevel: 0.33,
     growth: null,
-    multiplierForGrowthCostBasedOnLevel: 0.05,
+    multiplierForGrowthCostBasedOnLevel: 0.03,
     multiplierForUsingAbilityTwiceInARow: null,
    },
    energy: {
