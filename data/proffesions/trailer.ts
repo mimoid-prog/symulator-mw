@@ -86,7 +86,7 @@ const trailer: Proffesion = {
     multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },
-   cooldown: 2,
+   cooldown: 3,
    minLevel: 25,
   },
   {
@@ -188,7 +188,7 @@ const trailer: Proffesion = {
     multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },
-   cooldown: 6,
+   cooldown: 8,
    minLevel: 50,
   },
   {

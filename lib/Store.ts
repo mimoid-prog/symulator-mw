@@ -98,6 +98,14 @@ export class Store {
  }
 
  private calculateManaCost(ability: AbilityWithState, newPoints: number) {
+  if (ability.mana.costMultipliersBySkillLevel) {
+   return newPoints === 0
+    ? 0
+    : Math.round(
+       this.basics.level * ability.mana.costMultipliersBySkillLevel[newPoints - 1]
+      );
+  }
+
   let newManaCost = 0;
 
   if (ability.mana.initialCost !== null) {
@@ -152,6 +160,14 @@ export class Store {
  }
 
  private calculateEnergyCost(ability: AbilityWithState, newPoints: number) {
+  if (ability.energy.costMultipliersBySkillLevel) {
+   return newPoints === 0
+    ? 0
+    : Math.round(
+       this.basics.level * ability.energy.costMultipliersBySkillLevel[newPoints - 1]
+      );
+  }
+
   let newEnergyCost = 0;
 
   if (ability.energy.initialCost !== null) {

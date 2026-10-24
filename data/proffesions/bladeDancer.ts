@@ -198,26 +198,6 @@ const bladeDancer: Proffesion = {
   },
   {
    id: getId(),
-   name: 'Furia',
-   mana: {
-    initialCost: null,
-    multiplierForInitialCostBasedOnLevel: null,
-    growth: null,
-    multiplierForGrowthCostBasedOnLevel: null,
-    multiplierForUsingAbilityTwiceInARow: null,
-   },
-   energy: {
-    initialCost: 30,
-    multiplierForInitialCostBasedOnLevel: null,
-    growth: 2,
-    multiplierForGrowthCostBasedOnLevel: null,
-    multiplierForUsingAbilityTwiceInARow: null,
-   },
-   cooldown: 8,
-   minLevel: 120,
-  },
-  {
-   id: getId(),
    name: 'Opatrywanie ran',
    mana: {
     initialCost: null,
@@ -228,6 +208,26 @@ const bladeDancer: Proffesion = {
    },
    energy: {
     initialCost: 40,
+    multiplierForInitialCostBasedOnLevel: null,
+    growth: 2,
+    multiplierForGrowthCostBasedOnLevel: null,
+    multiplierForUsingAbilityTwiceInARow: null,
+   },
+   cooldown: 8,
+   minLevel: 80,
+  },
+  {
+   id: getId(),
+   name: 'Furia',
+   mana: {
+    initialCost: null,
+    multiplierForInitialCostBasedOnLevel: null,
+    growth: null,
+    multiplierForGrowthCostBasedOnLevel: null,
+    multiplierForUsingAbilityTwiceInARow: null,
+   },
+   energy: {
+    initialCost: 30,
     multiplierForInitialCostBasedOnLevel: null,
     growth: 2,
     multiplierForGrowthCostBasedOnLevel: null,

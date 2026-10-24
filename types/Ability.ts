@@ -1,6 +1,21 @@
+export type SkillProgression = [
+ number,
+ number,
+ number,
+ number,
+ number,
+ number,
+ number,
+ number,
+ number,
+ number
+];
+
 export type PowerUnit = {
  initialCost: number | null;
  multiplierForInitialCostBasedOnLevel: number | null;
+ // Character level multiplied by the entry for the allocated skill points.
+ costMultipliersBySkillLevel?: SkillProgression;
  growth:
   | number
   | [number, number, number, number, number, number, number, number, number]

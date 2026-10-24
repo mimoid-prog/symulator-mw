@@ -1,5 +1,12 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Dane umiejętności
+
+Umiejętności uwzględniają wpisy bloga zmian opublikowane po 10.11.2025,
+do najnowszego wpisu z 14.07.2026.
+
+Testy kosztów, odnowień i zgodności zapisanych ustawień: `pnpm test`.
+
 ## Getting Started
 
 First, run the development server:
