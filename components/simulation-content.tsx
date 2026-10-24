@@ -3,7 +3,7 @@ import { Box, Badge, HStack, Heading, Text } from '@chakra-ui/react';
 import { memo } from 'react';
 import { Simulation } from '@/types/Simulation';
 
-export const SimulationContent = memo(({ simulation }: { simulation: Simulation }) => {
+export const SimulationContent = memo(function SimulationContent({ simulation }: { simulation: Simulation }) {
  return (
   <Box mt={3}>
    <Box
