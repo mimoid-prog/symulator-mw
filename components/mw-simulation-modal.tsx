@@ -1,5 +1,5 @@
 'use client';
-import { Dialog, Button, Text, Box, CloseButton } from '@chakra-ui/react';
+import { Dialog, Button, Text, CloseButton } from '@chakra-ui/react';
 import { observer } from 'mobx-react-lite';
 import shortenGold from '../utils/shortenGold';
 import { useStore } from '@/lib/store-context';

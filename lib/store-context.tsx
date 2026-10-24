@@ -4,7 +4,7 @@ import {
  createContext,
  useContext,
  useEffect,
- useRef,
+ useState,
  type ReactNode,
 } from 'react';
 import { createStore, Store } from '@/lib/Store';
@@ -26,29 +26,28 @@ export function StoreProvider({
  initialSearchParams = null,
  children,
 }: StoreProviderProps) {
- const storeRef = useRef<Store | null>(null);
  const searchParams = useSearchParams();
 
- if (storeRef.current === null) {
+ const [store] = useState(() => {
   const shareParamRaw = initialSearchParams?.['share'];
   const shareParam = Array.isArray(shareParamRaw)
    ? shareParamRaw[0]
    : shareParamRaw ?? null;
   const decoded = shareParam ? decodeShareState(shareParam) : null;
-  storeRef.current = createStore(decoded ?? undefined);
- }
+  return createStore(decoded ?? undefined);
+ });
 
  useEffect(() => {
   const currentShare = searchParams?.get('s');
   if (!currentShare) return;
   const decoded = decodeShareState(currentShare);
   if (decoded) {
-   storeRef.current?.hydrateFromShare(decoded);
+   store.hydrateFromShare(decoded);
   }
- }, [searchParams]);
+ }, [searchParams, store]);
 
  return (
-  <StoreContext.Provider value={storeRef.current as Store}>
+  <StoreContext.Provider value={store}>
    {children}
   </StoreContext.Provider>
  );

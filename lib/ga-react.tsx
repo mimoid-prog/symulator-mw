@@ -20,14 +20,14 @@ export function useGaClick(
 ): React.MouseEventHandler {
  const send = useCallback(() => trackClick(label, extra), [label, extra]);
  return useCallback<React.MouseEventHandler>(
-  (e) => {
+  () => {
    send();
   },
   [send]
  );
 }
 
-export function wrapOnClickWithGa<E extends React.MouseEvent<any, MouseEvent>>(
+export function wrapOnClickWithGa<E extends React.MouseEvent<Element, MouseEvent>>(
  onClick: ((event: E) => void) | undefined,
  label: string,
  extra?: Record<string, unknown>
