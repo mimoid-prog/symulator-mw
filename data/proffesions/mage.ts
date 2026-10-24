@@ -197,26 +197,6 @@ const mage: Proffesion = {
   },
   {
    id: getId(),
-   name: 'Magiczna osłona',
-   mana: {
-    initialCost: 41,
-    multiplierForInitialCostBasedOnLevel: null,
-    growth: 1,
-    multiplierForGrowthCostBasedOnLevel: null,
-    multiplierForUsingAbilityTwiceInARow: null,
-   },
-   energy: {
-    initialCost: null,
-    multiplierForInitialCostBasedOnLevel: null,
-    growth: null,
-    multiplierForGrowthCostBasedOnLevel: null,
-    multiplierForUsingAbilityTwiceInARow: null,
-   },
-   cooldown: 0,
-   minLevel: 50,
-  },
-  {
-   id: getId(),
    name: 'Krytyczna potęga',
    mana: {
     initialCost: null,

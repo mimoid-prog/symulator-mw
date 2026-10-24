@@ -86,7 +86,7 @@ const warrior: Proffesion = {
     multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },
-   cooldown: 1,
+   cooldown: [2, 2, 2, 1, 1, 1, 1, 1, 1, 1],
    minLevel: 35,
   },
   {
@@ -177,26 +177,6 @@ const warrior: Proffesion = {
   },
   {
    id: getId(),
-   name: 'Agresywny atak',
-   mana: {
-    initialCost: null,
-    multiplierForInitialCostBasedOnLevel: null,
-    growth: null,
-    multiplierForGrowthCostBasedOnLevel: null,
-    multiplierForUsingAbilityTwiceInARow: null,
-   },
-   energy: {
-    initialCost: 15,
-    multiplierForInitialCostBasedOnLevel: null,
-    growth: 2,
-    multiplierForGrowthCostBasedOnLevel: null,
-    multiplierForUsingAbilityTwiceInARow: null,
-   },
-   cooldown: 0,
-   minLevel: 50,
-  },
-  {
-   id: getId(),
    name: 'Osłona tarczą',
    cpUse: 5,
    mana: {
@@ -215,6 +195,27 @@ const warrior: Proffesion = {
    },
    cooldown: 0,
    minLevel: 50,
+  },
+  {
+   id: getId(),
+   name: 'Agresywny atak',
+   cpAdd: 1,
+   mana: {
+    initialCost: null,
+    multiplierForInitialCostBasedOnLevel: null,
+    growth: null,
+    multiplierForGrowthCostBasedOnLevel: null,
+    multiplierForUsingAbilityTwiceInARow: null,
+   },
+   energy: {
+    initialCost: 15,
+    multiplierForInitialCostBasedOnLevel: null,
+    growth: 2,
+    multiplierForGrowthCostBasedOnLevel: null,
+    multiplierForUsingAbilityTwiceInARow: null,
+   },
+   cooldown: 16,
+   minLevel: 120,
   },
   {
    id: getId(),

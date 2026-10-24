@@ -17,9 +17,9 @@ const paladin: Proffesion = {
     multiplierForUsingAbilityTwiceInARow: null,
    },
    energy: {
-    initialCost: 20,
+    initialCost: 19,
     multiplierForInitialCostBasedOnLevel: null,
-    growth: 2,
+    growth: 3,
     multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },
@@ -132,33 +132,16 @@ const paladin: Proffesion = {
   },
   {
    id: getId(),
-   name: 'Aura szybkości',
-   mana: {
-    initialCost: 50,
-    multiplierForInitialCostBasedOnLevel: null,
-    growth: 5,
-    multiplierForGrowthCostBasedOnLevel: null,
-    multiplierForUsingAbilityTwiceInARow: null,
-   },
-   energy: {
-    initialCost: null,
-    multiplierForInitialCostBasedOnLevel: null,
-    growth: null,
-    multiplierForGrowthCostBasedOnLevel: null,
-    multiplierForUsingAbilityTwiceInARow: null,
-   },
-   cooldown: 6,
-   minLevel: 50,
-  },
-  {
-   id: getId(),
    name: 'Srebrzysty blask',
    cpUse: 3,
    mana: {
     initialCost: null,
-    multiplierForInitialCostBasedOnLevel: 0.8,
+    multiplierForInitialCostBasedOnLevel: null,
+    costMultipliersBySkillLevel: [
+     0.8, 0.85, 0.9, 0.95, 1, 1.15, 1.3, 1.45, 1.6, 1.75,
+    ],
     growth: null,
-    multiplierForGrowthCostBasedOnLevel: 0.03,
+    multiplierForGrowthCostBasedOnLevel: null,
     multiplierForUsingAbilityTwiceInARow: null,
    },
    energy: {
@@ -170,11 +153,11 @@ const paladin: Proffesion = {
    },
    effects: {
     energyPerTurn: {
-     progression: [2, 2, 3, 3, 4, 4, 5, 5, 6, 6],
+     progression: [2, 2, 2, 2, 2, 3, 3, 4, 4, 5],
      duration: 8,
     },
    },
-   cooldown: 6,
+   cooldown: 8,
    minLevel: 50,
   },
   {
@@ -326,7 +309,7 @@ const paladin: Proffesion = {
     multiplierForUsingAbilityTwiceInARow: null,
    },
    cooldown: 8,
-   minLevel: 230,
+   minLevel: 170,
   },
  ],
 };
