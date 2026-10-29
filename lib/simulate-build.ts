@@ -131,9 +131,17 @@ export function simulateBuild(input: unknown) {
  // IDs above have been checked before the website's permissive share-link importer is called.
  store.setMwFromAbilityIds(simulatorIds);
  store.isMwSimulationInfinite = repeat;
- store.generateMwSimulation(maxTurns);
- const result = store.simulation!;
+ const result = store.generateMwSimulation(maxTurns);
  const blocked = result.blockedAction;
+ const turns = result.rounds.flatMap((round) => round.turns);
+ const lastTurn = turns.at(-1);
+ const terminationMessage = result.terminationReason === 'turn_limit'
+  ? 'Osiągnięto limit tur; to nie dowodzi działania w nieskończoność.'
+  : result.noProgressReason === 'empty_sequence'
+   ? 'Sekwencja MW jest pusta.'
+   : result.noProgressReason === 'all_actions_on_cooldown'
+    ? 'Brak postępu: wszystkie akcje są na cooldownie, a pomijanie nie przesuwa czasu.'
+    : result.message;
 
  return {
   ok: true as const,
@@ -143,7 +151,7 @@ export function simulateBuild(input: unknown) {
   turns_executed: result.turnsCount,
   termination: {
    code: result.terminationReason,
-   message: result.message,
+   message: terminationMessage,
    ...(result.noProgressReason ? { detail: result.noProgressReason } : {}),
    ...(blocked ? { blocked_action: {
     action_id: sequence[blocked.sequenceIndex] as number,
@@ -151,9 +159,13 @@ export function simulateBuild(input: unknown) {
     resource: blocked.resource, required: blocked.required, available: blocked.available,
    } } : {}),
   },
-  final: { mana: result.finalMana, energy: result.finalEnergy, combination_points: result.finalCombinationPoints },
+  final: {
+   mana: lastTurn?.mana.current ?? resources.mana,
+   energy: lastTurn?.energy.current ?? resources.energy,
+   combination_points: lastTurn?.combinationPoints ?? 0,
+  },
   combination_points_cap: result.combinationPointsCap,
-  turns: result.rounds.flatMap((round) => round.turns.map((turn) => ({
+  turns: turns.map((turn, index) => ({
    turn: turn.id + 1,
    round: turn.roundId + 1,
    sequence_index: turn.sequenceIndex,
@@ -161,9 +173,9 @@ export function simulateBuild(input: unknown) {
    simulator_ability_id: turn.abilityWithState.id,
    name: turn.abilityWithState.name,
    rank: turn.abilityWithState.points,
-   mana: { before: turn.mana.before, cost: Math.round(turn.mana.abilityCost), after: turn.mana.current },
-   energy: { before: turn.energy.before, cost: Math.round(turn.energy.abilityCost), after: turn.energy.current },
-   combination_points: { before: turn.combinationPointsBefore, after: turn.combinationPoints },
-  }))),
+   mana: { before: turns[index - 1]?.mana.current ?? resources.mana, cost: Math.round(turn.mana.abilityCost), after: turn.mana.current },
+   energy: { before: turns[index - 1]?.energy.current ?? resources.energy, cost: Math.round(turn.energy.abilityCost), after: turn.energy.current },
+   combination_points: { before: turns[index - 1]?.combinationPoints ?? 0, after: turn.combinationPoints },
+  })),
  };
 }

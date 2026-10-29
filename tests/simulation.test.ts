@@ -5,7 +5,7 @@ import { simulateBuild, SimulationInputError } from '@/lib/simulate-build';
 
 function request(sequence = [23, 22, -1], repeat = false) {
  return {
-  build: { profession: 'w', level: 50, skills: { '23': 10, '72': 10, '22': 6 }, mastery: { skills: sequence, repeat } },
+  build: { profession: 'w', level: 50, skills: { '23': 10, '72': 10, '22': 6 } as Record<string, number>, mastery: { skills: sequence, repeat } },
   character: { mana: 0, energy: 100, manaRegen: 0, energyRegen: 5 },
   max_turns: 1000,
  };
@@ -74,13 +74,14 @@ test('empty MW is safe in either repeat mode and in the website Store', () => {
   assert.equal(result.final.energy, 100);
  }
  const store = new Store();
- store.generateMwSimulation();
- assert.equal(store.simulation?.terminationReason, 'no_progress');
+ const result = store.generateMwSimulation();
+ assert.equal(result.terminationReason, 'no_progress');
+ assert.deepEqual(Object.keys(store.simulation!).sort(), ['combinationPointsCap', 'message', 'rounds', 'turnsCount']);
 });
 
 test('all cooldowns blocked stops without advancing time or granting regeneration', () => {
  const input = request([271], true);
- input.build.skills = { '271': 1 } as typeof input.build.skills;
+ input.build.skills = { '271': 1 };
  const result = simulateBuild(input);
  assert.equal(result.turns_executed, 1);
  assert.equal(result.termination.code, 'no_progress');
@@ -132,10 +133,10 @@ test('combo points respect profession caps and can restore resources', () => {
   assert.equal(result.final.combination_points, cap);
  }
  const result = simulateBuild({
-  build: { profession: 'w', level: 50, skills: { '23': 1, '39': 1 }, mastery: { skills: [23, 39], repeat: false } },
+  build: { profession: 'h', level: 50, skills: { '97': 1, '85': 1 }, mastery: { skills: [97, 85], repeat: false } },
   character: { mana: 0, energy: 100, manaRegen: 0, energyRegen: 0 },
  });
- assert.equal(result.final.energy, 79); // 100 - 16 - 15 + 10% from one CP.
+ assert.equal(result.final.energy, 82); // 100 - 23 + 5% from one CP.
  assert.equal(result.final.combination_points, 0);
 });
 
