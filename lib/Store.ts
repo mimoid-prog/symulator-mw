@@ -7,7 +7,8 @@ import { AbilityWithState } from '@/types/AbilityWithState';
 import { Basics } from '@/types/Basics';
 import { BasicsFormValues } from '@/types/BasicsFormValues';
 import { MwSlotType } from '@/types/MwSlotType';
-import { Round, Simulation, Turn } from '@/types/Simulation';
+import { Simulation } from '@/types/Simulation';
+import type { SimulationResult, SimulationRound as Round, SimulationTurn as Turn } from '@/types/SimulationResult';
 import type { DecodedShareState } from '@/utils/share';
 
 export class Store {
@@ -536,7 +537,13 @@ export class Store {
   this.isMwSimulationModalOpen = false;
  }
 
- generateMwSimulation() {
+ generateMwSimulation(maxTurns = 1000): SimulationResult {
+  if (!Number.isSafeInteger(maxTurns) || maxTurns <= 0) {
+   throw new Error('maxTurns musi być dodatnią bezpieczną liczbą całkowitą.');
+  }
+  let terminationReason: SimulationResult['terminationReason'] = 'sequence_completed';
+  let blockedAction: SimulationResult['blockedAction'];
+  let noProgressReason: SimulationResult['noProgressReason'];
   let shouldLoopRun = true;
 
   let roundsCounter = 0;
@@ -563,11 +570,19 @@ export class Store {
 
   let currentCombinationPoints = 0;
 
+  if (this.mw.length === 0) {
+   shouldLoopRun = false;
+   terminationReason = 'no_progress';
+   noProgressReason = 'empty_sequence';
+  }
+
   while (shouldLoopRun) {
-   for (const mwSlot of this.mw) {
-    //Finish loop if more than 1000 turns
-    if (turns.length >= 1000) {
+   const turnsBeforeRound = turns.length;
+   for (const [sequenceIndex, mwSlot] of this.mw.entries()) {
+    // The limit counts executed actions, not skipped cooldown slots.
+    if (turns.length >= maxTurns) {
      shouldLoopRun = false;
+     terminationReason = 'turn_limit';
      break;
     }
 
@@ -637,10 +652,20 @@ export class Store {
         if (currentMana - abilityManaCost < 0) {
          shouldLoopRun = false;
          message = `Nie starczyło many na ${abilityWithState.name}.`;
+         terminationReason = 'insufficient_resources';
+         blockedAction = {
+          abilityId: abilityWithState.id, sequenceIndex, resource: 'mana',
+          required: abilityManaCost, available: currentMana,
+         };
          break;
         } else if (currentEnergy - abilityEnergyCost < 0) {
          shouldLoopRun = false;
          message = `Nie starczyło energii na ${abilityWithState.name}.`;
+         terminationReason = 'insufficient_resources';
+         blockedAction = {
+          abilityId: abilityWithState.id, sequenceIndex, resource: 'energy',
+          required: abilityEnergyCost, available: currentEnergy,
+         };
          break;
         } else {
          currentMana -= Math.round(abilityManaCost);
@@ -837,6 +862,7 @@ export class Store {
       turns.push({
        id: turnsCounter,
        roundId: roundsCounter,
+       sequenceIndex,
        abilityWithState,
        mana: {
         current: currentMana,
@@ -858,6 +884,13 @@ export class Store {
 
    if (this.isMwSimulationInfinite === false) {
     shouldLoopRun = false;
+   } else if (shouldLoopRun && turns.length >= maxTurns) {
+    shouldLoopRun = false;
+    terminationReason = 'turn_limit';
+   } else if (shouldLoopRun && turns.length === turnsBeforeRound) {
+    shouldLoopRun = false;
+    terminationReason = 'no_progress';
+    noProgressReason = 'all_actions_on_cooldown';
    }
   }
 
@@ -886,6 +919,15 @@ export class Store {
    message,
    turnsCount: turns.length,
    combinationPointsCap,
+  };
+
+  // Keep the website's simulation contract; return CLI diagnostics separately.
+  return {
+   ...this.simulation,
+   rounds,
+   terminationReason,
+   blockedAction,
+   noProgressReason,
   };
  }
 }
