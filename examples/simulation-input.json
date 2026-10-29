@@ -1,0 +1,16 @@
+{
+  "build": {
+    "profession": "w",
+    "level": 50,
+    "skills": {"23": 10, "72": 10, "22": 6},
+    "mastery": {"skills": [23, 22, -1], "repeat": true},
+    "weapon_tags": ["2h", "wound"]
+  },
+  "character": {
+    "mana": 0,
+    "energy": 100,
+    "manaRegen": 0,
+    "energyRegen": 5
+  },
+  "max_turns": 1000
+}

@@ -84,9 +84,6 @@ export const SimulationContent = memo(function SimulationContent({ simulation }:
    <Box mt={4}>
     <Heading size="md">{simulation.message}</Heading>
     <Heading size="md">Wykonane tury: {simulation.turnsCount}</Heading>
-    {simulation.turnsCount >= 1000 && (
-     <Text fontSize="md">Wystarczy bo zaraz ci komputer wybuchnie!</Text>
-    )}
    </Box>
   </Box>
  );
